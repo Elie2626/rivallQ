@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <mask id="diagonalCuts">
+      <rect width="100" height="100" fill="white"/>
+      <rect x="-10" y="43" width="120" height="9" fill="black" transform="rotate(42 50 50)"/>
+      <rect x="-10" y="55" width="120" height="9" fill="black" transform="rotate(42 50 50)"/>
+    </mask>
+  </defs>
+
+  <g mask="url(#diagonalCuts)" fill="#dd0000">
+    <!-- Anneau circulaire -->
+    <path fill-rule="evenodd" d="
+      M 7 50 A 43 43 0 1 0 93 50 A 43 43 0 1 0 7 50 Z
+      M 16 50 A 34 34 0 1 0 84 50 A 34 34 0 1 0 16 50 Z
+    "/>
+    <!-- Lettre R (remplie avec trou pour le bol) -->
+    <path fill-rule="evenodd" d="
+      M 22 17 L 22 83 L 34 83 L 34 53 L 47 53 L 75 83 L 84 83 L 57 53
+      Q 75 51 75 34 Q 75 17 56 17 Z
+      M 34 27 L 54 27 Q 64 27 64 34 Q 64 43 54 43 L 34 43 Z
+    "/>
+  </g>
+</svg>

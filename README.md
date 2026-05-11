@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Optify — SaaS Audit SEO & Reconstruction IA
 
-## Getting Started
+Auditez, optimisez et reconstruisez votre site web en 60 secondes avec l'IA.
 
-First, run the development server:
+## Stack technique
+
+| Layer | Technologie |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Database / Auth | Supabase |
+| AI | Claude API (Anthropic) |
+| Scraping | Firecrawl API |
+| Paiements | Stripe Checkout + Webhooks |
+| Animations | Framer Motion |
+| Hosting | Vercel-ready |
+
+## Installation
+
+### 1. Variables d'environnement
+
+Remplir `.env.local` avec toutes les clés :
+
+```env
+ANTHROPIC_API_KEY=sk-ant-...
+FIRECRAWL_API_KEY=fc-...
+STRIPE_SECRET_KEY=sk_live_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
+STRIPE_PRICE_AUDIT=price_...
+STRIPE_PRICE_REBUILD=price_...
+STRIPE_PRICE_INSTALLATION=price_...
+STRIPE_PRICE_SUBSCRIPTION=price_...
+NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+SUPABASE_SERVICE_ROLE_KEY=eyJ...
+NEXT_PUBLIC_APP_URL=https://optify.io
+ANALYZE_SECRET=votre-secret-interne-fort
+```
+
+### 2. Base de données Supabase
+
+Exécuter `supabase/schema.sql` dans le SQL Editor de Supabase.
+
+### 3. Stripe — 4 produits à créer
+
+| Produit | Prix | Type |
+|---|---|---|
+| Audit SEO | 4,99€ | One-time |
+| Site Optimisé | 79€ | One-time |
+| Installation WP | 299€ | One-time |
+| Pro Mensuel | 29€/mois | Récurrent |
+
+### 4. Stripe Webhook (dev)
+
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+```
+
+### 5. Lancer
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/
+├── (auth)/     # Login, Register, Reset
+├── (public)/   # Home, Features, Pricing, FAQ, Contact
+├── (app)/      # Dashboard, Audit, Rebuild, Billing
+├── (admin)/    # Admin dashboard
+└── api/        # audit, analyze, rebuild, stripe, webhooks, export
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Rendre admin un utilisateur
 
-## Learn More
+```sql
+UPDATE profiles SET is_admin = true WHERE email = 'vous@email.com';
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Déployer sur Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+vercel --prod
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Fabriqué avec Claude AI.

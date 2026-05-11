@@ -1,26 +1,208 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ── Palette override ────────────────────────────
+   Zinc  → warm neutral (inverted: 950=light bg, 100=dark text)
+   Violet → rouge primaire #C1121F
+   Indigo → rouge foncé  #9E0E18  (gradient endpoint)
+   Emerald → vert sauge  #84A98C
+   ─────────────────────────────────────────────── */
+@theme {
+  /* ── Background / foreground ── */
+  --color-background: #FFFDF8;
+  --color-foreground: #4A4E69;
+
+  /* ── Zinc (warm neutral — inverted scale) ── */
+  --color-zinc-50:  #2A2E49;
+  --color-zinc-100: #3A3E59;
+  --color-zinc-200: #4A4E69;
+  --color-zinc-300: #5A5E7A;
+  --color-zinc-400: #7B7E9A;
+  --color-zinc-500: #9B9EBA;
+  --color-zinc-600: #B8B8CC;
+  --color-zinc-700: #C8C3B8;
+  --color-zinc-800: #E0DAD0;
+  --color-zinc-900: #EDE8DE;
+  --color-zinc-950: #FFFDF8;
+
+  /* ── Violet → rouge primaire ── */
+  --color-violet-50:  #FDE8E9;
+  --color-violet-100: #FAC8CC;
+  --color-violet-200: #F5A0A5;
+  --color-violet-300: #EF7880;
+  --color-violet-400: #E84B55;
+  --color-violet-500: #D41520;
+  --color-violet-600: #C1121F;
+  --color-violet-700: #9E0E18;
+  --color-violet-800: #7B0B13;
+  --color-violet-900: #58080D;
+  --color-violet-950: #35060A;
+
+  /* ── Indigo → rouge sombre (gradient endpoint) ── */
+  --color-indigo-50:  #FDE3E5;
+  --color-indigo-100: #FAB8BC;
+  --color-indigo-200: #F08890;
+  --color-indigo-300: #E05864;
+  --color-indigo-400: #CE313E;
+  --color-indigo-500: #B81028;
+  --color-indigo-600: #9E0E18;
+  --color-indigo-700: #7D0B13;
+  --color-indigo-800: #5C080E;
+  --color-indigo-900: #3B060A;
+  --color-indigo-950: #1A0305;
+
+  /* ── Emerald → vert sauge ── */
+  --color-emerald-50:  #F0F5F1;
+  --color-emerald-100: #D8EADb;
+  --color-emerald-200: #BCDAC2;
+  --color-emerald-300: #A8C5B0;
+  --color-emerald-400: #84A98C;
+  --color-emerald-500: #6D9076;
+  --color-emerald-600: #5A7862;
+  --color-emerald-700: #48604F;
+  --color-emerald-800: #36483C;
+  --color-emerald-900: #24302A;
+  --color-emerald-950: #121815;
+
+  /* ── Green same as emerald ── */
+  --color-green-400: #A8C5B0;
+  --color-green-500: #84A98C;
+  --color-green-600: #6D9076;
+
+  /* ── Font ── */
+  --font-sans: var(--font-geist), system-ui, -apple-system, sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --font-sans: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base ────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #FFFDF8;
+  color: #4A4E69;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  min-height: 100%;
+}
+
+/* ── Focus ───────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #C1121F;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ── Scrollbar ───────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #C8C3B8;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: #B8B3A8; }
+
+/* ── Autofill ────────────────────────────────── */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #4A4E69;
+  -webkit-box-shadow: 0 0 0 1000px #EDE8DE inset;
+  caret-color: #4A4E69;
+}
+
+/* ── Hero futuristic animations ──────────────── */
+@keyframes heroWordFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px) skewY(4deg);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) skewY(0);
+    filter: blur(0);
+  }
+}
+
+.hero-word-in {
+  animation: heroWordFadeIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes heroSubtitleFadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-subtitle-in {
+  animation: heroSubtitleFadeIn 0.6s ease forwards;
+}
+
+/* Scroll CTA button at the bottom of the hero */
+.hero-explore-btn {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+  opacity: 0;
+  animation: heroExploreFadeIn 0.8s ease forwards;
+  pointer-events: all;
+  transition: color 0.2s;
+}
+
+.hero-explore-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes heroExploreFadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.hero-explore-arrow {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-arrow-svg {
+  animation: heroArrowBounce 2.2s ease-in-out infinite;
+}
+
+@keyframes heroArrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
+}
+
+/* ── Reduced motion ──────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
