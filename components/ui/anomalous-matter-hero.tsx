@@ -136,15 +136,11 @@ export function GenerativeArtScene() {
     // ── Boucle ─────────────────────────────────────────────
     // Mobile: throttle à ~30fps pour économiser la batterie/CPU
     let frameId: number
-    let lastTime = 0
-    const interval = isMobile ? 1000 / 30 : 0
     const animate = (t: number) => {
       frameId = requestAnimationFrame(animate)
-      if (isMobile && t - lastTime < interval) return
-      lastTime = t
       material.uniforms.time.value = t * 0.0003
-      mesh.rotation.y += isMobile ? 0.0003 : 0.0005
-      mesh.rotation.x += isMobile ? 0.0001 : 0.0002
+      mesh.rotation.y += 0.0005
+      mesh.rotation.x += 0.0002
       renderer.render(scene, camera)
     }
     frameId = requestAnimationFrame(animate)
