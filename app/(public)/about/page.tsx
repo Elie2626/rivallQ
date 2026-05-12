@@ -3,9 +3,18 @@ import { CtaBanner } from '@/components/public/cta-banner'
 import { HeroBackground } from '@/components/ui/hero-background'
 import { Zap, Target, Users, TrendingUp, Shield, Heart } from 'lucide-react'
 
+const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
+
 export const metadata: Metadata = {
-  title: 'À propos — RivallQ',
-  description: 'RivallQ est un outil d\'audit SEO et de reconstruction de site web propulsé par l\'IA. Découvrez notre mission et notre équipe.',
+  title: "À propos — Notre mission : démocratiser l'audit SEO par IA",
+  description:
+    "RivallQ démocratise l'optimisation web grâce à l'IA Claude d'Anthropic. Audit SEO complet en 60s, recommandations actionnables, site reconstruit automatiquement. +2000 sites analysés.",
+  alternates: { canonical: `${BASE}/about` },
+  openGraph: {
+    title: 'À propos de RivallQ — Audit SEO & IA',
+    description: "Notre mission : rendre l'optimisation SEO accessible à tous grâce à l'IA.",
+    url: `${BASE}/about`,
+  },
 }
 
 const values = [

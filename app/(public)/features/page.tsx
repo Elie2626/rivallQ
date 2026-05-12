@@ -4,9 +4,18 @@ import { FeaturesGrid } from '@/components/public/features-grid'
 import { CtaBanner } from '@/components/public/cta-banner'
 import { HeroBackground } from '@/components/ui/hero-background'
 
+const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
+
 export const metadata: Metadata = {
-  title: 'Fonctionnalités — RivallQ',
-  description: 'Découvrez toutes les fonctionnalités d\'RivallQ : audit SEO, analyse UX, reconstruction IA, export WordPress et bien plus.',
+  title: "Fonctionnalités — Audit SEO IA, Analyse UX et Reconstruction Automatique",
+  description:
+    "Audit SEO automatique, score UX et conversion, reconstruction de site par IA Claude, export HTML/CSS prêt à déployer, publication WordPress automatisée. Tout en 60 secondes.",
+  alternates: { canonical: `${BASE}/features` },
+  openGraph: {
+    title: 'Fonctionnalités RivallQ — Audit SEO & Reconstruction IA',
+    description: "Audit SEO, analyse UX, reconstruction site IA, export WordPress. Tout automatisé.",
+    url: `${BASE}/features`,
+  },
 }
 
 export default function FeaturesPage() {

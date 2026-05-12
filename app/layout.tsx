@@ -3,6 +3,7 @@ import { Geist } from 'next/font/google'
 import './globals.css'
 import { ToastProvider } from '@/components/ui/toast'
 import { SessionRefresher } from '@/components/auth/session-refresher'
+import { OrganizationSchema, WebSiteSchema } from '@/components/seo/json-ld'
 
 const geist = Geist({
   variable: '--font-geist',
@@ -16,29 +17,55 @@ export const viewport: Viewport = {
   themeColor: '#FFFDF8',
 }
 
+const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(BASE),
   title: {
-    default: 'RivallQ — Audit SEO & Reconstruction IA',
-    template: '%s — RivallQ',
+    default: 'RivallQ — Audit SEO & Reconstruction de Site par IA',
+    template: '%s | RivallQ',
   },
-  description: 'Auditez votre site web avec l\'IA. Score SEO, UX, conversion, et site régénéré automatiquement.',
-  keywords: ['audit SEO', 'optimisation site web', 'intelligence artificielle', 'SEO', 'UX', 'conversion'],
-  authors: [{ name: 'RivallQ' }],
+  description:
+    "Auditez votre site web en 60 secondes avec l'IA. Score SEO, UX, conversion, et site entièrement reconstruit automatiquement par Claude AI dès 9,99€.",
+  keywords: [
+    'audit SEO',
+    'audit site web IA',
+    'optimisation SEO',
+    'reconstruction site web IA',
+    'analyse SEO automatique',
+    'améliorer SEO site web',
+    'audit SEO pas cher',
+    'outil SEO IA',
+    'optimisation conversion site web',
+    'refonte site web IA',
+  ],
+  authors: [{ name: 'RivallQ', url: BASE }],
   creator: 'RivallQ',
+  publisher: 'RivallQ',
+  alternates: {
+    canonical: BASE,
+  },
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
     siteName: 'RivallQ',
+    url: BASE,
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@rivallq',
     creator: '@rivallq',
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
   },
   verification: {
     google: 'kPbIUnErLl7dJQ4BDNDbGKtT7FFSaifUwCVxQgOqxvE',
@@ -61,6 +88,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Passer au contenu principal
         </a>
 
+        <OrganizationSchema />
+        <WebSiteSchema />
         <SessionRefresher />
         {children}
         <ToastProvider />
