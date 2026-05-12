@@ -19,7 +19,6 @@ export function GenerativeArtScene() {
     const init = () => {
     // ── Scène ───────────────────────────────────────────────
     const scene  = new THREE.Scene()
-    const isMobile = window.innerWidth < 768
     const camera = new THREE.PerspectiveCamera(
       75,
       mount.clientWidth / mount.clientHeight,
@@ -28,15 +27,14 @@ export function GenerativeArtScene() {
     )
     camera.position.z = 3
 
-    const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true })
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     renderer.setSize(mount.clientWidth, mount.clientHeight)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 2))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setClearAlpha(0)
     mount.appendChild(renderer.domElement)
 
     // ── Géométrie + shader ──────────────────────────────────
-    // Mobile: detail 20 (~1 200 vertices) vs desktop: 64 (~24 000 vertices)
-    const geometry = new THREE.IcosahedronGeometry(1.2, isMobile ? 20 : 64)
+    const geometry = new THREE.IcosahedronGeometry(1.2, 64)
     const material = new THREE.ShaderMaterial({
       uniforms: {
         time:          { value: 0 },
@@ -165,13 +163,13 @@ export function GenerativeArtScene() {
       material.uniforms.pointLightPos.value = pos
     }
 
-    window.addEventListener('resize', handleResize)
-    if (!isMobile) window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('resize',    handleResize)
+    window.addEventListener('mousemove', handleMouseMove)
 
     cleanupRef.current = () => {
       cancelAnimationFrame(frameId)
-      window.removeEventListener('resize', handleResize)
-      if (!isMobile) window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('resize',    handleResize)
+      window.removeEventListener('mousemove', handleMouseMove)
       if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement)
       geometry.dispose()
       material.dispose()
