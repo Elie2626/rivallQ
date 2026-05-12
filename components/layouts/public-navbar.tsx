@@ -14,6 +14,7 @@ const navLinks = [
   { href: '/pricing', label: 'Tarifs' },
   { href: '/about', label: 'À propos' },
   { href: '/faq', label: 'FAQ' },
+  { href: '/contact', label: 'Contact' },
 ]
 
 export function PublicNavbar() {

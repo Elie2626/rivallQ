@@ -35,7 +35,7 @@ const plans = [
       'Tout de l\'audit inclus',
       'Homepage complète régénérée',
       'Pages clés optimisées',
-      'Copywriting amélioré par Claude',
+      'Copywriting amélioré par Tsitsit',
       'SEO on-page optimisé',
       'Export ZIP prêt à déployer',
     ],

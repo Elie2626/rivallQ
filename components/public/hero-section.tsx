@@ -77,7 +77,7 @@ export function HeroSection() {
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-xs font-medium text-violet-600 mb-8">
               <Zap className="h-3 w-3" aria-hidden="true" />
-              Propulsé par Claude AI · Analyse en 5 minutes
+              Propulsé par Tsitsit · Analyse en 5 minutes
             </span>
           </motion.div>
 

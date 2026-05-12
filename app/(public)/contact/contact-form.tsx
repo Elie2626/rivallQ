@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, MessageSquare, Clock } from 'lucide-react'
+import { Mail, Phone, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
@@ -40,8 +40,8 @@ export function ContactForm() {
           {/* Info */}
           <div className="lg:col-span-2 flex flex-col gap-5">
             {[
-              { icon: Mail, label: 'Email', value: 'support@rivallq.io', sub: 'Réponse sous 24h ouvrées' },
-              { icon: MessageSquare, label: 'Chat', value: 'Chat en direct', sub: 'Disponible 9h–18h CET' },
+              { icon: Mail, label: 'Email', value: 'elieamar2007@gmail.com', sub: 'Réponse sous 24h ouvrées' },
+              { icon: Phone, label: 'Téléphone', value: '06 95 12 77 28', sub: 'Disponible 9h–18h CET' },
               { icon: Clock, label: 'Délai', value: '< 24 heures', sub: 'Temps de réponse moyen' },
             ].map(({ icon: Icon, label, value, sub }) => (
               <div key={label} className="flex items-start gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">

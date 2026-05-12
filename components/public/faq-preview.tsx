@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 const faqs = [
   {
     q: 'Comment fonctionne l\'analyse IA ?',
-    a: 'RivallQ utilise Firecrawl pour scraper votre site, puis Claude (l\'IA d\'Anthropic) pour analyser en profondeur le SEO, l\'UX, le copywriting et les opportunités de conversion. Le tout prend moins de 60 secondes.',
+    a: 'RivallQ utilise Firecrawl pour scraper votre site, puis Tsitsit pour analyser en profondeur le SEO, l\'UX, le copywriting et les opportunités de conversion. Le tout prend moins de 60 secondes.',
   },
   {
     q: 'Mon site doit-il être sur WordPress ?',

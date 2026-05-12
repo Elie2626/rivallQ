@@ -9,7 +9,7 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 export const metadata: Metadata = {
   title: "Fonctionnalités — Audit SEO IA, Analyse UX et Reconstruction Automatique",
   description:
-    "Audit SEO automatique, score UX et conversion, reconstruction de site par IA Claude, export HTML/CSS prêt à déployer, publication WordPress automatisée. Tout en 60 secondes.",
+    "Audit SEO automatique, score UX et conversion, reconstruction de site par IA Tsitsit, export HTML/CSS prêt à déployer, publication WordPress automatisée. Tout en 60 secondes.",
   alternates: { canonical: `${BASE}/features` },
   openGraph: {
     title: 'Fonctionnalités RivallQ — Audit SEO & Reconstruction IA',

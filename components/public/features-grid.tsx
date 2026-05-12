@@ -34,7 +34,7 @@ const features = [
   {
     icon: Wand2,
     title: 'Site régénéré par l\'IA',
-    description: 'Claude génère une nouvelle version de votre site avec meilleur copywriting, SEO et structure.',
+    description: 'Tsitsit génère une nouvelle version de votre site avec meilleur copywriting, SEO et structure.',
     badge: 'IA',
     highlighted: true,
   },

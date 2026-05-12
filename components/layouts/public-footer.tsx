@@ -85,7 +85,7 @@ export function PublicFooter() {
             © {new Date().getFullYear()} RivallQ. Tous droits réservés.
           </p>
           <p className="text-xs text-zinc-600">
-            Fabriqué avec ❤️ et Claude AI
+            Fabriqué par Tsitsit
           </p>
         </div>
       </div>

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'RivallQ — Audit SEO & Reconstruction IA',
-    description: "Auditez et reconstruisez votre site avec l'IA Claude. Dès 9,99€.",
+    description: "Auditez et reconstruisez votre site avec l'IA Tsitsit. Dès 9,99€.",
   },
 }
 

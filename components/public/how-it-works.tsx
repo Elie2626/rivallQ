@@ -16,7 +16,7 @@ const steps = [
     number: '02',
     icon: Brain,
     title: 'Analyse IA complète',
-    description: 'Claude analyse le SEO, l\'UX, le copywriting, les mots-clés et les opportunités de conversion.',
+    description: 'Tsitsit analyse le SEO, l\'UX, le copywriting, les mots-clés et les opportunités de conversion.',
     color: 'from-violet-600 to-purple-600',
     glow: 'shadow-violet-500/20',
   },

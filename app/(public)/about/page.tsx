@@ -8,7 +8,7 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 export const metadata: Metadata = {
   title: "À propos — Notre mission : démocratiser l'audit SEO par IA",
   description:
-    "RivallQ démocratise l'optimisation web grâce à l'IA Claude d'Anthropic. Audit SEO complet en 60s, recommandations actionnables, site reconstruit automatiquement. +2000 sites analysés.",
+    "RivallQ démocratise l'optimisation web grâce à l'IA Tsitsit. Audit SEO complet en 60s, recommandations actionnables, site reconstruit automatiquement. +2000 sites analysés.",
   alternates: { canonical: `${BASE}/about` },
   openGraph: {
     title: 'À propos de RivallQ — Audit SEO & IA',
@@ -28,7 +28,7 @@ const values = [
   {
     icon: Zap,
     title: 'IA de pointe',
-    description: 'Propulsé par Claude d\'Anthropic, l\'un des modèles les plus avancés du marché. Chaque audit bénéficie d\'une analyse profonde et nuancée.',
+    description: 'Propulsé par Tsitsit d\'Anthropic, l\'un des modèles les plus avancés du marché. Chaque audit bénéficie d\'une analyse profonde et nuancée.',
     color: 'text-yellow-400',
     bg: 'bg-yellow-500/10 border-yellow-500/20',
   },
@@ -124,7 +124,7 @@ export default function AboutPage() {
             <p>
               En 60 secondes et pour 9,99€, tu obtiens un rapport complet sur le SEO,
               l&apos;expérience utilisateur et le taux de conversion de ton site — avec des
-              recommandations priorisées et actionnables, générées par Claude AI.
+              recommandations priorisées et actionnables, générées par Tsitsit.
             </p>
             <p>
               Et si tu veux aller plus loin, RivallQ peut carrément reconstruire ta page
