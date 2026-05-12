@@ -8,15 +8,18 @@ import * as THREE from 'three'
 //   rouge primaire  #C1121F  (violet-600)
 //   crème           #FFFDF8  (background)
 export function GenerativeArtScene() {
-  const mountRef = useRef<HTMLDivElement>(null)
-  const lightRef = useRef<THREE.PointLight | null>(null)
+  const mountRef  = useRef<HTMLDivElement>(null)
+  const lightRef  = useRef<THREE.PointLight | null>(null)
+  const cleanupRef = useRef<(() => void) | null>(null)
 
   useEffect(() => {
     const mount = mountRef.current
     if (!mount) return
 
+    const init = () => {
     // ── Scène ───────────────────────────────────────────────
     const scene  = new THREE.Scene()
+    const isMobile = window.innerWidth < 768
     const camera = new THREE.PerspectiveCamera(
       75,
       mount.clientWidth / mount.clientHeight,
@@ -25,7 +28,6 @@ export function GenerativeArtScene() {
     )
     camera.position.z = 3
 
-    const isMobile = window.innerWidth < 768
     const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true })
     renderer.setSize(mount.clientWidth, mount.clientHeight)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 2))
@@ -170,16 +172,26 @@ export function GenerativeArtScene() {
     window.addEventListener('resize', handleResize)
     if (!isMobile) window.addEventListener('mousemove', handleMouseMove)
 
-    return () => {
+    cleanupRef.current = () => {
       cancelAnimationFrame(frameId)
       window.removeEventListener('resize', handleResize)
       if (!isMobile) window.removeEventListener('mousemove', handleMouseMove)
-      if (mount.contains(renderer.domElement)) {
-        mount.removeChild(renderer.domElement)
-      }
+      if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement)
       geometry.dispose()
       material.dispose()
       renderer.dispose()
+    }
+
+    } // end init
+
+    const idleId = typeof window.requestIdleCallback === 'function'
+      ? window.requestIdleCallback(init, { timeout: 300 })
+      : setTimeout(init, 100)
+
+    return () => {
+      if (typeof window.cancelIdleCallback === 'function') window.cancelIdleCallback(idleId as number)
+      else clearTimeout(idleId as ReturnType<typeof setTimeout>)
+      cleanupRef.current?.()
     }
   }, [])
 
