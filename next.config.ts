@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Security headers
+  // Security + cache headers
   async headers() {
     return [
       {
@@ -26,6 +26,16 @@ const nextConfig: NextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
         ],
+      },
+      // Static assets — cache 1 year (Next.js hashes filenames)
+      {
+        source: '/_next/static/(.*)',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      // Favicon & icons
+      {
+        source: '/(favicon.ico|icon.svg|apple-icon.png)',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=86400' }],
       },
       // Stripe webhook needs raw body
       {
