@@ -1,12 +1,15 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/public/hero-section'
-import { HowItWorks } from '@/components/public/how-it-works'
-import { FeaturesGrid } from '@/components/public/features-grid'
-import { PricingSection } from '@/components/public/pricing-section'
-import { TestimonialsSection } from '@/components/public/testimonials-section'
-import { FaqPreview } from '@/components/public/faq-preview'
-import { CtaBanner } from '@/components/public/cta-banner'
 import { SoftwareAppSchema } from '@/components/seo/json-ld'
+
+// Sections below the fold — chargées après le hero pour accélérer le FCP
+const HowItWorks       = dynamic(() => import('@/components/public/how-it-works').then(m => m.HowItWorks))
+const FeaturesGrid     = dynamic(() => import('@/components/public/features-grid').then(m => m.FeaturesGrid))
+const TestimonialsSection = dynamic(() => import('@/components/public/testimonials-section').then(m => m.TestimonialsSection))
+const PricingSection   = dynamic(() => import('@/components/public/pricing-section').then(m => m.PricingSection))
+const FaqPreview       = dynamic(() => import('@/components/public/faq-preview').then(m => m.FaqPreview))
+const CtaBanner        = dynamic(() => import('@/components/public/cta-banner').then(m => m.CtaBanner))
 
 const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 

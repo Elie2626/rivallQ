@@ -25,14 +25,16 @@ export function GenerativeArtScene() {
     )
     camera.position.z = 3
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    const isMobile = window.innerWidth < 768
+    const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true })
     renderer.setSize(mount.clientWidth, mount.clientHeight)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setClearAlpha(0) // fond transparent → le blanc du site passe à travers
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 2))
+    renderer.setClearAlpha(0)
     mount.appendChild(renderer.domElement)
 
     // ── Géométrie + shader ──────────────────────────────────
-    const geometry = new THREE.IcosahedronGeometry(1.2, 64)
+    // Mobile: detail 20 (~1 200 vertices) vs desktop: 64 (~24 000 vertices)
+    const geometry = new THREE.IcosahedronGeometry(1.2, isMobile ? 20 : 64)
     const material = new THREE.ShaderMaterial({
       uniforms: {
         time:          { value: 0 },
@@ -130,13 +132,18 @@ export function GenerativeArtScene() {
     scene.add(pointLight)
 
     // ── Boucle ─────────────────────────────────────────────
+    // Mobile: throttle à ~30fps pour économiser la batterie/CPU
     let frameId: number
+    let lastTime = 0
+    const interval = isMobile ? 1000 / 30 : 0
     const animate = (t: number) => {
-      material.uniforms.time.value = t * 0.0003
-      mesh.rotation.y += 0.0005
-      mesh.rotation.x += 0.0002
-      renderer.render(scene, camera)
       frameId = requestAnimationFrame(animate)
+      if (isMobile && t - lastTime < interval) return
+      lastTime = t
+      material.uniforms.time.value = t * 0.0003
+      mesh.rotation.y += isMobile ? 0.0003 : 0.0005
+      mesh.rotation.x += isMobile ? 0.0001 : 0.0002
+      renderer.render(scene, camera)
     }
     frameId = requestAnimationFrame(animate)
 
@@ -148,7 +155,7 @@ export function GenerativeArtScene() {
       renderer.setSize(mount.clientWidth, mount.clientHeight)
     }
 
-    // ── Parallaxe souris ────────────────────────────────────
+    // ── Parallaxe souris (desktop uniquement) ──────────────
     const handleMouseMove = (e: MouseEvent) => {
       const x =  (e.clientX / window.innerWidth)  * 2 - 1
       const y = -(e.clientY / window.innerHeight) * 2 + 1
@@ -160,13 +167,13 @@ export function GenerativeArtScene() {
       material.uniforms.pointLightPos.value = pos
     }
 
-    window.addEventListener('resize',    handleResize)
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('resize', handleResize)
+    if (!isMobile) window.addEventListener('mousemove', handleMouseMove)
 
     return () => {
       cancelAnimationFrame(frameId)
-      window.removeEventListener('resize',    handleResize)
-      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('resize', handleResize)
+      if (!isMobile) window.removeEventListener('mousemove', handleMouseMove)
       if (mount.contains(renderer.domElement)) {
         mount.removeChild(renderer.domElement)
       }
