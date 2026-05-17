@@ -45,8 +45,8 @@ const featured: {
     result: '1 semaine économisée',
   },
   {
-    siteUrl: 'https://tsohar-ai.onrender.com',
-    displayUrl: 'tsohar-ai.onrender.com',
+    siteUrl: 'https://tsohar-ai.vercel.app',
+    displayUrl: 'tsohar-ai.vercel.app',
     name: 'Équipe Tsohar AI',
     role: 'Plateforme IA',
     avatar: 'TA',
