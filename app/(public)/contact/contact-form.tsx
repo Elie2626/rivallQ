@@ -14,11 +14,20 @@ export function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    // In production: POST to /api/contact
-    await new Promise(r => setTimeout(r, 1200))
-    toast.success('Message envoyé ! On vous répond sous 24h.')
-    setForm({ name: '', email: '', subject: '', message: '' })
-    setLoading(false)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('Erreur serveur')
+      toast.success('Message envoyé ! On vous répond sous 24h.')
+      setForm({ name: '', email: '', subject: '', message: '' })
+    } catch {
+      toast.error('Erreur lors de l\'envoi. Réessayez.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
