@@ -7,7 +7,6 @@ import {
   CheckCircle2, Loader2, ExternalLink, Lock,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { StatusIndicator } from '@/components/ui/status-indicator'
 import { toast } from 'sonner'
 import type { Rebuild } from '@/types'
@@ -17,6 +16,7 @@ interface Props { rebuild: Rebuild }
 export function RebuildViewer({ rebuild }: Props) {
   const [viewMode, setViewMode] = useState<'preview' | 'code'>('preview')
   const [device, setDevice] = useState<'desktop' | 'mobile'>('desktop')
+  const [activePage, setActivePage] = useState<string | null>(null) // null = homepage
   const [downloadLoading, setDownloadLoading] = useState(false)
   const [unlockLoading, setUnlockLoading] = useState(false)
   const [wpLoading, setWpLoading] = useState(false)
@@ -104,8 +104,17 @@ export function RebuildViewer({ rebuild }: Props) {
     )
   }
 
-  const previewHtml = rebuild.homepage_html
-    ? `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://cdn.tailwindcss.com"></script>${rebuild.homepage_css ? `<style>${rebuild.homepage_css}</style>` : ''}</head><body>${rebuild.homepage_html}</body></html>`
+  // Determine which page's HTML to preview
+  const activePageData = activePage
+    ? rebuild.pages?.find(p => p.slug === activePage) ?? null
+    : null
+  const activeHtml = activePageData
+    ? activePageData.html
+    : rebuild.homepage_html
+  const activeCss = rebuild.homepage_css // CSS applies to all pages
+
+  const previewHtml = activeHtml
+    ? `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://cdn.tailwindcss.com"><\/script>${activeCss ? `<style>${activeCss}</style>` : ''}</head><body>${activeHtml}</body></html>`
     : '<html><body><p style="font-family:sans-serif;color:#666;padding:2rem">Prévisualisation non disponible</p></body></html>'
 
   return (
@@ -246,12 +255,27 @@ export function RebuildViewer({ rebuild }: Props) {
           </div>
         )}
 
-        {/* Pages tabs */}
+        {/* Pages navigation tabs */}
         {rebuild.pages && rebuild.pages.length > 0 && (
-          <div className="flex gap-1">
-            <Badge variant="default">Homepage</Badge>
+          <div className="flex items-center gap-1 p-1 rounded-xl border border-zinc-800 bg-zinc-900">
+            <button
+              onClick={() => setActivePage(null)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                activePage === null ? 'bg-zinc-700 text-zinc-100' : 'text-zinc-500 hover:text-zinc-300'
+              }`}
+            >
+              Accueil
+            </button>
             {rebuild.pages.map(p => (
-              <Badge key={p.slug} variant="secondary">{p.title}</Badge>
+              <button
+                key={p.slug}
+                onClick={() => setActivePage(p.slug)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  activePage === p.slug ? 'bg-zinc-700 text-zinc-100' : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                {p.title}
+              </button>
             ))}
           </div>
         )}
@@ -298,7 +322,7 @@ export function RebuildViewer({ rebuild }: Props) {
           {[
             { label: 'Meta Title', value: rebuild.meta_title, icon: CheckCircle2 },
             { label: 'Meta Description', value: rebuild.meta_description ?? '—', icon: CheckCircle2 },
-            { label: 'Pages générées', value: `${1 + (rebuild.pages?.length ?? 0)} page(s)`, icon: CheckCircle2 },
+            { label: 'Pages disponibles', value: `${1 + (rebuild.pages?.length ?? 0)} page(s) — cliquez les onglets pour naviguer`, icon: CheckCircle2 },
           ].map(({ label, value, icon: Icon }) => (
             <div key={label} className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
               <div className="flex items-center gap-2 mb-1">
