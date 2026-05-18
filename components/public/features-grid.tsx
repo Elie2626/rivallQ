@@ -33,8 +33,8 @@ const features = [
   },
   {
     icon: Wand2,
-    title: 'Site régénéré par l\'IA',
-    description: 'Tsitsit génère une nouvelle version de votre site avec meilleur copywriting, SEO et structure.',
+    title: 'Site amélioré par l\'IA',
+    description: 'L\'IA applique les recommandations sur votre site existant — vos pages, images et contenu sont préservés.',
     badge: 'IA',
     highlighted: true,
   },

@@ -87,9 +87,9 @@ export function RebuildViewer({ rebuild }: Props) {
         >
           <Loader2 className="h-6 w-6 text-white" />
         </motion.div>
-        <h1 className="text-2xl font-bold text-zinc-100 mb-2">Génération en cours…</h1>
-        <p className="text-zinc-500 text-sm">Claude génère votre site optimisé. Cela prend 1 à 2 minutes.</p>
-        <p className="text-xs text-zinc-600 mt-4">Restez sur cette page, nous vous notifierons dès que c&apos;est prêt.</p>
+        <h1 className="text-2xl font-bold text-zinc-100 mb-2">Application des recommandations…</h1>
+        <p className="text-zinc-500 text-sm">Claude analyse votre site et applique les optimisations SEO, UX et conversion. Cela prend 1 à 2 minutes.</p>
+        <p className="text-xs text-zinc-600 mt-4">Vos images et pages existantes sont conservées — seules les améliorations ciblées sont appliquées.</p>
       </div>
     )
   }
@@ -113,7 +113,7 @@ export function RebuildViewer({ rebuild }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-100 mb-1">Votre site optimisé</h1>
+          <h1 className="text-2xl font-bold text-zinc-100 mb-1">Votre site amélioré</h1>
           <div className="flex items-center gap-3">
             <StatusIndicator status={rebuild.status} />
             {rebuild.meta_title && (

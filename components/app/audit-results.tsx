@@ -180,8 +180,8 @@ export function AuditResults({ audit }: { audit: Audit }) {
             <Wand2 className="h-5 w-5 text-violet-400 animate-pulse" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-violet-300">Site optimisé en cours de génération…</p>
-            <p className="text-xs text-zinc-500 mt-0.5">L&apos;IA reconstruit votre site. Actualisé automatiquement dans 1 à 2 min.</p>
+            <p className="text-sm font-semibold text-violet-300">Application des recommandations en cours…</p>
+            <p className="text-xs text-zinc-500 mt-0.5">L&apos;IA applique les optimisations SEO, UX et conversion sur votre site existant. Actualisé dans 1 à 2 min.</p>
           </div>
         </div>
       )}
@@ -203,12 +203,12 @@ export function AuditResults({ audit }: { audit: Audit }) {
               <Wand2 className="h-5 w-5 text-emerald-400" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-emerald-300">Votre site optimisé est prêt !</p>
-              <p className="text-xs text-zinc-500 mt-0.5">Visualisez gratuitement · Téléchargez le ZIP pour 79€</p>
+              <p className="text-sm font-semibold text-emerald-300">Votre site amélioré est prêt !</p>
+              <p className="text-xs text-zinc-500 mt-0.5">Recommandations appliquées · Visualisez gratuitement · Téléchargez le ZIP pour 79€</p>
             </div>
           </div>
           <Button variant="gradient" asChild rightIcon={<ArrowRight className="h-4 w-4" />}>
-            <Link href={`/rebuild/${audit.rebuild_id}`}>Voir le site optimisé</Link>
+            <Link href={`/rebuild/${audit.rebuild_id}`}>Voir le site amélioré</Link>
           </Button>
         </div>
       )}

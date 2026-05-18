@@ -23,8 +23,8 @@ const steps = [
   {
     number: '03',
     icon: Wand2,
-    title: 'Site régénéré',
-    description: 'RivallQ génère une nouvelle version optimisée avec un meilleur SEO, copywriting et design.',
+    title: 'Site amélioré',
+    description: 'RivallQ applique les recommandations sur votre site existant — vos pages et images sont conservées.',
     color: 'from-indigo-600 to-violet-600',
     glow: 'shadow-indigo-500/20',
   },
