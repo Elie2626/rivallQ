@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeftRight, Monitor, Smartphone, ExternalLink, Globe, ChevronRight } from 'lucide-react'
 
@@ -272,7 +272,8 @@ const AFTER_PAGES: Record<AfterPage, { label: string; url: string; html: string 
 }
 
 // ── Site AVANT (original mal optimisé) ───────────────────────────
-const BEFORE_SITE_URL = 'https://renovelec-paris.fr'
+// On utilise srcDoc pour garantir l'affichage (les vrais sites bloquent les iframes)
+const BEFORE_SITE_URL = 'renovelec-paris.fr'
 const BEFORE_HTML = `<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -356,19 +357,6 @@ export function BeforeAfterDemo() {
   const [view, setView] = useState<View>('split')
   const [device, setDevice] = useState<Device>('desktop')
   const [afterPage, setAfterPage] = useState<AfterPage>('home')
-  const [embedBlocked, setEmbedBlocked] = useState(false)
-  const beforeRef = useRef<HTMLIFrameElement>(null)
-
-  const handleBeforeLoad = () => {
-    try {
-      const doc = beforeRef.current?.contentDocument
-      if (!doc || !doc.body || doc.body.innerHTML.trim() === '') {
-        setEmbedBlocked(true)
-      }
-    } catch {
-      setEmbedBlocked(true)
-    }
-  }
 
   const isSplit = view === 'split'
 
@@ -424,9 +412,6 @@ export function BeforeAfterDemo() {
               badge="bg-red-500/20 text-red-400 border-red-500/30"
               url={BEFORE_SITE_URL}
               html={BEFORE_HTML}
-              embedBlocked={embedBlocked}
-              iframeRef={beforeRef}
-              onLoad={handleBeforeLoad}
               device={device}
               split
             />
@@ -447,9 +432,6 @@ export function BeforeAfterDemo() {
               badge="bg-red-500/20 text-red-400 border-red-500/30"
               url={BEFORE_SITE_URL}
               html={BEFORE_HTML}
-              embedBlocked={embedBlocked}
-              iframeRef={beforeRef}
-              onLoad={handleBeforeLoad}
               device={device}
               split={false}
             />
@@ -474,7 +456,6 @@ export function BeforeAfterDemo() {
 
 function SiteFrame({
   label, badge, url, html, device, split, isAfter = false,
-  embedBlocked, iframeRef, onLoad,
 }: {
   label: string
   badge: string
@@ -483,18 +464,11 @@ function SiteFrame({
   device: Device
   split: boolean
   isAfter?: boolean
-  embedBlocked?: boolean
-  iframeRef?: React.RefObject<HTMLIFrameElement | null>
-  onLoad?: () => void
 }) {
   const isMobile = device === 'mobile'
   const MOBILE_W = 375
   const DESK_SCALE = 0.667
-  const frameH = isMobile ? 580 : split ? 520 : 620
-
-  // Pour l'avant : essaie d'abord le vrai site, fallback srcDoc si bloqué
-  // Pour l'après : toujours srcDoc (on contrôle le HTML)
-  const useRealUrl = !isAfter && !embedBlocked
+  const frameH = isMobile ? 580 : split ? 520 : 640
 
   return (
     <div className="rounded-2xl border border-zinc-800 overflow-hidden bg-zinc-900 flex flex-col">
@@ -519,52 +493,33 @@ function SiteFrame({
             target="_blank"
             rel="noopener noreferrer"
             className="text-zinc-600 hover:text-zinc-400 transition-colors"
+            aria-label="Ouvrir le site"
           >
             <ExternalLink className="h-3 w-3" />
           </a>
         )}
       </div>
 
-      {/* Iframe */}
+      {/* Iframe — toujours srcDoc pour garantir l'affichage */}
       {isMobile ? (
         <div className="overflow-hidden bg-zinc-950 flex justify-center flex-1" style={{ height: frameH }}>
           <div style={{ width: MOBILE_W, height: frameH / DESK_SCALE, transform: `scale(${DESK_SCALE})`, transformOrigin: 'top center', flexShrink: 0 }}>
-            {useRealUrl ? (
-              <iframe
-                ref={iframeRef}
-                src={url.startsWith('http') ? url : `https://${url}`}
-                onLoad={onLoad}
-                style={{ width: MOBILE_W, height: frameH / DESK_SCALE, border: 0, display: 'block' }}
-                title={label}
-              />
-            ) : (
-              <iframe
-                srcDoc={html}
-                sandbox="allow-scripts allow-same-origin allow-forms"
-                style={{ width: MOBILE_W, height: frameH / DESK_SCALE, border: 0, display: 'block' }}
-                title={label}
-              />
-            )}
+            <iframe
+              srcDoc={html}
+              sandbox="allow-scripts allow-same-origin allow-forms"
+              style={{ width: MOBILE_W, height: frameH / DESK_SCALE, border: 0, display: 'block' }}
+              title={label}
+            />
           </div>
         </div>
       ) : (
         <div className={`overflow-hidden flex-1 ${isAfter ? 'bg-zinc-950' : 'bg-white'}`} style={{ height: frameH }}>
-          {useRealUrl ? (
-            <iframe
-              ref={iframeRef}
-              src={url.startsWith('http') ? url : `https://${url}`}
-              onLoad={onLoad}
-              style={{ width: `${100 / DESK_SCALE}%`, height: frameH / DESK_SCALE, transform: `scale(${DESK_SCALE})`, transformOrigin: 'top left', border: 0, display: 'block' }}
-              title={label}
-            />
-          ) : (
-            <iframe
-              srcDoc={html}
-              sandbox="allow-scripts allow-same-origin allow-forms"
-              style={{ width: `${100 / DESK_SCALE}%`, height: frameH / DESK_SCALE, transform: `scale(${DESK_SCALE})`, transformOrigin: 'top left', border: 0, display: 'block' }}
-              title={label}
-            />
-          )}
+          <iframe
+            srcDoc={html}
+            sandbox="allow-scripts allow-same-origin allow-forms"
+            style={{ width: `${100 / DESK_SCALE}%`, height: frameH / DESK_SCALE, transform: `scale(${DESK_SCALE})`, transformOrigin: 'top left', border: 0, display: 'block' }}
+            title={label}
+          />
         </div>
       )}
     </div>
