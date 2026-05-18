@@ -56,7 +56,7 @@ export default async function AdminAuditsPage() {
                     </td>
                     <td className="py-3 pr-4">
                       <Badge variant={a.payment_status === 'paid' ? 'success' : 'secondary'}>
-                        {a.payment_status === 'paid' ? '✓ 4,99€' : 'Impayé'}
+                        {a.payment_status === 'paid' ? '✓ 9,99€' : 'Impayé'}
                       </Badge>
                     </td>
                     <td className="py-3 pr-4">

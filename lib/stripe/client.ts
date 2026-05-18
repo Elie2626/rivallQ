@@ -22,7 +22,7 @@ export const STRIPE_PRICES = {
 
 // ── Amounts (cents) ───────────────────────────
 export const PLAN_AMOUNTS = {
-  audit: 499,        // 4,99€
+  audit: 999,        // 9,99€
   rebuild: 7900,     // 79€
   installation: 29900, // 299€
   subscription: 2900,  // 29€/mo
@@ -30,7 +30,7 @@ export const PLAN_AMOUNTS = {
 
 // ── Plan display prices ───────────────────────
 export const PLAN_PRICES = {
-  audit: '4,99€',
+  audit: '9,99€',
   rebuild: '79€',
   installation: '299€',
   subscription: '29€/mois',

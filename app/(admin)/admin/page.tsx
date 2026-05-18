@@ -113,7 +113,7 @@ export default async function AdminPage() {
                     <p className="text-[10px] text-zinc-600">{formatDate(audit.created_at)}</p>
                   </div>
                   <span className={`text-xs font-semibold ${audit.payment_status === 'paid' ? 'text-emerald-400' : 'text-zinc-500'}`}>
-                    {audit.payment_status === 'paid' ? '4,99€ ✓' : 'Impayé'}
+                    {audit.payment_status === 'paid' ? '9,99€ ✓' : 'Impayé'}
                   </span>
                   {audit.overall_score != null && (
                     <span className="text-xs text-violet-400 font-bold">{audit.overall_score}/100</span>
