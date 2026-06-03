@@ -9,6 +9,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
         {children}
       </main>
       <PublicFooter />
+      <script src="https://www.botexpress.fr/widget.js" data-chatbot-id="59072eac-39dd-458c-811c-4044fae9a0c0" data-api-url="https://agentai-23tt.onrender.com"></script>
     </>
   )
 }
