@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import { ToastProvider } from '@/components/ui/toast'
 import { SessionRefresher } from '@/components/auth/session-refresher'
@@ -22,22 +23,48 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: 'RivallQ — Audit SEO & Reconstruction de Site par IA',
+    default: 'RivallQ — Audit SEO Gratuit & Création Site Web Professionnel',
     template: '%s | RivallQ',
   },
   description:
-    "Auditez votre site web en 60 secondes avec l'IA. Score SEO, UX, conversion, et site entièrement reconstruit automatiquement par Claude AI dès 9,99€.",
+    "Audit SEO gratuit en ligne — analysez le référencement de votre site en 5 minutes. Score SEO, UX & conversion. Création site internet professionnel dès 500€. Devis gratuit, livraison rapide.",
   keywords: [
-    'audit SEO',
-    'audit site web IA',
-    'optimisation SEO',
-    'reconstruction site web IA',
-    'analyse SEO automatique',
-    'améliorer SEO site web',
-    'audit SEO pas cher',
-    'outil SEO IA',
-    'optimisation conversion site web',
-    'refonte site web IA',
+    // Audit SEO — principaux
+    'audit SEO gratuit',
+    'audit SEO en ligne',
+    'analyse SEO site web',
+    'diagnostic SEO',
+    'test SEO gratuit',
+    'vérification référencement Google',
+    'audit référencement naturel',
+    'outil audit SEO',
+    'analyse performance SEO',
+    'évaluation SEO site internet',
+    // Audit SEO — longue traîne
+    'audit SEO automatique',
+    'analyser le SEO de mon site',
+    'comment savoir si mon site est bien référencé',
+    'vérifier le référencement d\'un site web',
+    // Création de site — principaux
+    'création site internet',
+    'création site web professionnel',
+    'agence web',
+    'développeur web freelance',
+    'création site vitrine',
+    'création site web sur mesure',
+    'concepteur de site internet',
+    'refonte site web',
+    // Création de site — longue traîne
+    'devis création site internet',
+    'prix création site web professionnel',
+    'créer un site internet pour entreprise',
+    // Business
+    'obtenir plus de clients avec Google',
+    'améliorer son référencement Google',
+    'augmenter le trafic de son site',
+    'créer un site web qui convertit',
+    'générer des leads avec son site internet',
+    'améliorer sa visibilité en ligne',
   ],
   authors: [{ name: 'RivallQ', url: BASE }],
   creator: 'RivallQ',
@@ -99,6 +126,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionRefresher />
         {children}
         <ToastProvider />
+        <Script
+          src="https://www.botexpress.fr/widget.js"
+          data-chatbot-id="59072eac-39dd-458c-811c-4044fae9a0c0"
+          data-api-url="https://agentai-23tt.onrender.com"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   )

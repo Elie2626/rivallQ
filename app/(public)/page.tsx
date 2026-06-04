@@ -3,8 +3,9 @@ import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/public/hero-section'
 import { SoftwareAppSchema } from '@/components/seo/json-ld'
 
-// Sections below the fold — chargées après le hero pour accélérer le FCP
 const HowItWorks       = dynamic(() => import('@/components/public/how-it-works').then(m => m.HowItWorks))
+const DemoSection      = dynamic(() => import('@/components/public/demo-section').then(m => m.DemoSection))
+const ValueComparison  = dynamic(() => import('@/components/public/value-comparison').then(m => m.ValueComparison))
 const FeaturesGrid     = dynamic(() => import('@/components/public/features-grid').then(m => m.FeaturesGrid))
 const TestimonialsSection = dynamic(() => import('@/components/public/testimonials-section').then(m => m.TestimonialsSection))
 const PricingSection   = dynamic(() => import('@/components/public/pricing-section').then(m => m.PricingSection))
@@ -14,22 +15,22 @@ const CtaBanner        = dynamic(() => import('@/components/public/cta-banner').
 const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 
 export const metadata: Metadata = {
-  title: 'RivallQ — Audit SEO & Reconstruction de Site par IA | Dès 9,99€',
+  title: 'RivallQ — Audit SEO Gratuit en Ligne & Création Site Web | Dès 9,99€',
   description:
-    "Obtenez un audit SEO complet de votre site en 60 secondes grâce à l'IA. Score SEO, UX, conversion + site entièrement reconstruit et optimisé automatiquement. Dès 9,99€.",
+    "Audit SEO gratuit en ligne : analysez le référencement de votre site en 5 minutes. Diagnostic SEO complet, score UX & conversion. Création site vitrine professionnel dès 500€. Améliorez votre visibilité Google.",
   alternates: {
     canonical: BASE,
   },
   openGraph: {
-    title: 'RivallQ — Audit SEO & Reconstruction de Site par IA',
+    title: 'RivallQ — Audit SEO Gratuit & Création Site Web Professionnel',
     description:
-      "Audit SEO complet en 60 secondes. Score SEO, UX, conversion + site reconstruit par l'IA. Dès 9,99€.",
+      "Analysez le SEO de votre site en 5 minutes. Obtenez plus de clients sur Google. Création site internet dès 500€, devis gratuit en temps réel.",
     url: BASE,
     type: 'website',
   },
   twitter: {
-    title: 'RivallQ — Audit SEO & Reconstruction IA',
-    description: "Auditez et reconstruisez votre site avec l'IA Tsitsit. Dès 9,99€.",
+    title: 'RivallQ — Audit SEO Gratuit & Création Site Web',
+    description: "Diagnostic SEO en 5 min + création site internet professionnel dès 500€. Devis gratuit.",
   },
 }
 
@@ -45,6 +46,8 @@ export default function HomePage() {
       </a>
       <HeroSection />
       <HowItWorks />
+      <DemoSection />
+      <ValueComparison />
       <FeaturesGrid />
       <TestimonialsSection />
       <PricingSection />

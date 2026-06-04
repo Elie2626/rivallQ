@@ -7,13 +7,13 @@ import { HeroBackground } from '@/components/ui/hero-background'
 const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 
 export const metadata: Metadata = {
-  title: "Fonctionnalités — Audit SEO IA, Analyse UX et Reconstruction Automatique",
+  title: "Fonctionnalités — Outil Audit SEO & Analyse Référencement | RivallQ",
   description:
-    "Audit SEO automatique, score UX et conversion, reconstruction de site par IA Tsitsit, export HTML/CSS prêt à déployer, publication WordPress automatisée. Tout en 60 secondes.",
+    "Outil d'audit SEO complet : analyse performance SEO, diagnostic référencement naturel, vérification Google, score UX & conversion. Création site web professionnel dès 500€. Résultats en 5 minutes.",
   alternates: { canonical: `${BASE}/features` },
   openGraph: {
-    title: 'Fonctionnalités RivallQ — Audit SEO & Reconstruction IA',
-    description: "Audit SEO, analyse UX, reconstruction site IA, export WordPress. Tout automatisé.",
+    title: 'Fonctionnalités RivallQ — Audit SEO & Analyse Référencement',
+    description: "Outil audit SEO, diagnostic référencement naturel, évaluation UX. Création site internet professionnel dès 500€.",
     url: `${BASE}/features`,
   },
 }
@@ -29,7 +29,7 @@ export default function FeaturesPage() {
             Tout ce qu&apos;RivallQ fait pour vous
           </h1>
           <p className="text-zinc-400 max-w-xl mx-auto text-lg">
-            Un seul outil pour auditer, optimiser et reconstruire votre site web avec l&apos;IA.
+            Un seul outil pour auditer votre site et créer votre nouveau site sur mesure.
           </p>
         </div>
       </div>

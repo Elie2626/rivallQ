@@ -33,7 +33,7 @@ export function OrganizationSchema() {
         sameAs: [],
         contactPoint: {
           '@type': 'ContactPoint',
-          email: 'support@rivallq.io',
+          email: 'elieamar2007@gmail.com',
           contactType: 'customer support',
           availableLanguage: 'French',
         },
@@ -51,7 +51,7 @@ export function WebSiteSchema() {
         name: 'RivallQ',
         url: BASE,
         description:
-          "Auditez et reconstruisez votre site web avec l'IA. Score SEO, UX, conversion, et site régénéré automatiquement.",
+          "Auditez votre site web avec l'IA et créez votre nouveau site sur mesure dès 500€. Score SEO, UX, conversion en 5 minutes.",
         potentialAction: {
           '@type': 'SearchAction',
           target: {
@@ -76,35 +76,42 @@ export function SoftwareAppSchema() {
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description:
-          "Outil d'audit SEO et de reconstruction de site web propulsé par l'IA Claude d'Anthropic. Analysez votre site en 60 secondes, obtenez un rapport complet et une version optimisée générée automatiquement.",
+          "Outil d'audit SEO et de création de site web propulsé par l'IA. Analysez votre site en 5 minutes, obtenez un rapport complet, puis créez votre site vitrine sur mesure dès 500€.",
         offers: [
           {
             '@type': 'Offer',
-            name: 'Audit SEO',
+            name: 'Audit SEO IA',
             price: '9.99',
             priceCurrency: 'EUR',
-            description: 'Audit SEO complet, score UX, score de conversion, top 10 problèmes.',
+            description: 'Audit SEO complet, score UX, score de conversion, top 10 problèmes, recommandations.',
           },
           {
             '@type': 'Offer',
-            name: 'Site Régénéré',
-            price: '79',
+            name: 'Site Vitrine Simple',
+            price: '500',
             priceCurrency: 'EUR',
-            description: 'Homepage + pages clés optimisées, copywriting IA, export HTML/CSS.',
+            description: 'Site vitrine professionnel 1 à 5 pages, mobile responsive, SEO de base. Livré en 24h à 1 semaine.',
           },
           {
             '@type': 'Offer',
-            name: 'Installation WordPress',
-            price: '299',
+            name: 'Site Vitrine Complet avec Chatbot IA',
+            price: '1000',
             priceCurrency: 'EUR',
-            description: 'Publication automatique sur votre WordPress.',
+            description: "Jusqu'à 10 pages, chatbot IA intégré, blog, SEO avancé. Livré en 1 à 2 semaines.",
           },
           {
             '@type': 'Offer',
-            name: 'Abonnement mensuel',
-            price: '29',
+            name: 'Site Premium 3D',
+            price: '1500',
             priceCurrency: 'EUR',
-            description: 'Audits illimités, mises à jour mensuelles, support prioritaire.',
+            description: 'Pages illimitées, design 3D sur mesure, animations avancées, chatbot IA. Livré en 2 à 3 semaines.',
+          },
+          {
+            '@type': 'Offer',
+            name: 'Maintenance mensuelle',
+            price: '50',
+            priceCurrency: 'EUR',
+            description: 'Mises à jour, sauvegardes automatiques, sécurité, support technique prioritaire.',
           },
         ],
         aggregateRating: {
@@ -172,12 +179,11 @@ export function PricingSchema() {
             position: 2,
             item: {
               '@type': 'Product',
-              name: 'Site Régénéré par IA',
-              description:
-                'Homepage + pages clés reconstruites, copywriting optimisé Claude AI, SEO on-page, export ZIP HTML/CSS.',
+              name: 'Site Vitrine Simple',
+              description: 'Site vitrine professionnel 1 à 5 pages, mobile responsive, SEO de base. Livré en 24h à 1 semaine.',
               offers: {
                 '@type': 'Offer',
-                price: '79',
+                price: '500',
                 priceCurrency: 'EUR',
                 availability: 'https://schema.org/InStock',
               },
@@ -188,11 +194,11 @@ export function PricingSchema() {
             position: 3,
             item: {
               '@type': 'Product',
-              name: 'Installation WordPress',
-              description: 'Publication automatique du site régénéré sur votre WordPress.',
+              name: 'Site Vitrine Complet avec Chatbot IA',
+              description: "Jusqu'à 10 pages, chatbot IA intégré, blog, SEO avancé. Livré en 1 à 2 semaines.",
               offers: {
                 '@type': 'Offer',
-                price: '299',
+                price: '1000',
                 priceCurrency: 'EUR',
                 availability: 'https://schema.org/InStock',
               },
@@ -203,11 +209,26 @@ export function PricingSchema() {
             position: 4,
             item: {
               '@type': 'Product',
-              name: 'Abonnement Mensuel',
-              description: 'Audits illimités, mises à jour mensuelles, support prioritaire.',
+              name: 'Site Premium 3D',
+              description: 'Pages illimitées, design 3D sur mesure, animations avancées, chatbot IA. Livré en 2 à 3 semaines.',
               offers: {
                 '@type': 'Offer',
-                price: '29',
+                price: '1500',
+                priceCurrency: 'EUR',
+                availability: 'https://schema.org/InStock',
+              },
+            },
+          },
+          {
+            '@type': 'ListItem',
+            position: 5,
+            item: {
+              '@type': 'Product',
+              name: 'Maintenance mensuelle',
+              description: 'Mises à jour, sauvegardes, sécurité, support prioritaire.',
+              offers: {
+                '@type': 'Offer',
+                price: '50',
                 priceCurrency: 'EUR',
                 priceSpecification: {
                   '@type': 'RecurringCharge',

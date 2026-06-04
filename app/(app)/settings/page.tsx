@@ -304,7 +304,7 @@ export default function SettingsPage() {
                     variant="destructive"
                     size="sm"
                     onClick={() => {
-                      window.location.href = 'mailto:support@rivallq.fr?subject=Suppression de compte'
+                      window.location.href = 'mailto:elieamar2007@gmail.com?subject=Suppression de compte'
                     }}
                   >
                     Contacter le support

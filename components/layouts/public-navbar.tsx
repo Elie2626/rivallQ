@@ -12,6 +12,7 @@ import { LogoSphere } from '@/components/ui/logo-sphere'
 const navLinks = [
   { href: '/features', label: 'Fonctionnalités' },
   { href: '/pricing', label: 'Tarifs' },
+  { href: '/devis', label: 'Devis', highlight: true },
   { href: '/about', label: 'À propos' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
@@ -56,7 +57,7 @@ export function PublicNavbar() {
 
         {/* Desktop nav */}
         <ul className="hidden md:flex items-center gap-1" role="list">
-          {navLinks.map(({ href, label }) => (
+          {navLinks.map(({ href, label, highlight }) => (
             <li key={href}>
               <Link
                 href={href}
@@ -65,6 +66,8 @@ export function PublicNavbar() {
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500',
                   pathname === href
                     ? 'text-zinc-100 bg-zinc-800'
+                    : highlight
+                    ? 'text-violet-400 hover:text-violet-300 hover:bg-violet-500/10 border border-violet-500/30'
                     : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60'
                 )}
                 aria-current={pathname === href ? 'page' : undefined}

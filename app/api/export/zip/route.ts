@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
   }
 
   // README
-  files.push(`=== README.txt ===\nRivallQ — Site généré le ${new Date().toLocaleDateString('fr-FR')}\n\nDéployez les fichiers HTML sur votre hébergeur.\nBesoin d'aide ? support@rivallq.io`)
+  files.push(`=== README.txt ===\nRivallQ — Site généré le ${new Date().toLocaleDateString('fr-FR')}\n\nDéployez les fichiers HTML sur votre hébergeur.\nBesoin d'aide ? elieamar2007@gmail.com`)
 
   const content = files.join('\n\n')
 

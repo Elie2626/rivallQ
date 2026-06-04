@@ -11,16 +11,24 @@ import { Badge } from '@/components/ui/badge'
 import { StatusIndicator } from '@/components/ui/status-indicator'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Plus, Search, TrendingUp, Globe, ArrowRight, Zap, Sparkles } from 'lucide-react'
-import type { Audit } from '@/types'
+import { DevisSection } from '@/components/app/devis-section'
+import type { Audit, Devis } from '@/types'
 
 export const metadata: Metadata = { title: 'Dashboard — RivallQ' }
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ devis_paid?: string; devis_id?: string }>
+}) {
+  const params = await searchParams
+  const paidDevisId = params.devis_paid === 'success' ? (params.devis_id ?? null) : null
   const user = await getServerUser()
   if (!user) return null
 
   let audits: Audit[] = []
-  let profile: { full_name?: string; plan?: string; subscription_status?: string } | undefined
+  let devis: Devis[] = []
+  let profile: { full_name?: string; plan?: string; subscription_status?: string; email?: string } | undefined
 
   try {
     const db = getAdminDb()
@@ -30,6 +38,13 @@ export default async function DashboardPage() {
     ])
     audits  = auditsSnap.docs.map(d => ({ id: d.id, ...d.data() })) as Audit[]
     profile = profileSnap.data() as typeof profile
+
+    // Fetch devis matching the user's email
+    const userEmail = user.email ?? profile?.email
+    if (userEmail) {
+      const devisSnap = await db.collection('devis').where('email', '==', userEmail).orderBy('createdAt', 'desc').limit(10).get()
+      devis = devisSnap.docs.map(d => ({ id: d.id, ...d.data() })) as Devis[]
+    }
   } catch {
     // Firestore not configured (missing service account) — show empty state
   }
@@ -79,17 +94,8 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {!profile?.plan && (
-        <div className="rounded-2xl border border-violet-500/30 bg-violet-600/10 p-5 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold text-violet-300 mb-0.5">Débloquez le plein potentiel d&apos;RivallQ</p>
-            <p className="text-xs text-zinc-500">Obtenez votre site optimisé par l&apos;IA pour 79€ — copywriting, SEO et design améliorés.</p>
-          </div>
-          <Button variant="gradient" size="sm" asChild className="shrink-0">
-            <Link href="/billing">Voir les plans</Link>
-          </Button>
-        </div>
-      )}
+      {/* Devis */}
+      <DevisSection devis={devis} paidDevisId={paidDevisId} />
 
       {/* ── Exemple de résultat ─────────────────────────────── */}
       <Link

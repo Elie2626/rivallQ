@@ -6,7 +6,7 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 export const metadata: Metadata = {
   title: 'Contact — Support RivallQ',
   description:
-    "Contactez l'équipe RivallQ pour toute question sur votre audit SEO, le site régénéré ou votre abonnement. Réponse sous 24h.",
+    "Contactez RivallQ — agence web & audit SEO en ligne. Devis création site internet, diagnostic référencement, amélioration visibilité Google. Réponse sous 24h.",
   alternates: { canonical: `${BASE}/contact` },
   openGraph: {
     title: 'Contacter RivallQ — Support & Assistance',

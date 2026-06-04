@@ -16,12 +16,12 @@ const faqs = [
     a: 'Non. L\'audit fonctionne sur n\'importe quel site web (WordPress, Wix, Squarespace, site custom…). Seule l\'option publication automatique nécessite WordPress.',
   },
   {
-    q: 'Que contient exactement le site régénéré ?',
-    a: 'Le plan à 79€ inclut la homepage complète, les pages clés (À propos, Services, Contact) avec copywriting optimisé, SEO on-page amélioré, et le tout exportable en HTML/CSS prêt à déployer.',
+    q: 'Comment obtenir un devis pour créer mon site ?',
+    a: 'Rendez-vous sur la page /devis. Répondez à 5 questions (type de site, pages, fonctionnalités, délai) et le prix s\'ajuste en temps réel. Vous recevez un devis détaillé sous 24h.',
   },
   {
     q: 'Puis-je obtenir un remboursement ?',
-    a: 'Oui, sous 7 jours si vous n\'êtes pas satisfait du résultat. Contactez simplement support@rivallq.io.',
+    a: 'Oui, sous 7 jours si vous n\'êtes pas satisfait du résultat. Contactez simplement elieamar2007@gmail.com.',
   },
   {
     q: 'Les données de mon site sont-elles confidentielles ?',

@@ -1,12 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import {
-  AlertTriangle, Info, CheckCircle2, Wand2, ArrowRight,
-  Globe, ExternalLink, BarChart3, Search, Eye, Zap,
+  AlertTriangle, Info, CheckCircle2, ArrowRight,
+  Globe, ExternalLink, BarChart3, Search, Eye, Zap, Share2, Check, FileText,
 } from 'lucide-react'
 import { ScoreRing } from '@/components/ui/score-ring'
 import { ProgressBar } from '@/components/ui/progress-bar'
@@ -31,42 +30,27 @@ const severityConfig = {
 }
 
 export function AuditResults({ audit }: { audit: Audit }) {
-  const router = useRouter()
   const [activeTab, setActiveTab] = useState<'overview' | 'issues' | 'keywords' | 'recommendations'>('overview')
+  const [copied, setCopied] = useState(false)
 
-  // If no rebuild exists yet, trigger it then refresh so the banner shows
-  useEffect(() => {
-    if (audit.rebuild_status || audit.status !== 'completed') return
-    ;(async () => {
-      try {
-        await fetch('/api/rebuild/start', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ audit_id: audit.id }),
-        })
-        // Refresh to show "generating" banner — rebuild record now exists in Firestore
-        router.refresh()
-      } catch {
-        // Non-fatal — polling will still detect completion
+  const handleShare = async () => {
+    const url = window.location.href
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: `Audit SEO — ${getDomain(audit.url)}`, url })
+      } else {
+        await navigator.clipboard.writeText(url)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
       }
-    })()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    } catch {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
 
-  // Poll until rebuild is ready (if generating or not started yet)
-  useEffect(() => {
-    if (audit.rebuild_status === 'completed' || audit.rebuild_status === 'failed') return
-    const interval = setInterval(async () => {
-      const res = await fetch(`/api/audit/${audit.id}/status`)
-      if (!res.ok) return
-      const data = await res.json()
-      if (data.rebuild_status === 'completed' || data.rebuild_status === 'failed') {
-        clearInterval(interval)
-        router.refresh()
-      }
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [audit.id, audit.rebuild_status, router])
+  // (rebuild feature removed — replaced by devis)
 
   const scores = [
     { label: 'SEO', value: audit.seo_score ?? 0, icon: Search },
@@ -104,17 +88,23 @@ export function AuditResults({ audit }: { audit: Audit }) {
           <h1 className="text-2xl font-bold text-zinc-100">Résultats de l&apos;audit</h1>
         </div>
 
-        {audit.rebuild_id && audit.rebuild_status === 'completed' && (
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* Partager */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleShare}
+            leftIcon={copied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Share2 className="h-3.5 w-3.5" />}
+            className={copied ? 'border-emerald-500/40 text-emerald-400' : ''}
+          >
+            {copied ? 'Lien copié !' : 'Partager'}
+          </Button>
+
+          {/* Devis */}
           <Button variant="gradient" asChild rightIcon={<ArrowRight className="h-4 w-4" />}>
-            <Link href={`/rebuild/${audit.rebuild_id}`}>Voir le site optimisé</Link>
+            <Link href="/devis">Créer mon site</Link>
           </Button>
-        )}
-        {(audit.rebuild_status === 'generating' || (!audit.rebuild_status && audit.status === 'completed')) && (
-          <Button variant="outline" disabled className="opacity-60">
-            <span className="h-3 w-3 rounded-full bg-violet-400 animate-pulse mr-2 inline-block" />
-            Site en génération…
-          </Button>
-        )}
+        </div>
       </div>
 
       {/* Global score + sub-scores */}
@@ -173,42 +163,22 @@ export function AuditResults({ audit }: { audit: Audit }) {
         {activeTab === 'recommendations' && <RecommendationsTab audit={audit} />}
       </motion.div>
 
-      {/* Rebuild banner */}
-      {(audit.rebuild_status === 'generating' || (!audit.rebuild_status && audit.status === 'completed')) && (
-        <div className="rounded-2xl border border-violet-500/30 bg-violet-600/10 p-6 flex items-center gap-4">
-          <div className="h-10 w-10 rounded-xl bg-violet-600/20 flex items-center justify-center shrink-0">
-            <Wand2 className="h-5 w-5 text-violet-400 animate-pulse" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-violet-300">Application des recommandations en cours…</p>
-            <p className="text-xs text-zinc-500 mt-0.5">L&apos;IA applique les optimisations SEO, UX et conversion sur votre site existant. Actualisé dans 1 à 2 min.</p>
-          </div>
-        </div>
-      )}
-      {audit.rebuild_status === 'failed' && (
-        <div className="rounded-2xl border border-red-500/30 bg-red-600/10 p-5 flex items-center gap-4">
-          <div className="h-10 w-10 rounded-xl bg-red-600/20 flex items-center justify-center shrink-0">
-            <Wand2 className="h-5 w-5 text-red-400" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-red-300">La génération du site a échoué</p>
-            <p className="text-xs text-zinc-500 mt-0.5">Une erreur est survenue. Contactez le support si le problème persiste.</p>
-          </div>
-        </div>
-      )}
-      {audit.rebuild_id && audit.rebuild_status === 'completed' && (
-        <div className="rounded-2xl border border-emerald-500/30 bg-emerald-600/10 p-6 flex items-center justify-between gap-4 flex-wrap">
+      {/* CTA Devis */}
+      {audit.status === 'completed' && (
+        <div className="rounded-2xl border border-violet-500/30 bg-violet-600/10 p-6 flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-4">
-            <div className="h-10 w-10 rounded-xl bg-emerald-600/20 flex items-center justify-center shrink-0">
-              <Wand2 className="h-5 w-5 text-emerald-400" />
+            <div className="h-10 w-10 rounded-xl bg-violet-600/20 flex items-center justify-center shrink-0">
+              <FileText className="h-5 w-5 text-violet-400" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-emerald-300">Votre site amélioré est prêt !</p>
-              <p className="text-xs text-zinc-500 mt-0.5">Recommandations appliquées · Visualisez gratuitement · Téléchargez le ZIP pour 79€</p>
+              <p className="text-sm font-semibold text-violet-300">Passez à l&apos;étape suivante</p>
+              <p className="text-xs text-zinc-500 mt-0.5">
+                Créez un site vitrine optimisé à partir de 500€ — devis gratuit, prix en temps réel.
+              </p>
             </div>
           </div>
           <Button variant="gradient" asChild rightIcon={<ArrowRight className="h-4 w-4" />}>
-            <Link href={`/rebuild/${audit.rebuild_id}`}>Voir le site amélioré</Link>
+            <Link href="/devis">Obtenir mon devis</Link>
           </Button>
         </div>
       )}

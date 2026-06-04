@@ -4,6 +4,25 @@
 
 export type PlanTier = 'audit' | 'rebuild' | 'installation' | 'subscription'
 
+// ── Devis ────────────────────────────────────
+export interface Devis {
+  id: string
+  name: string
+  email: string
+  phone?: string
+  message?: string
+  siteType: 'simple' | 'complet' | 'premium'
+  pages: string
+  features: string[]
+  maintenance: boolean
+  delay: string
+  estimatedPrice: number
+  read: boolean
+  createdAt: string
+  payment_status?: 'pending' | 'paid' | 'failed'
+  paid_at?: string
+}
+
 export type AuditStatus =
   | 'pending'
   | 'scraping'

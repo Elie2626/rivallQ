@@ -18,19 +18,33 @@ const plans = [
     features: ['Score SEO, UX, conversion', 'Top problèmes', 'Mots-clés & recommandations'],
   },
   {
-    id: 'rebuild',
-    name: 'Site optimisé',
-    price: '79€',
-    description: 'Homepage & pages régénérées par l\'IA',
-    features: ['Copywriting optimisé', 'SEO amélioré', 'Export ZIP'],
+    id: 'site_simple',
+    name: 'Site Vitrine Simple',
+    price: '500€',
+    description: 'Livré en 24h à 1 semaine',
+    features: ['1 à 5 pages', 'Design professionnel', 'Mobile responsive', 'SEO de base'],
+  },
+  {
+    id: 'site_complet',
+    name: 'Site Vitrine Complet',
+    price: '1 000€',
+    description: 'Avec chatbot IA — livré en 1 à 2 semaines',
+    features: ["Jusqu'à 10 pages", 'Chatbot IA intégré', 'Blog / actualités', 'SEO avancé'],
     highlighted: true,
   },
   {
-    id: 'subscription',
-    name: 'Pro mensuel',
-    price: '29€/mois',
-    description: 'Suivi SEO continu + optimisations',
-    features: ['1 audit/mois', 'Suivi positions', 'Alertes & rapport mensuel'],
+    id: 'site_premium',
+    name: 'Site Premium 3D',
+    price: '1 500€',
+    description: 'Design 3D & animations — livré en 2 à 3 semaines',
+    features: ['Pages illimitées', 'Design 3D sur mesure', 'Chatbot IA', 'Dashboard admin'],
+  },
+  {
+    id: 'maintenance',
+    name: 'Maintenance mensuelle',
+    price: '50€/mois',
+    description: 'Mises à jour, sécurité, support',
+    features: ['Mises à jour régulières', 'Sauvegardes auto', 'Support prioritaire'],
   },
 ]
 
@@ -133,9 +147,9 @@ export function BillingClient({ profile, audits }: Props) {
           ) : (
             <div className="flex items-center gap-4">
               <div>
-                <p className="text-sm text-zinc-400 mb-3">Vous n&apos;avez pas d&apos;abonnement actif.</p>
-                <Button variant="gradient" size="sm" onClick={() => handleSubscribe('subscription')} loading={checkoutLoading === 'subscription'}>
-                  Passer à Pro — 29€/mois
+                <p className="text-sm text-zinc-400 mb-3">Vous n&apos;avez pas de maintenance active.</p>
+                <Button variant="gradient" size="sm" onClick={() => handleSubscribe('maintenance')} loading={checkoutLoading === 'maintenance'}>
+                  Ajouter la maintenance — 50€/mois
                 </Button>
               </div>
             </div>
@@ -146,8 +160,8 @@ export function BillingClient({ profile, audits }: Props) {
       {/* Plans */}
       {!hasActiveSubscription && (
         <div>
-          <h2 className="text-lg font-semibold text-zinc-100 mb-4">Choisir un plan</h2>
-          <div className="grid sm:grid-cols-3 gap-4">
+          <h2 className="text-lg font-semibold text-zinc-100 mb-4">Nos formules</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {plans.map(({ id, name, price, description, features, highlighted }) => (
               <div
                 key={id}
@@ -170,9 +184,14 @@ export function BillingClient({ profile, audits }: Props) {
                   variant={highlighted ? 'gradient' : 'outline'}
                   size="sm"
                   loading={checkoutLoading === id}
-                  onClick={() => handleSubscribe(id)}
+                  onClick={() => id === 'audit' ? window.location.href = '/audit/new' : handleSubscribe(id)}
+                  asChild={id === 'site_simple' || id === 'site_complet' || id === 'site_premium'}
                 >
-                  {id === 'audit' ? 'Lancer un audit' : 'Souscrire'}
+                  {id === 'audit'
+                    ? 'Lancer un audit'
+                    : id === 'maintenance'
+                    ? 'Activer la maintenance'
+                    : <Link href="/devis">Demander un devis</Link>}
                 </Button>
               </div>
             ))}
@@ -201,9 +220,6 @@ export function BillingClient({ profile, audits }: Props) {
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge variant="success">Audit — 9,99€</Badge>
-                    {audit.rebuild_payment_status === 'paid' && (
-                      <Badge variant="default">Site optimisé — 79€</Badge>
-                    )}
                   </div>
                   <Button variant="ghost" size="icon-sm" asChild>
                     <Link href={`/audit/${audit.id}`} aria-label="Voir l'audit">

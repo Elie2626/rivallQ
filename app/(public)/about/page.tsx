@@ -8,7 +8,7 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 export const metadata: Metadata = {
   title: "À propos — Notre mission : démocratiser l'audit SEO par IA",
   description:
-    "RivallQ démocratise l'optimisation web grâce à l'IA Tsitsit. Audit SEO complet en 60s, recommandations actionnables, site reconstruit automatiquement. +2000 sites analysés.",
+    "RivallQ aide les entreprises à obtenir plus de clients avec Google. Audit SEO en ligne, amélioration du référencement naturel, création site web professionnel sur mesure dès 500€. +2000 sites analysés.",
   alternates: { canonical: `${BASE}/about` },
   openGraph: {
     title: 'À propos de RivallQ — Audit SEO & IA',
@@ -21,7 +21,7 @@ const values = [
   {
     icon: Target,
     title: 'Résultats concrets',
-    description: 'Pas de jargon, pas de rapports inutiles. RivallQ te donne des recommandations actionnables et génère directement une version améliorée de ton site.',
+    description: 'Pas de jargon, pas de rapports inutiles. RivallQ te donne des recommandations actionnables et crée ton nouveau site sur mesure à partir de 500€.',
     color: 'text-violet-400',
     bg: 'bg-violet-500/10 border-violet-500/20',
   },
@@ -127,9 +127,9 @@ export default function AboutPage() {
               recommandations priorisées et actionnables, générées par Tsitsit.
             </p>
             <p>
-              Et si tu veux aller plus loin, RivallQ peut carrément reconstruire ta page
-              d&apos;accueil avec un copywriting optimisé, des balises méta réécrites et un
-              design amélioré. Tout ça automatiquement.
+              Et si tu veux aller plus loin, RivallQ peut créer ton site de A à Z —
+              vitrine simple dès 500€, avec chatbot IA à 1 000€ ou premium 3D à 1 500€.
+              Devis gratuit en temps réel, livraison en 24h à 3 semaines.
             </p>
           </div>
         </div>

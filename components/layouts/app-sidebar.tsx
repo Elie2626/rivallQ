@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard,
   Search,
-  Wand2,
+  FileText,
   CreditCard,
   Settings,
   User,
@@ -25,7 +25,7 @@ const navItems = [
     items: [
       { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
       { href: '/audit/new', icon: Search, label: 'Nouvel audit' },
-      { href: '/rebuild', icon: Wand2, label: 'Site optimisé' },
+      { href: '/mes-devis', icon: FileText, label: 'Mes devis' },
     ],
   },
   {

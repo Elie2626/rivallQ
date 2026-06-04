@@ -77,6 +77,18 @@ export async function POST(request: NextRequest) {
           })
         }
 
+        if (plan === 'devis') {
+          const { devis_id } = session.metadata ?? {}
+          if (devis_id) {
+            await db.collection('devis').doc(devis_id).update({
+              payment_status: 'paid',
+              payment_intent_id: session.payment_intent as string,
+              paid_at: new Date().toISOString(),
+              updated_at: FieldValue.serverTimestamp(),
+            })
+          }
+        }
+
         // Log event
         await db.collection('subscription_events').add({
           user_id,

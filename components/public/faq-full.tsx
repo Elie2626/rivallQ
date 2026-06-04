@@ -8,7 +8,7 @@ const categories = [
   {
     title: 'Général',
     faqs: [
-      { q: 'Qu\'est-ce qu\'RivallQ ?', a: 'RivallQ est un SaaS d\'audit et d\'optimisation de sites web propulsé par l\'IA. Il scrape votre site, l\'analyse en profondeur (SEO, UX, conversion), puis génère automatiquement une version améliorée.' },
+      { q: 'Qu\'est-ce qu\'RivallQ ?', a: 'RivallQ est un outil d\'audit et de création de sites web propulsé par l\'IA. Il analyse votre site en profondeur (SEO, UX, conversion) en 5 minutes, puis vous propose un devis personnalisé pour créer votre nouveau site à partir de 500€.' },
       { q: 'Comment fonctionne l\'analyse IA ?', a: 'RivallQ utilise Firecrawl pour scraper votre site, puis Tsitsit pour analyser le SEO, le copywriting, l\'UX et les opportunités de conversion. Le tout en moins de 5 minutes.' },
       { q: 'Quels types de sites sont supportés ?', a: 'Tous les sites web : WordPress, Wix, Squarespace, Webflow, sites custom en HTML/CSS/JS, e-commerce... Si c\'est accessible via une URL, RivallQ peut l\'analyser.' },
     ],
@@ -16,24 +16,24 @@ const categories = [
   {
     title: 'Audit & résultats',
     faqs: [
-      { q: 'Que contient exactement l\'audit à 9,99€ ?', a: 'Score SEO (0-100), score UX, score de conversion, top 10 des problèmes critiques, analyse des mots-clés, recommandations prioritaires, et un teaser du site régénéré.' },
+      { q: 'Que contient exactement l\'audit à 9,99€ ?', a: 'Score SEO (0-100), score UX, score de conversion, top 10 des problèmes critiques, analyse des mots-clés, recommandations prioritaires, et un lien vers le questionnaire de devis.' },
       { q: 'Les résultats sont-ils fiables ?', a: 'Oui. Tsitsit analyse chaque élément du code source, du contenu et de la structure. Les recommandations sont basées sur les meilleures pratiques SEO 2026 et CRO (Conversion Rate Optimization).' },
       { q: 'Combien de temps dure l\'analyse ?', a: 'Entre 3 et 5 minutes selon la complexité du site. Vous pouvez suivre l\'avancement en temps réel sur votre dashboard.' },
     ],
   },
   {
-    title: 'Site régénéré',
+    title: 'Création de site',
     faqs: [
-      { q: 'Que contient le site régénéré (79€) ?', a: 'Homepage complète optimisée, pages clés (À propos, Services, Contact), copywriting réécrit par Tsitsit, SEO on-page amélioré, export ZIP en HTML/CSS avec Tailwind CSS.' },
-      { q: 'Le design est-il personnalisable ?', a: 'Le site généré utilise les couleurs et la charte de votre site original. Vous pouvez ensuite personnaliser librement le code HTML/CSS livré.' },
-      { q: 'Faut-il des compétences techniques ?', a: 'Non. Pour l\'export ZIP, un hébergeur basique suffit (OVH, ionos, etc.). Pour la publication WordPress, tout est automatisé — vous n\'avez rien à faire.' },
+      { q: 'Quelles sont les formules de création de site ?', a: 'Trois formules : Site Vitrine Simple (500€, livré en 24h–1 semaine), Site Vitrine Complet avec chatbot IA (1 000€, 1–2 semaines), Site Premium 3D avec animations avancées (1 500€, 2–3 semaines). Maintenance disponible en option à 50€/mois.' },
+      { q: 'Comment obtenir un devis ?', a: 'Rendez-vous sur /devis. Répondez à 5 questions sur votre projet (type de site, nombre de pages, fonctionnalités, délai) et le prix s\'adapte en temps réel. Vous recevez ensuite un devis détaillé sous 24h.' },
+      { q: 'Le devis est-il gratuit et sans engagement ?', a: 'Oui, totalement. Vous pouvez obtenir autant de devis que vous le souhaitez, sans engagement ni paiement. Vous ne payez qu\'une fois le devis accepté.' },
     ],
   },
   {
     title: 'Paiement & remboursement',
     faqs: [
       { q: 'Quels moyens de paiement acceptez-vous ?', a: 'Carte bancaire (Visa, Mastercard, Amex), via Stripe. Les paiements sont sécurisés et chiffrés. Nous n\'avons jamais accès à vos coordonnées bancaires.' },
-      { q: 'Puis-je me faire rembourser ?', a: 'Oui, sous 7 jours si vous n\'êtes pas satisfait du résultat. Envoyez simplement un email à support@rivallq.io avec votre numéro de commande.' },
+      { q: 'Puis-je me faire rembourser ?', a: 'Oui, sous 7 jours si vous n\'êtes pas satisfait du résultat. Envoyez simplement un email à elieamar2007@gmail.com avec votre numéro de commande.' },
       { q: 'L\'abonnement est-il sans engagement ?', a: 'Oui. L\'abonnement mensuel à 29€/mois peut être annulé à tout moment depuis votre espace facturation, sans frais ni préavis.' },
     ],
   },

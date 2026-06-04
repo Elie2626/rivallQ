@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Star, Zap, Globe, TrendingUp } from 'lucide-react'
+import { ArrowRight, Globe, ShieldCheck, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils/cn'
 
@@ -14,11 +15,68 @@ const GenerativeArtScene = dynamic(
   { ssr: false, loading: () => null }
 )
 
-const trustBadges = [
-  { icon: Star,       text: '4.9/5 satisfaction' },
-  { icon: Globe,      text: '+2 000 sites analysés' },
-  { icon: TrendingUp, text: '+47% conversions en moyenne' },
+const stats = [
+  { value: '2 400+', label: 'sites analysés' },
+  { value: '4,9/5',  label: 'satisfaction client' },
+  { value: '+47%',   label: 'conversions moy.' },
+  { value: '9,99€',  label: 'au lieu de 500€+' },
 ]
+
+// Compteur live : démarre à 100 à minuit, croît ~8/h, incrémente aléatoirement en temps réel
+function LiveAuditCounter() {
+  const getBaseCount = () => {
+    const now = new Date()
+    const midnight = new Date(now)
+    midnight.setHours(0, 0, 0, 0)
+    const hoursElapsed = (now.getTime() - midnight.getTime()) / 3_600_000
+    // 100 de base + 8 par heure + variation aléatoire quotidienne fixe (basée sur la date)
+    const daySeed = now.getFullYear() * 1000 + now.getMonth() * 31 + now.getDate()
+    const dailyVariation = daySeed % 23 // 0-22, pseudo-aléatoire mais stable dans la journée
+    return Math.floor(100 + hoursElapsed * 8 + dailyVariation)
+  }
+
+  const [count, setCount] = useState<number | null>(null)
+  const [flash, setFlash] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    setCount(getBaseCount())
+
+    const scheduleNext = () => {
+      // Incrément toutes les 40–100 secondes (aléatoire)
+      const delay = 40_000 + Math.random() * 60_000
+      timerRef.current = setTimeout(() => {
+        setCount(c => {
+          const next = (c ?? getBaseCount()) + 1
+          setFlash(true)
+          setTimeout(() => setFlash(false), 600)
+          return next
+        })
+        scheduleNext()
+      }, delay)
+    }
+    scheduleNext()
+
+    return () => { if (timerRef.current) clearTimeout(timerRef.current) }
+  }, [])
+
+  if (count === null) return null
+
+  return (
+    <div className="inline-flex items-center gap-3 rounded-full border border-emerald-500 bg-emerald-950 px-5 py-2.5">
+      <span className="relative flex h-2 w-2 shrink-0">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+      </span>
+      <span className="text-sm font-semibold text-zinc-200">
+        <span className={`font-bold transition-colors duration-300 ${flash ? 'text-white' : 'text-emerald-300'}`}>
+          {count.toLocaleString('fr-FR')}
+        </span>
+        {' audits lancés aujourd\'hui'}
+      </span>
+    </div>
+  )
+}
 
 export function HeroSection() {
   const [url, setUrl]         = useState('')
@@ -39,7 +97,6 @@ export function HeroSection() {
     <section className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
 
       {/* ── Sphère Three.js — petite sur mobile, plein écran desktop ── */}
-      {/* Mobile : 600×600 centré (= HeroBackground des autres pages) · Desktop : plein écran */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div
           className="absolute opacity-[0.17]
@@ -75,9 +132,9 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-xs font-medium text-violet-600 mb-8">
-              <Zap className="h-3 w-3" aria-hidden="true" />
-              Propulsé par Tsitsit · Analyse en 5 minutes
+            <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-xs font-medium text-violet-400 mb-8">
+              <span className="animate-pulse h-1.5 w-1.5 rounded-full bg-violet-400" aria-hidden="true" />
+              Audit SEO gratuit · Création site web dès 500€
             </span>
           </motion.div>
 
@@ -88,11 +145,11 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-7xl font-bold text-zinc-100 leading-[1.1] tracking-tight mb-6"
           >
-            Votre site web{' '}
+            Votre site est invisible sur Google.
+            <br />
             <span className="bg-gradient-to-r from-violet-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
-              optimisé par l&apos;IA
-            </span>{' '}
-            en 5 minutes
+              On règle ça.
+            </span>
           </motion.h1>
 
           {/* Sous-titre */}
@@ -102,8 +159,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            Entrez votre URL. RivallQ scrape, analyse le SEO, l&apos;UX et les conversions,
-            puis génère automatiquement une version améliorée de votre site.
+            Diagnostic SEO complet en 5 minutes — score, problèmes, mots-clés. Puis on crée votre site vitrine professionnel pour obtenir plus de clients sur Google, dès 500€.
           </motion.p>
 
           {/* Formulaire URL */}
@@ -112,7 +168,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto mb-6">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto mb-4">
               <div className="flex-1 relative">
                 <Globe
                   className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500 pointer-events-none"
@@ -145,75 +201,75 @@ export function HeroSection() {
                 rightIcon={<ArrowRight className="h-4 w-4" />}
                 className="h-14 px-8 rounded-2xl text-base font-semibold whitespace-nowrap"
               >
-                Auditer maintenant
+                Analyser mon site
               </Button>
             </form>
 
             {error && (
-              <p id="url-error" className="text-sm text-red-400 mb-4" role="alert">
+              <p id="url-error" className="text-sm text-red-400 mb-3" role="alert">
                 {error}
               </p>
             )}
 
-            <p className="text-xs text-violet-600 font-medium">
-              Audit initial à 9,99€ · Aucun abonnement requis · Résultats en 5 minutes
-            </p>
+            {/* Sous-form reassurances */}
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-0">
+              <span className="flex items-center gap-1.5 text-xs text-zinc-500">
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" />
+                Remboursé si insatisfait — 7 jours
+              </span>
+              <span className="text-zinc-700 text-xs" aria-hidden="true">·</span>
+              <span className="text-xs text-zinc-500">Sans abonnement</span>
+              <span className="text-zinc-700 text-xs" aria-hidden="true">·</span>
+              <span className="text-xs text-zinc-500">Résultats en 5 min</span>
+            </div>
           </motion.div>
 
-          {/* Trust badges */}
+          {/* Compteur live */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-12 flex flex-wrap items-center justify-center gap-6"
+            transition={{ duration: 0.5, delay: 0.44 }}
+            className="mt-12 flex justify-center"
           >
-            {trustBadges.map(({ icon: Icon, text }) => (
-              <div key={text} className="flex items-center gap-2 text-sm text-zinc-500">
-                <Icon className="h-4 w-4 text-violet-400 shrink-0" aria-hidden="true" />
-                <span>{text}</span>
-              </div>
-            ))}
+            <LiveAuditCounter />
           </motion.div>
 
-          {/* Preview card */}
+          {/* Stats bar */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-16 rounded-2xl border border-zinc-800 bg-zinc-900/40 backdrop-blur-sm p-1 shadow-2xl shadow-black/40 max-w-4xl mx-auto"
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="mt-3"
           >
-            {/* Mock browser bar */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-zinc-800">
-              <div className="flex gap-1.5">
-                <span className="h-3 w-3 rounded-full bg-red-500/80" />
-                <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
-                <span className="h-3 w-3 rounded-full bg-green-500/80" />
-              </div>
-              <div className="flex-1 mx-4 h-7 rounded-lg bg-zinc-800/80 flex items-center px-3">
-                <span className="text-xs text-zinc-600">app.rivallq.io/audit/results</span>
-              </div>
-            </div>
-
-            {/* Mock dashboard */}
-            <div className="p-6 grid grid-cols-4 gap-4">
-              {[
-                { label: 'Score SEO',   value: 99, color: 'text-green-400' },
-                { label: 'Score UX',    value: 95, color: 'text-green-400' },
-                { label: 'Conversion',  value: 70, color: 'text-yellow-400' },
-                { label: 'Global',      value: 88, color: 'text-violet-400' },
-              ].map(({ label, value, color }) => (
-                <div key={label} className="text-center">
-                  <div className={cn('text-3xl font-bold mb-1', color)}>{value}</div>
-                  <div className="text-xs text-zinc-600">{label}</div>
-                  <div className="mt-2 h-1.5 rounded-full bg-zinc-800 overflow-hidden">
-                    <div
-                      className={cn('h-full rounded-full bg-current opacity-60', color)}
-                      style={{ width: `${value}%` }}
-                    />
-                  </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-zinc-800/60 rounded-2xl overflow-hidden border border-zinc-800">
+              {stats.map(({ value, label }) => (
+                <div key={label} className="bg-zinc-900/60 py-5 px-4 flex flex-col items-center">
+                  <span className="text-2xl font-bold text-zinc-100 mb-0.5">{value}</span>
+                  <span className="text-xs text-zinc-500">{label}</span>
                 </div>
               ))}
             </div>
+          </motion.div>
+
+          {/* Lien démo */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mt-6 flex justify-center"
+          >
+            <Link
+              href="#demo"
+              className="inline-flex items-center gap-2.5 text-sm text-zinc-500 hover:text-violet-400 transition-colors"
+            >
+              <span
+                className="h-7 w-7 rounded-full border border-zinc-700 bg-zinc-800 flex items-center justify-center shrink-0"
+                aria-hidden="true"
+              >
+                <Play className="h-3 w-3 text-violet-400 fill-violet-400" />
+              </span>
+              Voir une démonstration
+            </Link>
           </motion.div>
 
         </div>

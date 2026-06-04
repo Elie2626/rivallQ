@@ -23,16 +23,16 @@ const steps = [
   {
     number: '03',
     icon: Wand2,
-    title: 'Site amélioré',
-    description: 'RivallQ applique les recommandations sur votre site existant — vos pages et images sont conservées.',
+    title: 'Devis sur mesure',
+    description: 'Obtenez un devis personnalisé en temps réel. Choisissez votre type de site, vos options et votre délai.',
     color: 'from-indigo-600 to-violet-600',
     glow: 'shadow-indigo-500/20',
   },
   {
     number: '04',
     icon: Rocket,
-    title: 'Déployez en 1 clic',
-    description: 'Exportez en ZIP ou publiez directement sur WordPress. Résultats immédiats.',
+    title: 'Votre site livré',
+    description: 'Nous créons votre site et vous le livrons en 24h à 3 semaines selon la formule choisie.',
     color: 'from-emerald-600 to-teal-600',
     glow: 'shadow-emerald-500/20',
   },
@@ -59,7 +59,7 @@ export function HowItWorks() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-zinc-100 mb-4"
           >
-            De l&apos;URL au site optimisé
+            Nouveau site ou refonte — on s&apos;occupe de tout
             <br />
             <span className="text-zinc-500">en 4 étapes</span>
           </motion.h2>

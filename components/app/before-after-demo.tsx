@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeftRight, Monitor, Smartphone, ExternalLink, Globe, ChevronRight } from 'lucide-react'
 
@@ -14,8 +14,8 @@ const SHARED_CSS = `
     --bg:#08090c;--bg2:#0d0f14;--card:#111318;--card2:#161922;
     --border:rgba(255,255,255,.07);--txt:#dde1ea;--muted:#5a6070;--muted2:#8892a4;
   }
-  html{scroll-behavior:smooth}
-  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.6;overflow-x:hidden}
+  html{scroll-behavior:smooth;height:100%}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.6;overflow-x:hidden;min-height:100%;display:flex;flex-direction:column}
   a{color:inherit;text-decoration:none}svg{display:block;flex-shrink:0}
   .topbar{background:linear-gradient(90deg,#1d3a6b,#1e3a8a,#1d3a6b);padding:9px 20px;text-align:center;font-size:12px;font-weight:600;color:#93c5fd;letter-spacing:.2px;display:flex;align-items:center;justify-content:center;gap:8px}
   .topbar-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;flex-shrink:0;box-shadow:0 0 6px #4ade80;animation:blink 2s infinite}
@@ -62,7 +62,14 @@ const SHARED_CSS = `
   }
 `
 
+// Le header utilise postMessage pour notifier le parent React de changer de page
+// __ACTIVE__ est remplacé par la page active pour highlighting
 const SHARED_HEADER = `
+  <script>
+    function nav(page) {
+      window.parent.postMessage({rivallqNav: page}, '*');
+    }
+  <\/script>
   <div class="topbar"><span class="topbar-dot"></span>Disponible maintenant — Intervention garantie en 2h sur Paris &amp; Île-de-France</div>
   <header class="hdr">
     <div class="hdr-in">
@@ -71,13 +78,13 @@ const SHARED_HEADER = `
         RénovElec<span style="color:var(--blue)">Paris</span>
       </div>
       <nav class="hdr-nav">
-        <a href="__HOME__">Accueil</a>
-        <a href="__SERVICES__">Services</a>
-        <a href="__TARIFS__">Tarifs</a>
-        <a href="__CONTACT__">Contact</a>
+        <a href="#" onclick="event.preventDefault();nav('home')" style="__ACTIVE_home__">Accueil</a>
+        <a href="#" onclick="event.preventDefault();nav('services')" style="__ACTIVE_services__">Services</a>
+        <a href="#" onclick="event.preventDefault();nav('services')" style="__ACTIVE_tarifs__">Tarifs</a>
+        <a href="#" onclick="event.preventDefault();nav('contact')" style="__ACTIVE_contact__">Contact</a>
       </nav>
       <div class="hdr-pill"><span class="hdr-pill-dot"></span>En ligne</div>
-      <a href="tel:0187654321" class="hdr-tel">
+      <a href="#" onclick="event.preventDefault();nav('contact')" class="hdr-tel">
         <svg viewBox="0 0 24 24" fill="white" width="12" height="12"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
         01 87 65 43 21
       </a>
@@ -100,13 +107,18 @@ const SHARED_FOOTER = `
   </footer>
 `
 
-function buildPage(navLinks: { home: string; services: string; tarifs: string; contact: string }, body: string): string {
+type AfterPage = 'home' | 'services' | 'contact'
+
+const ACTIVE_STYLE = 'color:#fff;font-weight:600'
+const INACTIVE_STYLE = ''
+
+function buildPage(activePage: AfterPage, body: string): string {
   const header = SHARED_HEADER
-    .replace('__HOME__', navLinks.home)
-    .replace('__SERVICES__', navLinks.services)
-    .replace('__TARIFS__', navLinks.tarifs)
-    .replace('__CONTACT__', navLinks.contact)
-  return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${SHARED_CSS}</style></head><body>${header}${body}${SHARED_FOOTER}</body></html>`
+    .replace('__ACTIVE_home__', activePage === 'home' ? ACTIVE_STYLE : INACTIVE_STYLE)
+    .replace('__ACTIVE_services__', activePage === 'services' ? ACTIVE_STYLE : INACTIVE_STYLE)
+    .replace('__ACTIVE_tarifs__', activePage === 'services' ? ACTIVE_STYLE : INACTIVE_STYLE)
+    .replace('__ACTIVE_contact__', activePage === 'contact' ? ACTIVE_STYLE : INACTIVE_STYLE)
+  return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${SHARED_CSS}</style></head><body>${header}<div style="flex:1">${body}</div>${SHARED_FOOTER}</body></html>`
 }
 
 // ── Page Accueil ─────────────────────────────────────────────────
@@ -251,104 +263,170 @@ const CONTACT_BODY = `
   </div></section>
 `
 
-type AfterPage = 'home' | 'services' | 'contact'
-
 const AFTER_PAGES: Record<AfterPage, { label: string; url: string; html: string }> = {
   home: {
     label: 'Accueil',
     url: 'renovelec-paris.fr',
-    html: buildPage({ home: 'javascript:void(0)', services: 'javascript:void(0)', tarifs: 'javascript:void(0)', contact: 'javascript:void(0)' }, HOME_BODY),
+    html: buildPage('home', HOME_BODY),
   },
   services: {
     label: 'Services',
     url: 'renovelec-paris.fr/services',
-    html: buildPage({ home: 'javascript:void(0)', services: 'javascript:void(0)', tarifs: 'javascript:void(0)', contact: 'javascript:void(0)' }, SERVICES_BODY),
+    html: buildPage('services', SERVICES_BODY),
   },
   contact: {
     label: 'Contact',
     url: 'renovelec-paris.fr/contact',
-    html: buildPage({ home: 'javascript:void(0)', services: 'javascript:void(0)', tarifs: 'javascript:void(0)', contact: 'javascript:void(0)' }, CONTACT_BODY),
+    html: buildPage('contact', CONTACT_BODY),
   },
 }
 
-// ── Site AVANT (original mal optimisé) ───────────────────────────
-// On utilise srcDoc pour garantir l'affichage (les vrais sites bloquent les iframes)
+// ── Site AVANT — multi-pages (même mauvais style) ────────────────
 const BEFORE_SITE_URL = 'renovelec-paris.fr'
-const BEFORE_HTML = `<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Electricien Paris | Rénovation électrique</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #fff; color: #333; font-size: 12px; }
-    .header { background: #003366; color: white; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; }
-    .header h1 { font-size: 18px; }
-    .header p { font-size: 11px; color: #aac; }
-    .nav { background: #004080; display: flex; gap: 0; }
-    .nav a { color: white; text-decoration: none; padding: 8px 14px; font-size: 12px; display: block; border-right: 1px solid #005599; }
-    .nav a:hover { background: #005599; }
-    .hero { background: #f0f0f0; padding: 20px; border-bottom: 2px solid #ccc; }
-    .hero h2 { font-size: 16px; color: #003366; margin-bottom: 8px; }
-    .hero p { font-size: 12px; line-height: 1.5; color: #555; }
-    .content { padding: 20px; }
-    .services { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
-    .service-box { border: 1px solid #ccc; padding: 10px; width: 100px; text-align: center; font-size: 11px; background: #fafafa; }
-    .contact-section { background: #f9f9f9; border: 1px solid #ddd; padding: 15px; margin-top: 20px; }
-    .contact-btn { background: #003366; color: white; padding: 8px 16px; border: none; font-size: 12px; cursor: pointer; margin-top: 10px; }
-    .footer { background: #222; color: #888; padding: 10px 20px; font-size: 10px; margin-top: 20px; }
-    table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
-    td, th { border: 1px solid #ddd; padding: 6px; text-align: left; }
-    th { background: #eee; }
-    .missing-meta { background: #fff3cd; border: 1px solid #ffc107; padding: 3px 8px; font-size: 10px; display: inline-block; margin-bottom: 8px; color: #856404; }
-  </style>
-</head>
-<body>
+
+const BEFORE_CSS = `
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { height: 100%; }
+  body { font-family: Arial, sans-serif; background: #fff; color: #333; font-size: 12px; display: flex; flex-direction: column; height: 100%; }
+  .header { background: #003366; color: white; padding: 10px 20px; flex-shrink:0; }
+  .header h1 { font-size: 18px; }
+  .header p { font-size: 11px; color: #aac; margin-top:2px; }
+  .nav { background: #004080; display: flex; gap: 0; flex-shrink:0; }
+  .nav a { color: white; text-decoration: none; padding: 8px 14px; font-size: 12px; display: block; border-right: 1px solid #005599; cursor:pointer; }
+  .nav a:hover, .nav a.active { background: #005599; }
+  .main { flex: 1; display: flex; flex-direction: column; }
+  .hero { background: #f0f0f0; padding: 20px; border-bottom: 2px solid #ccc; flex-shrink:0; }
+  .hero h2 { font-size: 16px; color: #003366; margin-bottom: 8px; }
+  .hero p { font-size: 12px; line-height: 1.5; color: #555; }
+  .content { padding: 20px; flex: 1; }
+  .section-title { font-size: 14px; color: #003366; margin-bottom: 10px; }
+  .services { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
+  .service-box { border: 1px solid #ccc; padding: 10px; width: 110px; text-align: center; font-size: 11px; background: #fafafa; }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+  td, th { border: 1px solid #ddd; padding: 6px; text-align: left; }
+  th { background: #eee; }
+  .contact-section { background: #f9f9f9; border: 1px solid #ddd; padding: 15px; margin-top: 20px; }
+  .contact-btn { background: #003366; color: white; padding: 8px 16px; border: none; font-size: 12px; cursor: pointer; margin-top: 10px; }
+  input, textarea, select { border: 1px solid #ccc; padding: 5px 8px; font-size: 11px; width: 100%; margin-top: 6px; font-family: Arial, sans-serif; }
+  .footer { background: #222; color: #888; padding: 10px 20px; font-size: 10px; flex-shrink:0; }
+`
+
+const BEFORE_SHARED_HEADER = (active: string) => `
+  <script>
+    function bnav(page) { window.parent.postMessage({rivallqBeforeNav: page}, '*'); }
+  <\/script>
   <div class="header">
-    <div>
-      <h1>Electricien Paris</h1>
-      <p>Rénovation électrique - Paris et Île-de-France</p>
-    </div>
+    <h1>Electricien Paris</h1>
+    <p>Rénovation électrique - Paris et Île-de-France</p>
   </div>
   <div class="nav">
-    <a href="#">Accueil</a>
-    <a href="#">Services</a>
-    <a href="#">Tarifs</a>
-    <a href="#">Contact</a>
+    <a onclick="bnav('home')" class="${active === 'home' ? 'active' : ''}">Accueil</a>
+    <a onclick="bnav('services')" class="${active === 'services' ? 'active' : ''}">Services</a>
+    <a onclick="bnav('tarifs')" class="${active === 'tarifs' ? 'active' : ''}">Tarifs</a>
+    <a onclick="bnav('contact')" class="${active === 'contact' ? 'active' : ''}">Contact</a>
   </div>
-  <div class="hero">
-    <h2>Bienvenue sur notre site</h2>
-    <p>Nous sommes une entreprise d'électricité basée à Paris. Nous faisons des travaux électriques de toutes sortes. N'hésitez pas à nous contacter pour un devis.</p>
-    <p style="font-size:11px;margin-top:8px;color:#888">Nos services incluent l'installation, la rénovation et le dépannage électrique.</p>
-  </div>
-  <div class="content">
-    <h3 style="font-size:14px; color:#003366; margin-bottom:10px;">Nos services</h3>
-    <div class="services">
-      <div class="service-box">Installation</div>
-      <div class="service-box">Rénovation</div>
-      <div class="service-box">Dépannage</div>
-      <div class="service-box">Éclairage</div>
-    </div>
-    <p style="font-size:11px; color:#555; line-height:1.6; margin-top:10px">Nous intervenons pour tous vos travaux électriques. Notre équipe est disponible pour répondre à vos besoins. Nous travaillons dans le respect des normes en vigueur.</p>
-    <h3 style="font-size:13px; color:#003366; margin:15px 0 8px;">Nos tarifs</h3>
-    <table>
-      <tr><th>Prestation</th><th>Prix</th></tr>
-      <tr><td>Déplacement</td><td>Sur devis</td></tr>
-      <tr><td>Installation prise</td><td>Sur devis</td></tr>
-      <tr><td>Tableau électrique</td><td>Sur devis</td></tr>
-    </table>
-    <div class="contact-section">
-      <h3 style="font-size:13px; color:#003366; margin-bottom:8px;">Contactez-nous</h3>
-      <p style="font-size:11px;">Pour toute demande, remplissez le formulaire ci-dessous ou appelez-nous.</p>
-      <p style="font-size:11px; margin-top:6px; color:#888;">Tél : disponible sur demande</p>
-      <button class="contact-btn">Contactez-nous</button>
-    </div>
-  </div>
-  <div class="footer">
-    <p>© 2024 Electricien Paris — Tous droits réservés — Mentions légales</p>
-  </div>
-</body>
-</html>`
+`
+
+const BEFORE_FOOTER = `
+  <div class="footer"><p>© 2024 Electricien Paris — Tous droits réservés — Mentions légales</p></div>
+`
+
+function buildBeforePage(active: string, body: string) {
+  return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><style>${BEFORE_CSS}</style></head><body>${BEFORE_SHARED_HEADER(active)}<div class="main">${body}</div>${BEFORE_FOOTER}</body></html>`
+}
+
+type BeforePage = 'home' | 'services' | 'tarifs' | 'contact'
+
+const BEFORE_PAGES: Record<BeforePage, { label: string; url: string; html: string }> = {
+  home: {
+    label: 'Accueil', url: 'renovelec-paris.fr',
+    html: buildBeforePage('home', `
+      <div class="hero">
+        <h2>Bienvenue sur notre site</h2>
+        <p>Nous sommes une entreprise d'électricité basée à Paris. Nous faisons des travaux électriques de toutes sortes. N'hésitez pas à nous contacter pour un devis.</p>
+        <p style="font-size:11px;margin-top:8px;color:#888">Nos services incluent l'installation, la rénovation et le dépannage électrique.</p>
+      </div>
+      <div class="content">
+        <h3 class="section-title">Nos services</h3>
+        <div class="services">
+          <div class="service-box">Installation</div>
+          <div class="service-box">Rénovation</div>
+          <div class="service-box">Dépannage</div>
+          <div class="service-box">Éclairage</div>
+        </div>
+        <p style="font-size:11px;color:#555;line-height:1.6;margin-top:10px">Nous intervenons pour tous vos travaux électriques. Notre équipe est disponible pour répondre à vos besoins.</p>
+      </div>
+    `),
+  },
+  services: {
+    label: 'Services', url: 'renovelec-paris.fr/services',
+    html: buildBeforePage('services', `
+      <div class="hero">
+        <h2>Nos services</h2>
+        <p>Découvrez nos différentes prestations électriques.</p>
+      </div>
+      <div class="content">
+        <h3 class="section-title">Ce que nous faisons</h3>
+        <div class="services">
+          <div class="service-box">Installation électrique</div>
+          <div class="service-box">Dépannage urgent</div>
+          <div class="service-box">Tableau électrique</div>
+          <div class="service-box">Mise aux normes</div>
+          <div class="service-box">VMC</div>
+          <div class="service-box">Éclairage LED</div>
+        </div>
+        <p style="font-size:11px;color:#555;line-height:1.6;margin-top:14px">Pour plus d'informations sur nos services, contactez-nous par téléphone ou par email. Nous vous répondrons dans les meilleurs délais.</p>
+        <p style="font-size:11px;color:#888;margin-top:8px">Nous intervenons sur Paris et toute l'Île-de-France.</p>
+      </div>
+    `),
+  },
+  tarifs: {
+    label: 'Tarifs', url: 'renovelec-paris.fr/tarifs',
+    html: buildBeforePage('tarifs', `
+      <div class="hero">
+        <h2>Nos tarifs</h2>
+        <p>Grille tarifaire indicative. Contactez-nous pour un devis précis.</p>
+      </div>
+      <div class="content">
+        <h3 class="section-title">Grille de prix</h3>
+        <table>
+          <tr><th>Prestation</th><th>Prix indicatif</th></tr>
+          <tr><td>Déplacement</td><td>Sur devis</td></tr>
+          <tr><td>Installation prise</td><td>Sur devis</td></tr>
+          <tr><td>Tableau électrique</td><td>Sur devis</td></tr>
+          <tr><td>Dépannage urgent</td><td>Sur devis</td></tr>
+          <tr><td>Mise aux normes</td><td>Sur devis</td></tr>
+          <tr><td>VMC</td><td>Sur devis</td></tr>
+        </table>
+        <p style="font-size:10px;color:#888;margin-top:12px">* Les prix sont donnés à titre indicatif et peuvent varier selon la complexité des travaux. Devis gratuit sur demande.</p>
+      </div>
+    `),
+  },
+  contact: {
+    label: 'Contact', url: 'renovelec-paris.fr/contact',
+    html: buildBeforePage('contact', `
+      <div class="hero">
+        <h2>Contactez-nous</h2>
+        <p>Pour toute demande de devis ou d'intervention, utilisez le formulaire ci-dessous.</p>
+      </div>
+      <div class="content">
+        <div class="contact-section">
+          <h3 style="font-size:13px;color:#003366;margin-bottom:8px;">Formulaire de contact</h3>
+          <label style="font-size:11px">Nom :</label>
+          <input type="text" placeholder="Votre nom" />
+          <label style="font-size:11px;margin-top:8px;display:block">Email :</label>
+          <input type="email" placeholder="votre@email.com" />
+          <label style="font-size:11px;margin-top:8px;display:block">Message :</label>
+          <textarea rows="4" placeholder="Décrivez vos travaux..."></textarea>
+          <button class="contact-btn">Envoyer</button>
+        </div>
+        <p style="font-size:11px;color:#555;margin-top:14px">Téléphone : disponible sur demande</p>
+        <p style="font-size:11px;color:#555;margin-top:4px">Email : contact@electricien-paris.fr</p>
+        <p style="font-size:11px;color:#888;margin-top:4px">Nous vous répondrons sous 48h.</p>
+      </div>
+    `),
+  },
+}
 
 type Device = 'desktop' | 'mobile'
 type View = 'before' | 'after' | 'split'
@@ -357,15 +435,68 @@ export function BeforeAfterDemo() {
   const [view, setView] = useState<View>('split')
   const [device, setDevice] = useState<Device>('desktop')
   const [afterPage, setAfterPage] = useState<AfterPage>('home')
+  const [beforePage, setBeforePage] = useState<BeforePage>('home')
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
 
-  const isSplit = view === 'split'
+  useEffect(() => {
+    const check = () => setIsSmallScreen(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  // Listen for postMessage from both iframes
+  useEffect(() => {
+    const handler = (e: MessageEvent) => {
+      const after = e.data?.rivallqNav
+      if (after === 'home' || after === 'services' || after === 'contact') {
+        setAfterPage(after as AfterPage)
+      }
+      const before = e.data?.rivallqBeforeNav
+      if (before === 'home' || before === 'services' || before === 'tarifs' || before === 'contact') {
+        setBeforePage(before as BeforePage)
+      }
+    }
+    window.addEventListener('message', handler)
+    return () => window.removeEventListener('message', handler)
+  }, [])
+
+  // On small screens split doesn't work — fall back to 'after'
+  const effectiveView: View = isSmallScreen && view === 'split' ? 'after' : view
+  const isSplit = effectiveView === 'split'
 
   return (
     <div className="space-y-4">
       {/* Toolbar */}
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <div className="flex items-center gap-1 p-1 rounded-xl bg-zinc-900 border border-zinc-800">
-          {(['split', 'before', 'after'] as View[]).map((v) => (
+
+        {/* Mobile: simple 2-tab toggle */}
+        <div className="flex md:hidden w-full">
+          <button
+            onClick={() => setView('before')}
+            className={`flex-1 py-2.5 text-sm font-semibold rounded-l-xl border transition-colors ${
+              effectiveView === 'before'
+                ? 'bg-red-500/20 border-red-500/40 text-red-300'
+                : 'bg-zinc-900 border-zinc-800 text-zinc-500'
+            }`}
+          >
+            ← Avant
+          </button>
+          <button
+            onClick={() => setView('after')}
+            className={`flex-1 py-2.5 text-sm font-semibold rounded-r-xl border-t border-b border-r transition-colors ${
+              effectiveView === 'after'
+                ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
+                : 'bg-zinc-900 border-zinc-800 text-zinc-500'
+            }`}
+          >
+            Après →
+          </button>
+        </div>
+
+        {/* Desktop: 3-tab toggle + device switcher */}
+        <div className="hidden md:flex items-center gap-1 p-1 rounded-xl bg-zinc-900 border border-zinc-800">
+          {(['before', 'split', 'after'] as View[]).map((v) => (
             <button
               key={v}
               onClick={() => setView(v)}
@@ -377,21 +508,41 @@ export function BeforeAfterDemo() {
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-1 p-1 rounded-xl bg-zinc-900 border border-zinc-800">
+
+        <div className="hidden md:flex items-center gap-1 p-1 rounded-xl bg-zinc-900 border border-zinc-800">
           <button onClick={() => setDevice('desktop')} className={`p-2 rounded-lg transition-colors ${device === 'desktop' ? 'bg-zinc-700 text-zinc-100' : 'text-zinc-500 hover:text-zinc-300'}`}><Monitor className="h-3.5 w-3.5" /></button>
           <button onClick={() => setDevice('mobile')} className={`p-2 rounded-lg transition-colors ${device === 'mobile' ? 'bg-zinc-700 text-zinc-100' : 'text-zinc-500 hover:text-zinc-300'}`}><Smartphone className="h-3.5 w-3.5" /></button>
         </div>
       </div>
 
-      {/* Page tabs for "après" (visible in split + after view) */}
-      {(view === 'after' || view === 'split') && (
-        <div className={`flex items-center gap-1.5 ${view === 'split' ? 'justify-end' : 'justify-center'}`}>
-          <span className="text-xs text-zinc-600 mr-1">Pages :</span>
+      {/* Page tabs — Avant + Après in split, or the active one solo */}
+      {(effectiveView === 'before' || effectiveView === 'split') && (
+        <div className={`flex items-center gap-1.5 flex-wrap ${effectiveView === 'split' ? 'justify-start' : 'justify-center'}`}>
+          <span className="text-xs text-zinc-600 mr-1">Avant :</span>
+          {(Object.keys(BEFORE_PAGES) as BeforePage[]).map((page) => (
+            <button
+              key={page}
+              onClick={() => setBeforePage(page)}
+              className={`flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-medium transition-all border ${
+                beforePage === page
+                  ? 'bg-red-500/20 border-red-500/40 text-red-300'
+                  : 'bg-zinc-900 border-zinc-800 text-zinc-500 hover:text-zinc-300 hover:border-zinc-700'
+              }`}
+            >
+              {beforePage === page && <ChevronRight className="h-3 w-3" />}
+              {BEFORE_PAGES[page].label}
+            </button>
+          ))}
+        </div>
+      )}
+      {(effectiveView === 'after' || effectiveView === 'split') && (
+        <div className={`flex items-center gap-1.5 flex-wrap ${effectiveView === 'split' ? 'justify-end' : 'justify-center'}`}>
+          <span className="text-xs text-zinc-600 mr-1">Après :</span>
           {(Object.keys(AFTER_PAGES) as AfterPage[]).map((page) => (
             <button
               key={page}
               onClick={() => setAfterPage(page)}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-medium transition-all border ${
+              className={`flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-medium transition-all border ${
                 afterPage === page
                   ? 'bg-violet-600/20 border-violet-500/40 text-violet-300'
                   : 'bg-zinc-900 border-zinc-800 text-zinc-500 hover:text-zinc-300 hover:border-zinc-700'
@@ -406,16 +557,21 @@ export function BeforeAfterDemo() {
 
       <AnimatePresence mode="wait">
         {isSplit ? (
-          <motion.div key="split" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="grid grid-cols-2 gap-4">
+          <motion.div key="split" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="grid grid-cols-2 gap-3 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 p-3"
+          >
+            {/* Labels flottants */}
             <SiteFrame
-              label="Avant"
+              key={`avant-split-${beforePage}`}
+              label={`Avant — ${BEFORE_PAGES[beforePage].label}`}
               badge="bg-red-500/20 text-red-400 border-red-500/30"
-              url={BEFORE_SITE_URL}
-              html={BEFORE_HTML}
+              url={BEFORE_PAGES[beforePage].url}
+              html={BEFORE_PAGES[beforePage].html}
               device={device}
               split
             />
             <SiteFrame
+              key={`apres-split-${afterPage}`}
               label={`Après — ${AFTER_PAGES[afterPage].label}`}
               badge="bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
               url={AFTER_PAGES[afterPage].url}
@@ -425,14 +581,14 @@ export function BeforeAfterDemo() {
               isAfter
             />
           </motion.div>
-        ) : view === 'before' ? (
-          <motion.div key="before" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        ) : effectiveView === 'before' ? (
+          <motion.div key={`before-${beforePage}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <SiteFrame
-              label="Avant"
+              label={`Avant — ${BEFORE_PAGES[beforePage].label}`}
               badge="bg-red-500/20 text-red-400 border-red-500/30"
-              url={BEFORE_SITE_URL}
-              html={BEFORE_HTML}
-              device={device}
+              url={BEFORE_PAGES[beforePage].url}
+              html={BEFORE_PAGES[beforePage].html}
+              device={isSmallScreen ? 'desktop' : device}
               split={false}
             />
           </motion.div>
@@ -443,7 +599,7 @@ export function BeforeAfterDemo() {
               badge="bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
               url={AFTER_PAGES[afterPage].url}
               html={AFTER_PAGES[afterPage].html}
-              device={device}
+              device={isSmallScreen ? 'desktop' : device}
               split={false}
               isAfter
             />
@@ -454,7 +610,7 @@ export function BeforeAfterDemo() {
   )
 }
 
-function SiteFrame({
+const SiteFrame = memo(function SiteFrame({
   label, badge, url, html, device, split, isAfter = false,
 }: {
   label: string
@@ -467,8 +623,8 @@ function SiteFrame({
 }) {
   const isMobile = device === 'mobile'
   const MOBILE_W = 375
-  const DESK_SCALE = 0.667
-  const frameH = isMobile ? 580 : split ? 520 : 640
+  const DESK_SCALE = 0.65
+  const frameH = isMobile ? 560 : split ? 560 : 680
 
   return (
     <div className="rounded-2xl border border-zinc-800 overflow-hidden bg-zinc-900 flex flex-col">
@@ -524,4 +680,4 @@ function SiteFrame({
       )}
     </div>
   )
-}
+})

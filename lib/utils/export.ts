@@ -63,6 +63,6 @@ HOW TO DEPLOY:
 2. Or use a static host: Netlify, Vercel, GitHub Pages
 3. For WordPress: Use the RivallQ dashboard to install automatically
 
-Need help? Contact support@rivallq.io
+Need help? Contact elieamar2007@gmail.com
 `
 }

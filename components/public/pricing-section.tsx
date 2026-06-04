@@ -2,85 +2,92 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Check, Zap } from 'lucide-react'
+import { Check, Zap, Globe, Cpu, Sparkles, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const plans = [
   {
     id: 'audit',
-    name: 'Audit',
+    icon: Zap,
+    iconColor: 'text-zinc-400',
+    name: 'Audit SEO',
     price: '9,99€',
     period: 'paiement unique',
-    description: 'Pour découvrir les problèmes de votre site.',
+    description: 'Analysez votre site et découvrez ce qui freine vos clients.',
     features: [
-      'Score SEO (0-100)',
-      'Score UX & conversion',
-      'Top 10 problèmes détectés',
+      'Score SEO / UX / Conversion',
+      'Top problèmes détectés',
       'Analyse des mots-clés',
-      'Rapport détaillé',
-      'Teaser du site régénéré',
+      'Rapport complet par IA',
+      'Bouton "Demander un devis"',
     ],
-    cta: 'Commencer l\'audit',
+    cta: 'Lancer mon audit',
     href: '/register',
     highlighted: false,
     badge: null,
   },
   {
-    id: 'rebuild',
-    name: 'Site optimisé',
-    price: '79€',
+    id: 'simple',
+    icon: Globe,
+    iconColor: 'text-blue-400',
+    name: 'Site Vitrine Simple',
+    price: '500€',
     period: 'paiement unique',
-    description: 'L\'IA applique les recommandations de l\'audit sur votre site existant — vos pages et photos restent intactes.',
+    description: 'Un site professionnel pour présenter votre activité.',
     features: [
-      'Tout de l\'audit inclus',
-      'Recommandations SEO/UX appliquées',
-      'Images et pages existantes conservées',
-      'Meta tags, titres et CTAs optimisés',
-      'SEO on-page optimisé',
-      'Export ZIP prêt à déployer',
+      '1 à 5 pages',
+      'Design professionnel',
+      'Mobile responsive',
+      'Formulaire de contact',
+      'SEO de base',
+      'Livré en 24h à 1 semaine',
     ],
-    cta: 'Obtenir mon site optimisé',
-    href: '/register',
+    cta: 'Demander un devis',
+    href: '/devis',
+    highlighted: false,
+    badge: null,
+  },
+  {
+    id: 'complet',
+    icon: Cpu,
+    iconColor: 'text-violet-400',
+    name: 'Site Vitrine Complet',
+    price: '1 000€',
+    period: 'paiement unique',
+    description: 'Avec chatbot IA intégré pour capter et convertir vos visiteurs.',
+    features: [
+      "Jusqu'à 10 pages",
+      'Chatbot IA intégré',
+      'Blog / actualités',
+      'SEO avancé + Analytics',
+      'Formulaires avancés',
+      'Livré en 1 à 2 semaines',
+    ],
+    cta: 'Demander un devis',
+    href: '/devis',
     highlighted: true,
     badge: 'Le plus populaire',
   },
   {
-    id: 'installation',
-    name: 'Done For You',
-    price: '299€',
+    id: 'premium',
+    icon: Sparkles,
+    iconColor: 'text-amber-400',
+    name: 'Site Premium 3D',
+    price: '1 500€',
     period: 'paiement unique',
-    description: 'On installe tout sur votre WordPress. Vous ne faites rien.',
+    description: 'Design 3D, animations avancées et chatbot IA.',
     features: [
-      'Tout du plan Site optimisé',
-      'Publication sur WordPress',
-      'Configuration SEO technique',
-      'Redirection URLs',
-      'Test & validation qualité',
-      'Support prioritaire 7j',
+      'Pages illimitées',
+      'Design 3D sur mesure',
+      'Animations avancées',
+      'Chatbot IA premium',
+      'Dashboard admin',
+      'Livré en 2 à 3 semaines',
     ],
-    cta: 'Déléguer l\'installation',
-    href: '/register',
+    cta: 'Demander un devis',
+    href: '/devis',
     highlighted: false,
     badge: null,
-  },
-  {
-    id: 'subscription',
-    name: 'Pro mensuel',
-    price: '29€',
-    period: '/mois',
-    description: 'Suivez et améliorez votre SEO en continu.',
-    features: [
-      '1 audit complet / mois',
-      'Suivi de position des mots-clés',
-      'Alertes de régression SEO',
-      'Nouvelles optimisations IA',
-      'Rapport mensuel PDF',
-      'Support email prioritaire',
-    ],
-    cta: 'Démarrer l\'abonnement',
-    href: '/register',
-    highlighted: false,
-    badge: 'Économisez 60%',
   },
 ]
 
@@ -114,13 +121,13 @@ export function PricingSection() {
             transition={{ delay: 0.1 }}
             className="text-zinc-400 max-w-xl mx-auto"
           >
-            Commencez par un audit à 9,99€. Débloquez la suite seulement si vous êtes satisfait.
+            Commencez par un audit à 9,99€. Créez votre site à partir de 500€.
           </motion.p>
         </div>
 
         {/* Plans */}
         <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
-          {plans.map(({ id, name, price, period, description, features, cta, href, highlighted, badge }, i) => (
+          {plans.map(({ id, icon: Icon, iconColor, name, price, period, description, features, cta, href, highlighted, badge }, i) => (
             <motion.div
               key={id}
               initial={{ opacity: 0, y: 24 }}
@@ -138,14 +145,15 @@ export function PricingSection() {
                   {badge}
                 </span>
               )}
-
               {highlighted && (
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-violet-600/5 to-transparent pointer-events-none" aria-hidden="true" />
               )}
 
               <div className="mb-5">
-                <div className="flex items-center gap-2 mb-1">
-                  {highlighted && <Zap className="h-4 w-4 text-violet-400" aria-hidden="true" />}
+                <div className="flex items-center gap-2 mb-3">
+                  <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${highlighted ? 'bg-violet-600/20' : 'bg-zinc-800'}`}>
+                    <Icon className={`h-4 w-4 ${iconColor}`} aria-hidden="true" />
+                  </div>
                   <h3 className="text-sm font-semibold text-zinc-300">{name}</h3>
                 </div>
                 <div className="flex items-end gap-1 mb-2">
@@ -178,15 +186,41 @@ export function PricingSection() {
           ))}
         </div>
 
+        {/* Maintenance add-on */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-6 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-5 flex flex-col sm:flex-row items-center gap-4"
+        >
+          <div className="h-10 w-10 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center shrink-0">
+            <Wrench className="h-5 w-5 text-emerald-400" aria-hidden="true" />
+          </div>
+          <div className="flex-1 text-center sm:text-left">
+            <p className="font-semibold text-zinc-200 text-sm">
+              Maintenance mensuelle — <span className="text-emerald-400">50€/mois</span>
+            </p>
+            <p className="text-xs text-zinc-500 mt-0.5">
+              Mises à jour, sauvegardes automatiques, sécurité, support technique prioritaire. Disponible en complément de tout projet.
+            </p>
+          </div>
+          <Button variant="outline" size="sm" className="shrink-0 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10" asChild>
+            <Link href="/devis">Ajouter au devis</Link>
+          </Button>
+        </motion.div>
+
         {/* Bottom note */}
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center text-xs text-violet-400 font-medium mt-10"
+          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-center"
         >
-          Paiement sécurisé via Stripe · Remboursement sous 7 jours si insatisfait · TVA applicable selon votre pays
-        </motion.p>
+          <p className="text-xs text-zinc-500">
+            Audit sécurisé via Stripe · Remboursement sous 7 jours si insatisfait · Devis gratuit et sans engagement
+          </p>
+        </motion.div>
       </div>
     </section>
   )
