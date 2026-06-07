@@ -57,7 +57,7 @@ export function DemoSection() {
           </div>
 
           <video
-            src="/demo.mp4"
+            src="/demo-v2.mp4"
             autoPlay
             muted
             loop

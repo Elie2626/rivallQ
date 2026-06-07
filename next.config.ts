@@ -39,7 +39,7 @@ const nextConfig: NextConfig = {
       },
       // Vidéo demo — cache 7 jours
       {
-        source: '/demo.mp4',
+        source: '/demo-v2.mp4',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=86400' }],
       },
       // Favicon & icons
