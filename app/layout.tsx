@@ -23,14 +23,14 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: 'RivallQ — Audit SEO Gratuit & Création Site Web Professionnel',
+    default: 'RivallQ — Audit SEO & Création Site Web Professionnel',
     template: '%s | RivallQ',
   },
   description:
-    "Audit SEO gratuit en ligne — analysez le référencement de votre site en 5 minutes. Score SEO, UX & conversion. Création site internet professionnel dès 500€. Devis gratuit, livraison rapide.",
+    "Audit SEO en ligne — analysez le référencement de votre site en 5 minutes. Score SEO, UX & conversion. Création site internet professionnel dès 500€. Devis gratuit, livraison rapide.",
   keywords: [
     // Audit SEO — principaux
-    'audit SEO gratuit',
+    'audit SEO',
     'audit SEO en ligne',
     'analyse SEO site web',
     'diagnostic SEO',
@@ -113,14 +113,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://identitytoolkit.googleapis.com" />
       </head>
       <body className="min-h-full bg-zinc-950 text-zinc-200 antialiased font-sans selection:bg-violet-600/20 selection:text-violet-700">
-        {/* Skip to main content */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[100] bg-violet-600 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-md"
-        >
-          Passer au contenu principal
-        </a>
-
         <OrganizationSchema />
         <WebSiteSchema />
         <SessionRefresher />

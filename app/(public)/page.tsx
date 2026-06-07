@@ -15,21 +15,21 @@ const CtaBanner        = dynamic(() => import('@/components/public/cta-banner').
 const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 
 export const metadata: Metadata = {
-  title: 'RivallQ — Audit SEO Gratuit en Ligne & Création Site Web | Dès 9,99€',
+  title: 'RivallQ — Audit SEO en Ligne & Création Site Web | Dès 9,99€',
   description:
-    "Audit SEO gratuit en ligne : analysez le référencement de votre site en 5 minutes. Diagnostic SEO complet, score UX & conversion. Création site vitrine professionnel dès 500€. Améliorez votre visibilité Google.",
+    "Audit SEO en ligne : analysez le référencement de votre site en 5 minutes. Diagnostic SEO complet, score UX & conversion. Création site vitrine professionnel dès 500€. Améliorez votre visibilité Google.",
   alternates: {
     canonical: BASE,
   },
   openGraph: {
-    title: 'RivallQ — Audit SEO Gratuit & Création Site Web Professionnel',
+    title: 'RivallQ — Audit SEO & Création Site Web Professionnel',
     description:
       "Analysez le SEO de votre site en 5 minutes. Obtenez plus de clients sur Google. Création site internet dès 500€, devis gratuit en temps réel.",
     url: BASE,
     type: 'website',
   },
   twitter: {
-    title: 'RivallQ — Audit SEO Gratuit & Création Site Web',
+    title: 'RivallQ — Audit SEO & Création Site Web',
     description: "Diagnostic SEO en 5 min + création site internet professionnel dès 500€. Devis gratuit.",
   },
 }

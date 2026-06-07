@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
 
+  // Tree-shaking heavy packages
+  experimental: {
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
+  },
+
   // Images
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -31,6 +36,11 @@ const nextConfig: NextConfig = {
       {
         source: '/_next/static/(.*)',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      // Vidéo demo — cache 7 jours
+      {
+        source: '/demo.mp4',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=86400' }],
       },
       // Favicon & icons
       {

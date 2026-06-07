@@ -134,7 +134,7 @@ export function HeroSection() {
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-xs font-medium text-violet-400 mb-8">
               <span className="animate-pulse h-1.5 w-1.5 rounded-full bg-violet-400" aria-hidden="true" />
-              Audit SEO gratuit · Création site web dès 500€
+              Audit SEO · Création site web dès 500€
             </span>
           </motion.div>
 
