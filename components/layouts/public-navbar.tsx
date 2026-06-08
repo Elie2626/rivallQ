@@ -8,6 +8,7 @@ import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils/cn'
 import { LogoSphere } from '@/components/ui/logo-sphere'
+import { PromoBanner } from '@/components/public/promo-banner'
 
 const navLinks = [
   { href: '/features', label: 'Fonctionnalités' },
@@ -42,6 +43,7 @@ export function PublicNavbar() {
           : 'bg-transparent'
       )}
     >
+      <PromoBanner />
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 h-16"
         aria-label="Navigation principale"

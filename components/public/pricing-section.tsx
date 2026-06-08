@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Check, Zap, Globe, Cpu, Sparkles, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useIsPromoActive } from '@/components/public/promo-banner'
 
 const plans = [
   {
@@ -12,6 +13,7 @@ const plans = [
     iconColor: 'text-zinc-400',
     name: 'Audit SEO',
     price: '9,99€',
+    promoPrice: '4,99€',
     period: 'paiement unique',
     description: 'Analysez votre site et découvrez ce qui freine vos clients.',
     features: [
@@ -32,6 +34,7 @@ const plans = [
     iconColor: 'text-blue-400',
     name: 'Site Vitrine Simple',
     price: '500€',
+    promoPrice: '250€',
     period: 'paiement unique',
     description: 'Un site professionnel pour présenter votre activité.',
     features: [
@@ -53,6 +56,7 @@ const plans = [
     iconColor: 'text-violet-400',
     name: 'Site Vitrine Complet',
     price: '1 000€',
+    promoPrice: '500€',
     period: 'paiement unique',
     description: 'Avec chatbot IA intégré pour capter et convertir vos visiteurs.',
     features: [
@@ -74,6 +78,7 @@ const plans = [
     iconColor: 'text-amber-400',
     name: 'Site Premium 3D',
     price: '1 500€',
+    promoPrice: '750€',
     period: 'paiement unique',
     description: 'Design 3D, animations avancées et chatbot IA.',
     features: [
@@ -92,6 +97,8 @@ const plans = [
 ]
 
 export function PricingSection() {
+  const isPromo = useIsPromoActive()
+
   return (
     <section id="pricing" className="py-20 lg:py-28 border-t border-zinc-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -127,7 +134,7 @@ export function PricingSection() {
 
         {/* Plans */}
         <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
-          {plans.map(({ id, icon: Icon, iconColor, name, price, period, description, features, cta, href, highlighted, badge }, i) => (
+          {plans.map(({ id, icon: Icon, iconColor, name, price, promoPrice, period, description, features, cta, href, highlighted, badge }, i) => (
             <motion.div
               key={id}
               initial={{ opacity: 0, y: 24 }}
@@ -140,8 +147,19 @@ export function PricingSection() {
                   : 'border-zinc-800 bg-zinc-900/40'
               }`}
             >
-              {badge && (
+              {/* Badge promo -50% */}
+              {isPromo && (
+                <span className="absolute -top-3 right-4 whitespace-nowrap rounded-full bg-gradient-to-r from-orange-500 to-red-600 px-3 py-1 text-[11px] font-bold text-white shadow-lg">
+                  -50%
+                </span>
+              )}
+              {badge && !isPromo && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 px-3 py-1 text-[11px] font-semibold text-white shadow-lg">
+                  {badge}
+                </span>
+              )}
+              {badge && isPromo && (
+                <span className="absolute -top-3 left-4 whitespace-nowrap rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 px-3 py-1 text-[11px] font-semibold text-white shadow-lg">
                   {badge}
                 </span>
               )}
@@ -156,8 +174,15 @@ export function PricingSection() {
                   </div>
                   <h3 className="text-sm font-semibold text-zinc-300">{name}</h3>
                 </div>
-                <div className="flex items-end gap-1 mb-2">
-                  <span className="text-3xl font-bold text-zinc-100">{price}</span>
+                <div className="flex items-end gap-2 mb-2">
+                  {isPromo ? (
+                    <>
+                      <span className="text-3xl font-bold text-zinc-100">{promoPrice}</span>
+                      <span className="text-base font-medium text-zinc-600 line-through mb-0.5">{price}</span>
+                    </>
+                  ) : (
+                    <span className="text-3xl font-bold text-zinc-100">{price}</span>
+                  )}
                   <span className="text-sm text-zinc-500 mb-1">{period}</span>
                 </div>
                 <p className="text-xs text-zinc-500 leading-relaxed">{description}</p>
@@ -199,7 +224,15 @@ export function PricingSection() {
           </div>
           <div className="flex-1 text-center sm:text-left">
             <p className="font-semibold text-zinc-200 text-sm">
-              Maintenance mensuelle — <span className="text-emerald-400">50€/mois</span>
+              Maintenance mensuelle —{' '}
+              {isPromo ? (
+                <>
+                  <span className="text-emerald-400">25€/mois</span>
+                  <span className="text-zinc-600 line-through text-xs ml-1.5">50€/mois</span>
+                </>
+              ) : (
+                <span className="text-emerald-400">50€/mois</span>
+              )}
             </p>
             <p className="text-xs text-zinc-500 mt-0.5">
               Mises à jour, sauvegardes automatiques, sécurité, support technique prioritaire. Disponible en complément de tout projet.
