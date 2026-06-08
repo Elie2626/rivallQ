@@ -1,5 +1,6 @@
-import { getStripeClient, STRIPE_PRICES } from './client'
+import { getStripeClient, STRIPE_PRICES, PLAN_AMOUNTS } from './client'
 import type { PlanTier } from '@/types'
+import { isPromoActive } from '@/lib/promo'
 
 interface CreateCheckoutParams {
   userId: string
@@ -35,16 +36,26 @@ export async function createCheckoutSession({
     customerId = customer.id
   }
 
+  // Si la promo est active et que c'est l'audit, on utilise price_data avec -50%
+  const promoOnAudit = isPromoActive() && plan === 'audit'
+  const lineItems = promoOnAudit
+    ? [
+        {
+          price_data: {
+            currency: 'eur',
+            product_data: { name: 'Audit SEO — Offre Flash -50%' },
+            unit_amount: Math.floor(PLAN_AMOUNTS.audit / 2), // 499 centimes = 4,99€
+          },
+          quantity: 1,
+        },
+      ]
+    : [{ price: STRIPE_PRICES[plan], quantity: 1 }]
+
   const session = await getStripeClient().checkout.sessions.create({
     customer: customerId,
     payment_method_types: ['card'],
     mode: isSubscription ? 'subscription' : 'payment',
-    line_items: [
-      {
-        price: STRIPE_PRICES[plan],
-        quantity: 1,
-      },
-    ],
+    line_items: lineItems,
     success_url: `${appUrl}${successPath}?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${appUrl}${cancelPath}`,
     metadata: {

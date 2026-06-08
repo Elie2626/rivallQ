@@ -4,20 +4,22 @@ import { useState, useEffect } from 'react'
 import { X, Zap } from 'lucide-react'
 import Link from 'next/link'
 
-// ── Date de fin de promo — 48h à partir du lancement (08 juin 2026 09:44 CEST) ──
-export const PROMO_END = new Date('2026-06-10T09:44:00+02:00')
+import { PROMO_END_MS } from '@/lib/promo'
+
+// ── Re-export pour compatibilité ─────────────────────────────────────────────
+export const PROMO_END = new Date(PROMO_END_MS)
 
 export function useIsPromoActive() {
   const [active, setActive] = useState(false)
   useEffect(() => {
-    setActive(Date.now() < PROMO_END.getTime())
+    setActive(Date.now() < PROMO_END_MS)
   }, [])
   return active
 }
 
 function useCountdown() {
   const getTimeLeft = () => {
-    const diff = PROMO_END.getTime() - Date.now()
+    const diff = PROMO_END_MS - Date.now()
     if (diff <= 0) return null
     return {
       hours:   Math.floor(diff / 3_600_000),

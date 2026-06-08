@@ -7,11 +7,12 @@ import {
   Globe, Cpu, Sparkles,
   ShoppingCart, Calendar, Users, Languages, Image, Database,
   Wrench, User, Phone, Mail, MessageSquare, Send,
-  CheckCircle2, BookOpen, LogIn, UserPlus,
+  CheckCircle2, BookOpen, LogIn, UserPlus, Zap,
 } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils/cn'
+import { isPromoActive } from '@/lib/promo'
 
 // ── Animated counter ──────────────────────────────────────────────────────────
 function useAnimatedNumber(target: number, duration = 500) {
@@ -143,8 +144,12 @@ export function DevisQuestionnaire() {
   const [form, setForm] = useState<FormState>(INITIAL)
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [promoActive, setPromoActive] = useState(false)
 
-  const price = calcPrice(form)
+  useEffect(() => { setPromoActive(isPromoActive()) }, [])
+
+  const basePrice = calcPrice(form)
+  const price = promoActive && basePrice > 0 ? Math.floor(basePrice / 2) : basePrice
   const animatedPrice = useAnimatedNumber(price)
 
   const STEPS = [
@@ -191,9 +196,24 @@ export function DevisQuestionnaire() {
         {/* Prix estimé */}
         <div className="w-full rounded-2xl border border-violet-500/30 bg-violet-600/10 px-8 py-5 text-center">
           <p className="text-xs text-zinc-500 mb-1">Estimation de votre projet</p>
-          <p className="text-4xl font-black text-zinc-100">{price.toLocaleString('fr-FR')} €</p>
+          {promoActive && basePrice > 0 ? (
+            <div className="flex items-baseline justify-center gap-2">
+              <p className="text-4xl font-black text-zinc-100">{price.toLocaleString('fr-FR')} €</p>
+              <p className="text-xl text-zinc-600 line-through">{basePrice.toLocaleString('fr-FR')} €</p>
+            </div>
+          ) : (
+            <p className="text-4xl font-black text-zinc-100">{price.toLocaleString('fr-FR')} €</p>
+          )}
           {form.maintenance && (
-            <p className="text-sm text-emerald-400 mt-1.5">+ 50 €/mois maintenance</p>
+            <p className="text-sm text-emerald-400 mt-1.5">
+              {promoActive ? '+ 25 €/mois maintenance' : '+ 50 €/mois maintenance'}
+            </p>
+          )}
+          {promoActive && (
+            <p className="text-xs text-orange-400 mt-1.5 flex items-center justify-center gap-1">
+              <Zap className="h-3 w-3 fill-orange-400" />
+              Offre flash -50% appliquée
+            </p>
           )}
         </div>
 
@@ -261,12 +281,32 @@ export function DevisQuestionnaire() {
             price > 0 ? 'border-violet-500/40 bg-violet-600/10' : 'border-zinc-800 bg-zinc-900/50'
           )}
         >
-          <p className="text-[10px] text-zinc-500 uppercase tracking-wider leading-none mb-1">Estimation</p>
-          <p className={cn('text-2xl font-black tabular-nums leading-none', price > 0 ? 'text-zinc-100' : 'text-zinc-600')}>
-            {animatedPrice > 0 ? `${animatedPrice.toLocaleString('fr-FR')} €` : '—'}
-          </p>
+          <div className="flex items-center justify-end gap-2 mb-1">
+            <p className="text-[10px] text-zinc-500 uppercase tracking-wider leading-none">Estimation</p>
+            {promoActive && price > 0 && (
+              <span className="inline-flex items-center gap-0.5 rounded-full bg-orange-500/20 border border-orange-500/30 px-1.5 py-0.5 text-[9px] font-bold text-orange-400 leading-none">
+                -50%
+              </span>
+            )}
+          </div>
+          {promoActive && basePrice > 0 ? (
+            <div className="flex items-baseline gap-1.5 justify-end">
+              <p className="text-2xl font-black tabular-nums leading-none text-zinc-100">
+                {animatedPrice.toLocaleString('fr-FR')} €
+              </p>
+              <p className="text-sm text-zinc-600 line-through leading-none">
+                {basePrice.toLocaleString('fr-FR')} €
+              </p>
+            </div>
+          ) : (
+            <p className={cn('text-2xl font-black tabular-nums leading-none', price > 0 ? 'text-zinc-100' : 'text-zinc-600')}>
+              {animatedPrice > 0 ? `${animatedPrice.toLocaleString('fr-FR')} €` : '—'}
+            </p>
+          )}
           {form.maintenance && (
-            <p className="text-[10px] text-emerald-400 mt-0.5">+ 50 €/mois</p>
+            <p className="text-[10px] text-emerald-400 mt-0.5">
+              {promoActive ? '+ 25 €/mois' : '+ 50 €/mois'}
+            </p>
           )}
         </motion.div>
       </div>
@@ -280,7 +320,7 @@ export function DevisQuestionnaire() {
           exit={{ opacity: 0, x: -24 }}
           transition={{ duration: 0.18 }}
         >
-          {step === 0 && <StepType form={form} setForm={setForm} onNext={() => setStep(1)} />}
+          {step === 0 && <StepType form={form} setForm={setForm} onNext={() => setStep(1)} promoActive={promoActive} />}
           {step === 1 && <StepPages form={form} setForm={setForm} />}
           {step === 2 && <StepFeatures form={form} setForm={setForm} />}
           {step === 3 && <StepOptions form={form} setForm={setForm} />}
@@ -326,11 +366,12 @@ export function DevisQuestionnaire() {
 
 // ── Step 0 : Type de site ─────────────────────────────────────────────────────
 function StepType({
-  form, setForm, onNext,
+  form, setForm, onNext, promoActive,
 }: {
   form: FormState
   setForm: React.Dispatch<React.SetStateAction<FormState>>
   onNext: () => void
+  promoActive: boolean
 }) {
   return (
     <div>
@@ -340,6 +381,7 @@ function StepType({
         {SITE_TYPES.map((type) => {
           const Icon = type.icon
           const selected = form.siteType === type.id
+          const promoPrice = Math.floor(type.price / 2)
           return (
             <button
               key={type.id}
@@ -354,8 +396,19 @@ function StepType({
                   : 'border-zinc-800 bg-zinc-900/50 hover:border-zinc-700 hover:bg-zinc-900'
               )}
             >
-              {type.highlighted && (
+              {/* Badge promo -50% */}
+              {promoActive && (
+                <span className="absolute -top-2.5 right-3 whitespace-nowrap rounded-full bg-gradient-to-r from-orange-500 to-red-600 px-2 py-0.5 text-[10px] font-bold text-white shadow">
+                  -50%
+                </span>
+              )}
+              {type.highlighted && !promoActive && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 px-3 py-0.5 text-[11px] font-semibold text-white shadow">
+                  Le plus populaire
+                </span>
+              )}
+              {type.highlighted && promoActive && (
+                <span className="absolute -top-3 left-3 whitespace-nowrap rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 px-3 py-0.5 text-[11px] font-semibold text-white shadow">
                   Le plus populaire
                 </span>
               )}
@@ -369,7 +422,14 @@ function StepType({
               </div>
               <p className="font-semibold text-zinc-100 mb-0.5 text-sm">{type.label}</p>
               <p className="text-xs text-zinc-500 mb-3">{type.description}</p>
-              <p className="text-2xl font-black text-zinc-100">{type.price.toLocaleString('fr-FR')} €</p>
+              {promoActive ? (
+                <div className="flex items-baseline gap-1.5">
+                  <p className="text-2xl font-black text-zinc-100">{promoPrice.toLocaleString('fr-FR')} €</p>
+                  <p className="text-sm text-zinc-600 line-through">{type.price.toLocaleString('fr-FR')} €</p>
+                </div>
+              ) : (
+                <p className="text-2xl font-black text-zinc-100">{type.price.toLocaleString('fr-FR')} €</p>
+              )}
               <ul className="mt-3 space-y-1.5">
                 {type.features.map(f => (
                   <li key={f} className="flex items-center gap-1.5 text-xs text-zinc-400">
@@ -475,6 +535,9 @@ function StepFeatures({ form, setForm }: { form: FormState; setForm: React.Dispa
 
 // ── Step 3 : Maintenance & Délai ──────────────────────────────────────────────
 function StepOptions({ form, setForm }: { form: FormState; setForm: React.Dispatch<React.SetStateAction<FormState>> }) {
+  const [promoActive] = useState(() => isPromoActive())
+  const maintenancePrice = promoActive ? '25 €/mois' : '50 €/mois'
+
   return (
     <div className="space-y-8">
       {/* Maintenance */}
@@ -484,7 +547,7 @@ function StepOptions({ form, setForm }: { form: FormState; setForm: React.Dispat
         <div className="grid sm:grid-cols-2 gap-3">
           {[
             { val: false, label: 'Non merci', sub: 'Gestion en interne', color: '' },
-            { val: true, label: 'Oui, avec maintenance', sub: 'Tranquillité garantie', extra: '50 €/mois', color: 'emerald' },
+            { val: true, label: 'Oui, avec maintenance', sub: 'Tranquillité garantie', extra: maintenancePrice, color: 'emerald' },
           ].map(({ val, label, sub, extra, color }) => {
             const selected = form.maintenance === val
             return (

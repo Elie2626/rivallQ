@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { DevisQuestionnaire } from '@/components/app/devis-questionnaire'
+import { DevisPromoBadge } from '@/components/public/devis-promo-badge'
 
 export const metadata: Metadata = {
   title: 'Devis Création Site Internet Gratuit — Prix en Temps Réel | RivallQ',
@@ -26,8 +27,10 @@ export default function DevisPage() {
             Répondez à quelques questions — le prix s&apos;adapte instantanément.
             Recevez un devis détaillé sous 24h.
           </p>
+          {/* Badge promo si active */}
+          <DevisPromoBadge />
           {/* Vous avez déjà un site ? */}
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-2 text-sm text-emerald-400">
+          <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-2 text-sm text-emerald-400">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
             Vous avez déjà un site ? On peut le refondre ou l&apos;améliorer — même tarif.
           </div>
