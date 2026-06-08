@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'
 import { X, Zap } from 'lucide-react'
 import Link from 'next/link'
 
-// ── Date de fin de promo — 48h à partir du lancement (08 juin 2026) ──
-export const PROMO_END = new Date('2026-06-10T23:59:59')
+// ── Date de fin de promo — 48h à partir du lancement (08 juin 2026 09:44 CEST) ──
+export const PROMO_END = new Date('2026-06-10T09:44:00+02:00')
 
 export function useIsPromoActive() {
   const [active, setActive] = useState(false)
