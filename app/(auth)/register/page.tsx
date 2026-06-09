@@ -76,7 +76,7 @@ function RegisterForm() {
         </div>
 
         <div className="flex items-center justify-center gap-4 mb-6 pb-6 border-b border-zinc-800">
-          {['Audit à 9,99€', 'Résultats en 60s', 'Remboursé si insatisfait'].map(t => (
+          {['Audit à 4,99€', 'Résultats en 60s', 'Remboursé si insatisfait'].map(t => (
             <span key={t} className="text-[11px] text-zinc-600">{t}</span>
           ))}
         </div>

@@ -19,7 +19,7 @@ const stats = [
   { value: '2 400+', label: 'sites analysés' },
   { value: '4,9/5',  label: 'satisfaction client' },
   { value: '+47%',   label: 'conversions moy.' },
-  { value: '9,99€',  label: 'au lieu de 500€+' },
+  { value: '4,99€',  label: 'au lieu de 500€+' },
 ]
 
 // Compteur live : démarre à 100 à minuit, croît ~8/h, incrémente aléatoirement en temps réel
@@ -159,7 +159,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            Diagnostic SEO complet en 5 minutes — score, problèmes, mots-clés. Puis on crée votre site vitrine professionnel pour obtenir plus de clients sur Google, dès 500€.
+            Diagnostic SEO complet en 5 minutes — score, problèmes, mots-clés. Puis je crée votre site vitrine professionnel à la main, sur mesure, dès 500€.
           </motion.p>
 
           {/* Formulaire URL */}

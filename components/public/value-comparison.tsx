@@ -110,7 +110,7 @@ export function ValueComparison() {
             <h3 className="text-sm font-semibold text-violet-300 mb-1">RivallQ</h3>
             <p className="text-[11px] text-zinc-500 mb-3">Résultats en 5 minutes</p>
             <div className="mb-4">
-              <span className="text-3xl font-black text-zinc-100">9,99€</span>
+              <span className="text-3xl font-black text-zinc-100">4,99€</span>
               <span className="text-xs text-zinc-500 ml-1">audit complet</span>
             </div>
             <ul className="flex-1 flex flex-col gap-2 mb-5">
@@ -123,7 +123,7 @@ export function ValueComparison() {
             </ul>
             <Button variant="gradient" className="w-full" asChild>
               <Link href="/register">
-                Commencer — 9,99€
+                Commencer — 4,99€
                 <ArrowRight className="h-3.5 w-3.5 ml-1.5" aria-hidden="true" />
               </Link>
             </Button>

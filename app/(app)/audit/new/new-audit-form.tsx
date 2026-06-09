@@ -140,7 +140,7 @@ export function NewAuditForm({ isAdmin = false }: { isAdmin?: boolean }) {
               rightIcon={<ArrowRight className="h-4 w-4" />}
               className="w-full text-base"
             >
-              {loading ? 'Préparation de l\'audit…' : isAdmin ? 'Lancer l\'audit — Gratuit' : 'Lancer l\'audit — 9,99€'}
+              {loading ? 'Préparation de l\'audit…' : isAdmin ? 'Lancer l\'audit — Gratuit' : 'Lancer l\'audit — 4,99€'}
             </Button>
 
             <p className="text-center text-xs text-zinc-600">

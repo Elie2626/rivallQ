@@ -34,7 +34,7 @@ export function AuditPending({ audit }: { audit: Audit }) {
         Effectuez le paiement pour lancer l&apos;analyse complète.
       </p>
       <Button variant="gradient" size="lg" loading={loading} onClick={handleCheckout} rightIcon={<ArrowRight className="h-4 w-4" />}>
-        Payer 9,99€ et lancer l&apos;audit
+        Payer 4,99€ et lancer l&apos;audit
       </Button>
       <p className="text-xs text-zinc-600 mt-4">Paiement sécurisé Stripe · Remboursement 7j</p>
     </div>

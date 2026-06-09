@@ -35,7 +35,7 @@ export function CtaBanner() {
           </h2>
 
           <p className="text-zinc-400 text-lg mb-3 max-w-xl mx-auto">
-            Pour 9,99€ — le prix d&apos;un café — découvrez exactement pourquoi vos visiteurs partent sans convertir.
+            Pour 4,99€ — le prix d&apos;un café — découvrez exactement pourquoi vos visiteurs partent sans convertir.
           </p>
 
           <p className="text-zinc-500 text-sm mb-8 max-w-lg mx-auto">
@@ -45,7 +45,7 @@ export function CtaBanner() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
             <Button variant="gradient" size="xl" asChild>
               <Link href="/register" className="gap-2">
-                Auditer mon site — 9,99€
+                Auditer mon site — 4,99€
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
             </Button>

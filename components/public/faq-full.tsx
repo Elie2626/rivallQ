@@ -16,7 +16,7 @@ const categories = [
   {
     title: 'Audit & résultats',
     faqs: [
-      { q: 'Que contient exactement l\'audit à 9,99€ ?', a: 'Score SEO (0-100), score UX, score de conversion, top 10 des problèmes critiques, analyse des mots-clés, recommandations prioritaires, et un lien vers le questionnaire de devis.' },
+      { q: 'Que contient exactement l\'audit à 4,99€ ?', a: 'Score SEO (0-100), score UX, score de conversion, top 10 des problèmes critiques, analyse des mots-clés, recommandations prioritaires, et un lien vers le questionnaire de devis.' },
       { q: 'Les résultats sont-ils fiables ?', a: 'Oui. Tsitsit analyse chaque élément du code source, du contenu et de la structure. Les recommandations sont basées sur les meilleures pratiques SEO 2026 et CRO (Conversion Rate Optimization).' },
       { q: 'Combien de temps dure l\'analyse ?', a: 'Entre 3 et 5 minutes selon la complexité du site. Vous pouvez suivre l\'avancement en temps réel sur votre dashboard.' },
     ],

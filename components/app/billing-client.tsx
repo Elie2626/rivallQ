@@ -13,7 +13,7 @@ const plans = [
   {
     id: 'audit',
     name: 'Audit SEO',
-    price: '9,99€',
+    price: '4,99€',
     description: 'Analyse complète de votre site',
     features: ['Score SEO, UX, conversion', 'Top problèmes', 'Mots-clés & recommandations'],
   },
@@ -219,7 +219,7 @@ export function BillingClient({ profile, audits }: Props) {
                     <p className="text-xs text-zinc-600">{formatDate(audit.created_at)}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge variant="success">Audit — 9,99€</Badge>
+                    <Badge variant="success">Audit — 4,99€</Badge>
                   </div>
                   <Button variant="ghost" size="icon-sm" asChild>
                     <Link href={`/audit/${audit.id}`} aria-label="Voir l'audit">

@@ -1,22 +1,22 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Globe, Brain, Wand2, Rocket } from 'lucide-react'
+import { Globe, Brain, Wand2, Rocket, User } from 'lucide-react'
 
 const steps = [
   {
     number: '01',
     icon: Globe,
     title: 'Entrez votre URL',
-    description: 'Collez l\'URL de votre site. RivallQ scrape automatiquement toutes les pages clés.',
+    description: 'Collez l\'URL de votre site. RivallQ analyse automatiquement toutes vos pages en quelques secondes.',
     color: 'from-blue-600 to-cyan-600',
     glow: 'shadow-blue-500/20',
   },
   {
     number: '02',
     icon: Brain,
-    title: 'Analyse IA complète',
-    description: 'Tsitsit analyse le SEO, l\'UX, le copywriting, les mots-clés et les opportunités de conversion.',
+    title: 'Diagnostic complet',
+    description: 'L\'IA génère un rapport SEO, UX et conversion — score, problèmes critiques, mots-clés manquants.',
     color: 'from-violet-600 to-purple-600',
     glow: 'shadow-violet-500/20',
   },
@@ -24,15 +24,15 @@ const steps = [
     number: '03',
     icon: Wand2,
     title: 'Devis sur mesure',
-    description: 'Obtenez un devis personnalisé en temps réel. Choisissez votre type de site, vos options et votre délai.',
+    description: 'Remplissez le questionnaire en 2 min. Le prix s\'affiche en temps réel selon vos besoins.',
     color: 'from-indigo-600 to-violet-600',
     glow: 'shadow-indigo-500/20',
   },
   {
     number: '04',
     icon: Rocket,
-    title: 'Votre site livré',
-    description: 'Nous créons votre site et vous le livrons en 24h à 3 semaines selon la formule choisie.',
+    title: 'Je crée votre site',
+    description: 'Je conçois et développe votre site moi-même, à la main — pas un template automatique. Livré en 24h à 3 semaines.',
     color: 'from-emerald-600 to-teal-600',
     glow: 'shadow-emerald-500/20',
   },
@@ -108,6 +108,29 @@ export function HowItWorks() {
             </motion.div>
           ))}
         </div>
+
+        {/* Callout "fait par un humain" */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mt-10 rounded-2xl border border-violet-500/20 bg-violet-600/5 px-6 py-5 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left"
+        >
+          <div className="h-12 w-12 rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shrink-0 shadow-lg shadow-violet-500/20">
+            <User className="h-6 w-6 text-white" aria-hidden="true" />
+          </div>
+          <div>
+            <p className="text-sm font-bold text-zinc-100 mb-0.5">
+              Votre site est créé par un expert — pas généré automatiquement
+            </p>
+            <p className="text-sm text-zinc-400">
+              Chaque site est conçu et développé <strong className="text-zinc-200">à la main</strong> par Elie,
+              développeur web spécialisé en SEO. Pas un Wix, pas un template IA. Un vrai site professionnel, sur mesure.
+            </p>
+          </div>
+        </motion.div>
+
       </div>
     </section>
   )

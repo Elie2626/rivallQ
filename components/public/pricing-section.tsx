@@ -12,8 +12,8 @@ const plans = [
     icon: Zap,
     iconColor: 'text-zinc-400',
     name: 'Audit SEO',
-    price: '9,99€',
-    promoPrice: '4,99€',
+    price: '4,99€',
+    promoPrice: null, // prix fixe, pas de promo
     period: 'paiement unique',
     description: 'Analysez votre site et découvrez ce qui freine vos clients.',
     features: [
@@ -128,13 +128,15 @@ export function PricingSection() {
             transition={{ delay: 0.1 }}
             className="text-zinc-400 max-w-xl mx-auto"
           >
-            Commencez par un audit à 9,99€. Créez votre site à partir de 500€.
+            Commencez par un audit à 4,99€. Créez votre site à partir de 500€.
           </motion.p>
         </div>
 
         {/* Plans */}
         <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
-          {plans.map(({ id, icon: Icon, iconColor, name, price, promoPrice, period, description, features, cta, href, highlighted, badge }, i) => (
+          {plans.map(({ id, icon: Icon, iconColor, name, price, promoPrice: rawPromoPrice, period, description, features, cta, href, highlighted, badge }, i) => {
+            const promoPrice = rawPromoPrice  // null = pas de promo pour ce plan
+            return (
             <motion.div
               key={id}
               initial={{ opacity: 0, y: 24 }}
@@ -147,18 +149,18 @@ export function PricingSection() {
                   : 'border-zinc-800 bg-zinc-900/40'
               }`}
             >
-              {/* Badge promo -50% */}
-              {isPromo && (
+              {/* Badge promo -50% — seulement si ce plan a un promoPrice */}
+              {isPromo && promoPrice && (
                 <span className="absolute -top-3 right-4 whitespace-nowrap rounded-full bg-gradient-to-r from-orange-500 to-red-600 px-3 py-1 text-[11px] font-bold text-white shadow-lg">
                   -50%
                 </span>
               )}
-              {badge && !isPromo && (
+              {badge && (!isPromo || !promoPrice) && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 px-3 py-1 text-[11px] font-semibold text-white shadow-lg">
                   {badge}
                 </span>
               )}
-              {badge && isPromo && (
+              {badge && isPromo && promoPrice && (
                 <span className="absolute -top-3 left-4 whitespace-nowrap rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 px-3 py-1 text-[11px] font-semibold text-white shadow-lg">
                   {badge}
                 </span>
@@ -175,7 +177,7 @@ export function PricingSection() {
                   <h3 className="text-sm font-semibold text-zinc-300">{name}</h3>
                 </div>
                 <div className="flex items-end gap-2 mb-2">
-                  {isPromo ? (
+                  {isPromo && promoPrice ? (
                     <>
                       <span className="text-3xl font-bold text-zinc-100">{promoPrice}</span>
                       <span className="text-base font-medium text-zinc-600 line-through mb-0.5">{price}</span>
@@ -208,7 +210,8 @@ export function PricingSection() {
                 <Link href={href}>{cta}</Link>
               </Button>
             </motion.div>
-          ))}
+          )
+          })}
         </div>
 
         {/* Maintenance add-on */}

@@ -15,7 +15,7 @@ const CtaBanner        = dynamic(() => import('@/components/public/cta-banner').
 const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 
 export const metadata: Metadata = {
-  title: 'RivallQ — Audit SEO en Ligne & Création Site Web | Dès 9,99€',
+  title: 'RivallQ — Audit SEO en Ligne & Création Site Web | Dès 4,99€',
   description:
     "Audit SEO en ligne : analysez le référencement de votre site en 5 minutes. Diagnostic SEO complet, score UX & conversion. Création site vitrine professionnel dès 500€. Améliorez votre visibilité Google.",
   alternates: {

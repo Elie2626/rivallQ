@@ -35,7 +35,7 @@ const values = [
   {
     icon: Shield,
     title: 'Simple & accessible',
-    description: 'Tu n\'as pas besoin d\'être développeur. Colle ton URL, paye 9,99€ et reçois ton rapport complet en moins de 5 minutes.',
+    description: 'Tu n\'as pas besoin d\'être développeur. Colle ton URL, paye 4,99€ et reçois ton rapport complet en moins de 5 minutes.',
     color: 'text-emerald-400',
     bg: 'bg-emerald-500/10 border-emerald-500/20',
   },
@@ -122,7 +122,7 @@ export default function AboutPage() {
               RivallQ leur donne accès aux mêmes capacités d&apos;analyse, pour une fraction du prix.
             </p>
             <p>
-              En 60 secondes et pour 9,99€, tu obtiens un rapport complet sur le SEO,
+              En 60 secondes et pour 4,99€, tu obtiens un rapport complet sur le SEO,
               l&apos;expérience utilisateur et le taux de conversion de ton site — avec des
               recommandations priorisées et actionnables, générées par Tsitsit.
             </p>
