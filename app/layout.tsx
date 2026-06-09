@@ -122,7 +122,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ToastProvider />
         <Script
           src="https://www.botexpress.fr/widget.js"
-          data-chatbot-id="911db016-11ff-4d66-807a-feeb55d68ad3"
+          data-chatbot-id="8a90884c-461a-414c-9b0c-a09ab7dacf8a"
           data-api-url="https://agentai-23tt.onrender.com"
         />
       </body>
