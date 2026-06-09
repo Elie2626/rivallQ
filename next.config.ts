@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
 
   // Tree-shaking heavy packages
   experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react'],
+    optimizePackageImports: ['framer-motion', 'lucide-react', 'three'],
   },
 
   // Images

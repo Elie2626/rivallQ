@@ -34,7 +34,7 @@ export function GenerativeArtScene() {
     mount.appendChild(renderer.domElement)
 
     // ── Géométrie + shader ──────────────────────────────────
-    const geometry = new THREE.IcosahedronGeometry(1.2, 64)
+    const geometry = new THREE.IcosahedronGeometry(1.2, 20)
     const material = new THREE.ShaderMaterial({
       uniforms: {
         time:          { value: 0 },

@@ -9,11 +9,20 @@ import { ArrowRight, Globe, ShieldCheck, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils/cn'
 
-// Three.js — client uniquement, pas de SSR
+// Three.js — desktop uniquement (évite 512KB JS sur mobile)
 const GenerativeArtScene = dynamic(
   () => import('@/components/ui/anomalous-matter-hero').then(m => m.GenerativeArtScene),
   { ssr: false, loading: () => null }
 )
+
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false)
+  useEffect(() => {
+    // Ne charger Three.js que sur desktop (≥1024px)
+    setIsDesktop(window.innerWidth >= 1024)
+  }, [])
+  return isDesktop
+}
 
 const stats = [
   { value: '2 400+', label: 'sites analysés' },
@@ -83,6 +92,7 @@ export function HeroSection() {
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState('')
   const router = useRouter()
+  const isDesktop = useIsDesktop()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -96,16 +106,14 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
 
-      {/* ── Sphère Three.js — petite sur mobile, plein écran desktop ── */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div
-          className="absolute opacity-[0.17]
-            top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px]
-            lg:inset-0 lg:w-full lg:h-full lg:translate-x-0 lg:translate-y-0 lg:opacity-[0.18]"
-        >
-          <GenerativeArtScene />
+      {/* ── Sphère Three.js — desktop uniquement (trop lourde sur mobile) ── */}
+      {isDesktop && (
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute opacity-[0.18] inset-0 w-full h-full">
+            <GenerativeArtScene />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ── Glows ambiants ─────────────────────────────────── */}
       <div className="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
