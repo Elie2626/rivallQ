@@ -1,39 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
-
-// Ne charge la vidéo que quand elle entre dans le viewport
-function LazyVideo({ src, className, style }: { src: string; className?: string; style?: React.CSSProperties }) {
-  const ref = useRef<HTMLVideoElement>(null)
-  const [load, setLoad] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setLoad(true); obs.disconnect() } },
-      { rootMargin: '200px' }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
-  return (
-    <video
-      ref={ref}
-      src={load ? src : undefined}
-      preload="none"
-      autoPlay={load}
-      muted
-      loop
-      playsInline
-      controls
-      className={className}
-      style={style}
-    />
-  )
-}
 
 export function DemoSection() {
   return (
@@ -89,8 +56,13 @@ export function DemoSection() {
             </div>
           </div>
 
-          <LazyVideo
+          <video
             src="/demo-v2.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls
             className="w-full block bg-zinc-950"
             style={{ maxHeight: '70vh' }}
           />

@@ -34,7 +34,7 @@ export function GenerativeArtScene() {
     mount.appendChild(renderer.domElement)
 
     // ── Géométrie + shader ──────────────────────────────────
-    const geometry = new THREE.IcosahedronGeometry(1.2, 20)
+    const geometry = new THREE.IcosahedronGeometry(1.2, 64)
     const material = new THREE.ShaderMaterial({
       uniforms: {
         time:          { value: 0 },
@@ -178,13 +178,9 @@ export function GenerativeArtScene() {
 
     } // end init
 
-    const idleId = typeof window.requestIdleCallback === 'function'
-      ? window.requestIdleCallback(init, { timeout: 300 })
-      : setTimeout(init, 100)
+    init()
 
     return () => {
-      if (typeof window.cancelIdleCallback === 'function') window.cancelIdleCallback(idleId as number)
-      else clearTimeout(idleId as ReturnType<typeof setTimeout>)
       cleanupRef.current?.()
     }
   }, [])

@@ -5,11 +5,6 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
 
-  // Tree-shaking heavy packages
-  experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react', 'three'],
-  },
-
   // Images
   images: {
     formats: ['image/avif', 'image/webp'],

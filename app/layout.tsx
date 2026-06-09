@@ -9,7 +9,7 @@ import { OrganizationSchema, WebSiteSchema } from '@/components/seo/json-ld'
 const geist = Geist({
   variable: '--font-geist',
   subsets: ['latin'],
-  display: 'optional', // évite le flash FOUT, meilleur CLS
+  display: 'swap',
   preload: true,
 })
 
@@ -111,11 +111,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Preconnects critiques */}
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://firebaseapp.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://js.stripe.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
         <link rel="dns-prefetch" href="https://identitytoolkit.googleapis.com" />
-        <link rel="dns-prefetch" href="https://www.botexpress.fr" />
-        <link rel="dns-prefetch" href="https://s.wordpress.com" />
       </head>
       <body className="min-h-full bg-zinc-950 text-zinc-200 antialiased font-sans selection:bg-violet-600/20 selection:text-violet-700">
         <OrganizationSchema />
