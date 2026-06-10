@@ -54,10 +54,10 @@ export function ImageComparison({
         Après
       </span>
 
-      {/* After image (top) — clipped */}
+      {/* After image (top) — revealed from the right as slider moves right */}
       <div
         className="absolute inset-0 overflow-hidden"
-        style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+        style={{ clipPath: `inset(0 0 0 ${sliderPosition}%)` }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
