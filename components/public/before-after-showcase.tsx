@@ -3,36 +3,33 @@
 import { motion } from 'framer-motion'
 import { ImageComparison } from '@/components/ui/image-comparison-slider'
 
-const mshots = (url: string) =>
-  `https://s.wordpress.com/mshots/v1/${encodeURIComponent(url)}?w=1200&h=675`
-
 const pairs = [
   {
     label: 'Artisan BTP · Lyon',
     site: 'selesta.fr',
-    before: mshots('https://selesta.fr'),
-    after:  mshots('https://eiffage.com'),
+    before: '/before-after/selesta-avant.png',
+    after:  '/before-after/selesta-apres.png',
     tag: 'Ravalement & isolation',
+  },
+  {
+    label: 'Chatbot IA · France',
+    site: 'botexpress.fr',
+    before: '/before-after/botexpress-avant.png',
+    after:  '/before-after/botexpress-apres.png',
+    tag: 'SaaS & automatisation',
   },
   {
     label: 'Ostéopathe · Bordeaux',
     site: 'rdv-osteo-bordeaux.fr',
-    before: mshots('https://rdv-osteo-bordeaux.fr'),
-    after:  mshots('https://www.doctolib.fr'),
+    before: '/before-after/osteo-avant.png',
+    after:  '/before-after/osteo-apres.png',
     tag: 'Santé & bien-être',
-  },
-  {
-    label: 'Climatisation · Lyon',
-    site: 'clim69.fr',
-    before: mshots('https://clim69.fr'),
-    after:  mshots('https://rivallq.com'),
-    tag: 'Chauffage & clim',
   },
 ]
 
 export function BeforeAfterShowcase() {
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-24">
+    <section className="mx-auto max-w-7xl px-4 pb-24">
       {/* Header */}
       <div className="text-center mb-12">
         <span className="inline-block text-xs font-semibold uppercase tracking-widest text-violet-400 mb-3">
@@ -46,8 +43,8 @@ export function BeforeAfterShowcase() {
         </p>
       </div>
 
-      {/* Cards */}
-      <div className="grid gap-8 sm:grid-cols-1 lg:grid-cols-1">
+      {/* 3 colonnes */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {pairs.map(({ label, site, before, after, tag }, i) => (
           <motion.div
             key={site}
@@ -55,45 +52,38 @@ export function BeforeAfterShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden"
+            className="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden flex flex-col"
           >
             {/* Card header */}
-            <div className="flex items-center justify-between px-5 py-3 border-b border-zinc-800">
-              <div className="flex items-center gap-3">
-                <span className="text-xs px-2.5 py-1 rounded-full bg-zinc-800 text-zinc-400 border border-zinc-700">
-                  {tag}
-                </span>
-                <span className="text-sm font-medium text-zinc-300">{label}</span>
-              </div>
-              <span className="text-xs text-zinc-600 font-mono">{site}</span>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800">
+              <span className="text-xs font-medium text-zinc-300">{label}</span>
+              <span className="text-[10px] text-zinc-600 font-mono">{site}</span>
+            </div>
+
+            {/* Tag */}
+            <div className="px-4 pt-3">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-400 border border-zinc-700">
+                {tag}
+              </span>
             </div>
 
             {/* Slider */}
-            <div className="p-4">
+            <div className="p-3 flex-1">
               <ImageComparison
                 beforeImage={before}
                 afterImage={after}
-                altBefore={`Site original — ${label}`}
-                altAfter={`Site reconstruit — ${label}`}
+                altBefore={`Avant — ${label}`}
+                altAfter={`Après — ${label}`}
               />
             </div>
 
-            {/* Card footer */}
-            <div className="flex items-center justify-between px-5 py-3 border-t border-zinc-800 bg-zinc-900/60">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-red-500/70" />
-                  <span className="text-xs text-zinc-500">Avant — ancien design</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500/70" />
-                  <span className="text-xs text-zinc-500">Après — reconstruction RivallQ</span>
-                </div>
+            {/* Footer */}
+            <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-800">
+              <div className="flex items-center gap-3 text-[10px] text-zinc-500">
+                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-red-500/70 inline-block" />Avant</span>
+                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500/70 inline-block" />Après</span>
               </div>
-              <a
-                href="/devis"
-                className="text-xs font-semibold text-violet-400 hover:text-violet-300 transition-colors"
-              >
+              <a href="/devis" className="text-[11px] font-semibold text-violet-400 hover:text-violet-300 transition-colors">
                 Refondre mon site →
               </a>
             </div>
