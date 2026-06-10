@@ -120,15 +120,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionRefresher />
         {children}
         <ToastProvider />
-        {/* Google Ads tag */}
+        {/* Google Analytics 4 + Google Ads tag */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-18222517793"
+          src="https://www.googletagmanager.com/gtag/js?id=G-51526YPZLE"
           strategy="afterInteractive"
         />
         <Script id="gtag-init" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
+          gtag('config', 'G-51526YPZLE');
           gtag('config', 'AW-18222517793');
         `}</Script>
         <Script
