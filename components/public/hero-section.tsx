@@ -11,14 +11,14 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils/cn'
 
 const clients = [
-  { domain: 'selesta.fr',              label: 'Selesta',               initials: 'SE' },
-  { domain: 'g-cours.fr',              label: 'G-Cours',               initials: 'GC' },
-  { domain: 'clim69.fr',               label: 'Clim69',                initials: 'C6' },
-  { domain: 'botexpress.fr',           label: 'BotExpress',            initials: 'BE' },
-  { domain: 'rdv-osteo-bordeaux.fr',   label: 'Rdv Ostéo Bordeaux',    initials: 'RO' },
+  { src: '/clients/selesta.png',    label: 'Selesta',             domain: 'selesta.fr',            initials: 'SE' },
+  { src: '/clients/gcours.png',     label: 'G-Cours',             domain: 'g-cours.fr',            initials: 'GC' },
+  { src: '/clients/clim69.png',     label: 'Clim69',              domain: 'clim69.fr',             initials: 'C6' },
+  { src: '/clients/botexpress.png', label: 'BotExpress',          domain: 'botexpress.fr',         initials: 'BE' },
+  { src: '/clients/rdvosteo.png',   label: 'Rdv Ostéo Bordeaux',  domain: 'rdv-osteo-bordeaux.fr', initials: 'RO' },
 ]
 
-function ClientLogo({ domain, label, initials }: { domain: string; label: string; initials: string }) {
+function ClientLogo({ src, label, domain, initials }: { src: string; label: string; domain: string; initials: string }) {
   const [errored, setErrored] = useState(false)
   return (
     <div className="flex flex-col items-center gap-1.5" title={label}>
@@ -27,13 +27,12 @@ function ClientLogo({ domain, label, initials }: { domain: string; label: string
           <span className="text-[10px] font-bold text-zinc-400">{initials}</span>
         ) : (
           <Image
-            src={`https://logo.clearbit.com/${domain}`}
+            src={src}
             alt={label}
             width={36}
             height={36}
             className="object-contain rounded-xl"
             onError={() => setErrored(true)}
-            unoptimized
           />
         )}
       </div>
@@ -292,7 +291,7 @@ export function HeroSection() {
             <p className="text-xs text-zinc-600 mb-4 uppercase tracking-widest">Ils nous font confiance</p>
             <div className="flex items-center justify-center gap-5 sm:gap-8 flex-wrap">
               {clients.map(c => (
-                <ClientLogo key={c.domain} {...c} />
+                <ClientLogo key={c.src} {...c} />
               ))}
             </div>
           </motion.div>
