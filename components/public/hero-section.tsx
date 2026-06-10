@@ -4,10 +4,43 @@ import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, Globe, ShieldCheck, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils/cn'
+
+const clients = [
+  { domain: 'selesta.fr',              label: 'Selesta',               initials: 'SE' },
+  { domain: 'g-cours.fr',              label: 'G-Cours',               initials: 'GC' },
+  { domain: 'clim69.fr',               label: 'Clim69',                initials: 'C6' },
+  { domain: 'botexpress.fr',           label: 'BotExpress',            initials: 'BE' },
+  { domain: 'rdv-osteo-bordeaux.fr',   label: 'Rdv Ostéo Bordeaux',    initials: 'RO' },
+]
+
+function ClientLogo({ domain, label, initials }: { domain: string; label: string; initials: string }) {
+  const [errored, setErrored] = useState(false)
+  return (
+    <div className="flex flex-col items-center gap-1.5" title={label}>
+      <div className="h-9 w-9 rounded-xl bg-zinc-800 border border-zinc-700/60 flex items-center justify-center overflow-hidden">
+        {errored ? (
+          <span className="text-[10px] font-bold text-zinc-400">{initials}</span>
+        ) : (
+          <Image
+            src={`https://logo.clearbit.com/${domain}`}
+            alt={label}
+            width={36}
+            height={36}
+            className="object-contain rounded-xl"
+            onError={() => setErrored(true)}
+            unoptimized
+          />
+        )}
+      </div>
+      <span className="text-[10px] text-zinc-600 hidden sm:block truncate max-w-[64px] text-center">{domain}</span>
+    </div>
+  )
+}
 
 // Three.js — chargé sur tous les écrans
 const GenerativeArtScene = dynamic(
@@ -249,11 +282,26 @@ export function HeroSection() {
             </div>
           </motion.div>
 
+          {/* Logos clients */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.55 }}
+            className="mt-8"
+          >
+            <p className="text-xs text-zinc-600 mb-4 uppercase tracking-widest">Ils nous font confiance</p>
+            <div className="flex items-center justify-center gap-5 sm:gap-8 flex-wrap">
+              {clients.map(c => (
+                <ClientLogo key={c.domain} {...c} />
+              ))}
+            </div>
+          </motion.div>
+
           {/* Lien démo */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.65 }}
             className="mt-6 flex justify-center"
           >
             <Link
