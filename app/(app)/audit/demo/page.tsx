@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { AuditResults } from '@/components/app/audit-results'
-import { BeforeAfterDemo } from '@/components/app/before-after-demo'
 import type { Audit } from '@/types'
 
 export const metadata: Metadata = { title: 'Exemple d\'audit — RivallQ' }
@@ -428,21 +427,35 @@ export default function AuditDemoPage() {
 
       <AuditResults audit={DEMO_AUDIT} />
 
-      {/* ── Avant / Après ───────────────────────────────────── */}
-      <div className="mt-8 rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800">
+      {/* ── Demande de devis ───────────────────────────────────── */}
+      <div className="mt-8 rounded-2xl border border-violet-500/30 bg-violet-500/5 overflow-hidden">
+        <div className="px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <p className="text-sm font-semibold text-zinc-100">Site avant → après reconstruction IA</p>
-            <p className="text-xs text-zinc-500 mt-0.5">Rendu complet de la homepage optimisée, prête à déployer</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-violet-400 mb-2">Votre site mérite mieux</p>
+            <p className="text-lg font-bold text-zinc-100 mb-1">Obtenez un devis gratuit en 2 minutes</p>
+            <p className="text-sm text-zinc-400 max-w-md">
+              Création ou refonte de site web professionnel sur mesure — livré rapidement, optimisé pour Google dès le départ.
+            </p>
+            <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+              {['Devis gratuit & sans engagement', 'Livraison rapide', 'Optimisé SEO dès le départ'].map(item => (
+                <li key={item} className="flex items-center gap-1.5 text-xs text-zinc-400">
+                  <svg className="h-3.5 w-3.5 text-violet-400 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-red-500/20 text-red-400 border border-red-500/30">Avant</span>
-            <span className="text-zinc-600">→</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Après IA</span>
-          </div>
-        </div>
-        <div className="p-6">
-          <BeforeAfterDemo />
+          <a
+            href="/devis"
+            className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-violet-600 hover:bg-violet-500 active:bg-violet-700 text-white font-semibold text-sm px-6 py-3 transition-colors"
+          >
+            Demander un devis
+            <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fillRule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clipRule="evenodd" />
+            </svg>
+          </a>
         </div>
       </div>
     </div>
