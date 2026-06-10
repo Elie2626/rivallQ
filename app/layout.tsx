@@ -120,6 +120,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionRefresher />
         {children}
         <ToastProvider />
+        {/* Google Ads tag */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18222517793"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-18222517793');
+        `}</Script>
         <Script
           src="https://www.botexpress.fr/widget.js"
           data-chatbot-id="8a90884c-461a-414c-9b0c-a09ab7dacf8a"
