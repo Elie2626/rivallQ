@@ -176,7 +176,7 @@ export function DevisQuestionnaire() {
     try {
       if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
         ;(window as any).gtag('event', 'conversion', {
-          send_to: 'AW-18222517793/WWkxCJz48bscEKGclvFD',
+          send_to: 'AW-18222517793/RX9PCLKd67ocEKGclvFD',
           value: price || 50,
           currency: 'EUR',
         })
