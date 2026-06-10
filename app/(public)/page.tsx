@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/public/hero-section'
 import { SoftwareAppSchema } from '@/components/seo/json-ld'
+import { ConversionTracker } from '@/components/app/conversion-tracker'
 
 const HowItWorks       = dynamic(() => import('@/components/public/how-it-works').then(m => m.HowItWorks))
 const DemoSection      = dynamic(() => import('@/components/public/demo-section').then(m => m.DemoSection))
@@ -38,6 +39,8 @@ export default function HomePage() {
   return (
     <>
       <SoftwareAppSchema />
+      {/* Google Ads — "Page vue / Présentation" conversion */}
+      <ConversionTracker sendTo="AW-18222517793/WWkxCJz48bscEKGclvFD" />
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-20 focus:left-4 z-50 bg-violet-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
