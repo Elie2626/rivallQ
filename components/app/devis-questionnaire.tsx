@@ -172,6 +172,16 @@ export function DevisQuestionnaire() {
         body: JSON.stringify({ ...form, estimatedPrice: price }),
       })
     } catch { /* non-fatal */ }
+    // Google Ads conversion tracking
+    try {
+      if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+        ;(window as any).gtag('event', 'conversion', {
+          send_to: 'AW-18222517793/WWkxCJz48bscEKGclvFD',
+          value: price || 50,
+          currency: 'EUR',
+        })
+      }
+    } catch { /* non-fatal */ }
     setLoading(false)
     setSubmitted(true)
   }
