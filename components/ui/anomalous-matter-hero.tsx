@@ -182,7 +182,7 @@ export function GenerativeArtScene({ isStatic = false }: { isStatic?: boolean })
     return () => {
       cleanupRef.current?.()
     }
-  }, [])
+  }, [isStatic])
 
   return <div ref={mountRef} className="absolute inset-0 w-full h-full z-0" />
 }
