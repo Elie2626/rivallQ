@@ -73,7 +73,14 @@ export function AuditProcessing({ audit }: Props) {
       {/* Animation — même sphère que le header, taille réduite */}
       <div className="relative mx-auto mb-6" style={{ width: 200, height: 200 }}>
         <div className="absolute inset-0 opacity-80">
-          <GenerativeArtScene isStatic={!isDesktop} />
+          {isDesktop ? (
+            <GenerativeArtScene />
+          ) : (
+            <div
+              className="absolute inset-0 rounded-full opacity-80"
+              style={{ background: 'radial-gradient(circle at 40% 40%, #a78bfa 0%, #6d28d9 40%, transparent 70%)' }}
+            />
+          )}
         </div>
         {/* Lueur violette ambiante */}
         <div className="absolute inset-0 rounded-full bg-violet-600/15 blur-2xl" />
