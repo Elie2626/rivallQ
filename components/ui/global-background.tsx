@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 
 const GenerativeArtScene = dynamic(
@@ -8,13 +9,16 @@ const GenerativeArtScene = dynamic(
 )
 
 export function GlobalBackground() {
+  const [isDesktop, setIsDesktop] = useState(false)
+  useEffect(() => { setIsDesktop(window.innerWidth >= 1024) }, [])
+
   return (
     <div
       className="fixed inset-0 w-full h-full pointer-events-none opacity-[0.13]"
       style={{ zIndex: 0 }}
       aria-hidden="true"
     >
-      <GenerativeArtScene />
+      <GenerativeArtScene isStatic={!isDesktop} />
     </div>
   )
 }

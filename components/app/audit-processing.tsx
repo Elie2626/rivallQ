@@ -26,6 +26,8 @@ interface Props {
 export function AuditProcessing({ audit }: Props) {
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(0)
+  const [isDesktop, setIsDesktop] = useState(false)
+  useEffect(() => { setIsDesktop(window.innerWidth >= 1024) }, [])
 
   // Poll every 3 seconds to check if analysis is done
   useEffect(() => {
@@ -71,7 +73,7 @@ export function AuditProcessing({ audit }: Props) {
       {/* Animation — même sphère que le header, taille réduite */}
       <div className="relative mx-auto mb-6" style={{ width: 200, height: 200 }}>
         <div className="absolute inset-0 opacity-80">
-          <GenerativeArtScene />
+          <GenerativeArtScene isStatic={!isDesktop} />
         </div>
         {/* Lueur violette ambiante */}
         <div className="absolute inset-0 rounded-full bg-violet-600/15 blur-2xl" />
