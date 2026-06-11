@@ -7,22 +7,22 @@ const pairs = [
   {
     label: 'Artisan BTP · Lyon',
     site: 'selesta.fr',
-    before: '/before-after/selesta-avant.png',
-    after:  '/before-after/selesta-apres.png',
+    before: '/before-after/selesta-avant.webp',
+    after:  '/before-after/selesta-apres.webp',
     tag: 'Ravalement & isolation',
   },
   {
     label: 'Chatbot IA · France',
     site: 'botexpress.fr',
-    before: '/before-after/botexpress-avant.png',
-    after:  '/before-after/botexpress-apres.png',
+    before: '/before-after/botexpress-avant.webp',
+    after:  '/before-after/botexpress-apres.webp',
     tag: 'SaaS & automatisation',
   },
   {
     label: 'Ostéopathe · Bordeaux',
     site: 'rdv-osteo-bordeaux.fr',
-    before: '/before-after/osteo-avant.png',
-    after:  '/before-after/osteo-apres.png',
+    before: '/before-after/osteo-avant.webp',
+    after:  '/before-after/osteo-apres.webp',
     tag: 'Santé & bien-être',
   },
 ]

@@ -7,7 +7,7 @@ import * as THREE from 'three'
 // Couleurs adaptées à la charte Optify :
 //   rouge primaire  #C1121F  (violet-600)
 //   crème           #FFFDF8  (background)
-export function GenerativeArtScene() {
+export function GenerativeArtScene({ isStatic = false }: { isStatic?: boolean }) {
   const mountRef  = useRef<HTMLDivElement>(null)
   const lightRef  = useRef<THREE.PointLight | null>(null)
   const cleanupRef = useRef<(() => void) | null>(null)
@@ -132,10 +132,9 @@ export function GenerativeArtScene() {
     scene.add(pointLight)
 
     // ── Boucle ─────────────────────────────────────────────
-    // Mobile: throttle à ~30fps pour économiser la batterie/CPU
     let frameId: number
     const animate = (t: number) => {
-      frameId = requestAnimationFrame(animate)
+      if (!isStatic) frameId = requestAnimationFrame(animate)
       material.uniforms.time.value = t * 0.0003
       mesh.rotation.y += 0.0005
       mesh.rotation.x += 0.0002
@@ -163,13 +162,13 @@ export function GenerativeArtScene() {
       material.uniforms.pointLightPos.value = pos
     }
 
-    window.addEventListener('resize',    handleResize)
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('resize', handleResize)
+    if (!isStatic) window.addEventListener('mousemove', handleMouseMove)
 
     cleanupRef.current = () => {
       cancelAnimationFrame(frameId)
-      window.removeEventListener('resize',    handleResize)
-      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('resize', handleResize)
+      if (!isStatic) window.removeEventListener('mousemove', handleMouseMove)
       if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement)
       geometry.dispose()
       material.dispose()

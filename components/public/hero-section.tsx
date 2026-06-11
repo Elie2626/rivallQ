@@ -133,14 +133,14 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
 
-      {/* ── Sphère Three.js — desktop uniquement ── */}
-      {isDesktop && (
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute opacity-[0.18] inset-0 w-full h-full">
-            <GenerativeArtScene />
-          </div>
+      {/* ── Sphère : animée desktop, statique mobile ── */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute opacity-[0.17]
+          top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px]
+          lg:inset-0 lg:w-full lg:h-full lg:translate-x-0 lg:translate-y-0 lg:opacity-[0.18]">
+          <GenerativeArtScene isStatic={!isDesktop} />
         </div>
-      )}
+      </div>
 
       {/* ── Glows ambiants ─────────────────────────────────── */}
       <div className="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
