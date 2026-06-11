@@ -25,8 +25,15 @@ export default function DevisPage() {
           </h1>
           <p className="text-zinc-400 text-lg leading-relaxed">
             Répondez à quelques questions — le prix s&apos;adapte instantanément.
-            Recevez un devis détaillé sous 24h.
           </p>
+          {/* Réponse rapide */}
+          <div className="mt-4 inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/8 px-5 py-2.5 text-sm text-emerald-300 font-medium">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+            </span>
+            Je réponds à chaque demande et fixe un RDV en moins de 5 minutes
+          </div>
           {/* Badge promo si active */}
           <DevisPromoBadge />
           {/* Vous avez déjà un site ? */}

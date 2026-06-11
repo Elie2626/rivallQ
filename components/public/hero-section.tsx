@@ -251,6 +251,14 @@ export function HeroSection() {
               <span className="text-xs text-zinc-500">Sans abonnement</span>
               <span className="text-zinc-700 text-xs" aria-hidden="true">·</span>
               <span className="text-xs text-zinc-500">Résultats en 5 min</span>
+              <span className="text-zinc-700 text-xs" aria-hidden="true">·</span>
+              <span className="flex items-center gap-1.5 text-xs text-zinc-500">
+                <span className="relative flex h-1.5 w-1.5 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                </span>
+                Devis &amp; RDV confirmé en 5 min
+              </span>
             </div>
           </motion.div>
 
