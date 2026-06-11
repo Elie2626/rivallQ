@@ -171,7 +171,7 @@ export function DevisQuestionnaire() {
       const w = window as typeof window & { gtag?: (...a: unknown[]) => void }
       if (typeof w.gtag === 'function') {
         w.gtag('event', 'conversion', {
-          send_to: 'AW-18222517793/RX9PCLKd67ocEKGclvFD',
+          send_to: 'AW-18222517793/dcKsCJGwkL0cEKGclvFD',
           value: price || 50,
           currency: 'EUR',
         })
