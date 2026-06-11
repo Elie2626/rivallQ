@@ -41,12 +41,6 @@ export default function HomePage() {
       <SoftwareAppSchema />
       {/* Google Ads — "Page vue / Présentation" conversion */}
       <ConversionTracker sendTo="AW-18222517793/WWkxCJz48bscEKGclvFD" />
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-20 focus:left-4 z-50 bg-violet-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
-      >
-        Passer au contenu principal
-      </a>
       <HeroSection />
       <HowItWorks />
       <DemoSection />
