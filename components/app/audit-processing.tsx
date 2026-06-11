@@ -78,7 +78,7 @@ export function AuditProcessing({ audit }: Props) {
           ) : (
             <div
               className="absolute inset-0 rounded-full opacity-80"
-              style={{ background: 'radial-gradient(circle at 40% 40%, #a78bfa 0%, #6d28d9 40%, transparent 70%)' }}
+              style={{ background: 'radial-gradient(circle at 40% 40%, #ef4444 0%, #C1121F 40%, #7f1d1d 65%, transparent 80%)' }}
             />
           )}
         </div>

@@ -25,7 +25,7 @@ export function GlobalBackground() {
       ) : (
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-[0.08]"
-          style={{ background: 'radial-gradient(circle at 40% 40%, #a78bfa 0%, #6d28d9 40%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle at 40% 40%, #ef4444 0%, #C1121F 40%, #7f1d1d 65%, transparent 80%)' }}
         />
       )}
     </div>
