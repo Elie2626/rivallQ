@@ -165,6 +165,24 @@ export function DevisQuestionnaire() {
 
   const handleSubmit = async () => {
     setLoading(true)
+
+    // Google Ads — "demande de devis" conversion (fired before async ops)
+    try {
+      const w = window as typeof window & { gtag?: (...a: unknown[]) => void }
+      if (typeof w.gtag === 'function') {
+        w.gtag('event', 'conversion', {
+          send_to: 'AW-18222517793/RX9PCLKd67ocEKGclvFD',
+          value: price || 50,
+          currency: 'EUR',
+        })
+        console.log('[RivallQ] gtag conversion fired — demande de devis', price || 50, 'EUR')
+      } else {
+        console.warn('[RivallQ] gtag not available at submit time')
+      }
+    } catch (e) {
+      console.error('[RivallQ] gtag error', e)
+    }
+
     try {
       await fetch('/api/devis', {
         method: 'POST',
@@ -172,16 +190,7 @@ export function DevisQuestionnaire() {
         body: JSON.stringify({ ...form, estimatedPrice: price }),
       })
     } catch { /* non-fatal */ }
-    // Google Ads conversion tracking
-    try {
-      if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
-        ;(window as any).gtag('event', 'conversion', {
-          send_to: 'AW-18222517793/RX9PCLKd67ocEKGclvFD',
-          value: price || 50,
-          currency: 'EUR',
-        })
-      }
-    } catch { /* non-fatal */ }
+
     setLoading(false)
     setSubmitted(true)
   }
