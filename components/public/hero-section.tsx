@@ -243,16 +243,16 @@ export function HeroSection() {
 
             {/* Sous-form reassurances */}
             <div className="flex flex-wrap items-center justify-center gap-4 mb-0">
-              <span className="flex items-center gap-1.5 text-xs text-zinc-500">
+              <span className="flex items-center gap-1.5 text-xs text-zinc-100 font-medium">
                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" />
                 Remboursé si insatisfait — 7 jours
               </span>
-              <span className="text-zinc-700 text-xs" aria-hidden="true">·</span>
-              <span className="text-xs text-zinc-500">Sans abonnement</span>
-              <span className="text-zinc-700 text-xs" aria-hidden="true">·</span>
-              <span className="text-xs text-zinc-500">Résultats en 5 min</span>
-              <span className="text-zinc-700 text-xs" aria-hidden="true">·</span>
-              <span className="flex items-center gap-1.5 text-xs text-zinc-500">
+              <span className="text-zinc-500 text-xs" aria-hidden="true">·</span>
+              <span className="text-xs text-zinc-100 font-medium">Sans abonnement</span>
+              <span className="text-zinc-500 text-xs" aria-hidden="true">·</span>
+              <span className="text-xs text-zinc-100 font-medium">Résultats en 5 min</span>
+              <span className="text-zinc-500 text-xs" aria-hidden="true">·</span>
+              <span className="flex items-center gap-1.5 text-xs text-zinc-100 font-medium">
                 <span className="relative flex h-1.5 w-1.5 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
