@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { getServerUser, getServerProfile, isAdminEmail } from '@/lib/firebase/server'
 import { AppShell } from '@/components/layouts/app-shell'
+import { SessionRefresher } from '@/components/auth/session-refresher'
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const user = await getServerUser()
@@ -15,6 +16,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       userName={profile?.full_name ?? undefined}
       isAdmin={isAdminEmail(userEmail)}
     >
+      <SessionRefresher />
       {children}
     </AppShell>
   )

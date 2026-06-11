@@ -3,7 +3,6 @@ import { Geist } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { ToastProvider } from '@/components/ui/toast'
-import { SessionRefresher } from '@/components/auth/session-refresher'
 import { OrganizationSchema, WebSiteSchema } from '@/components/seo/json-ld'
 import { MotionProvider } from '@/components/providers/motion-provider'
 
@@ -118,7 +117,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full bg-zinc-950 text-zinc-200 antialiased font-sans selection:bg-violet-600/20 selection:text-violet-700">
         <OrganizationSchema />
         <WebSiteSchema />
-        <SessionRefresher />
         <MotionProvider>
           {children}
         </MotionProvider>
