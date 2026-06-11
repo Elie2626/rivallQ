@@ -266,7 +266,7 @@ export function DevisQuestionnaire() {
   return (
     <div className="max-w-3xl mx-auto">
       {/* Header: progress + live price */}
-      <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
+      <div className="flex items-center justify-between mb-8 gap-4 flex-wrap overflow-hidden">
         {/* Step indicators */}
         <div className="flex items-center gap-1.5">
           {STEPS.map((s, i) => (
@@ -331,12 +331,13 @@ export function DevisQuestionnaire() {
       </div>
 
       {/* Step content */}
+      <div className="overflow-hidden">
       <AnimatePresence mode="wait">
         <m.div
           key={step}
-          initial={{ opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -24 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
         >
           {step === 0 && <StepType form={form} setForm={setForm} onNext={() => setStep(1)} promoActive={promoActive} />}
@@ -346,6 +347,7 @@ export function DevisQuestionnaire() {
           {step === 4 && <StepContact form={form} setForm={setForm} />}
         </m.div>
       </AnimatePresence>
+      </div>
 
       {/* Navigation */}
       <div className="flex items-center justify-between mt-8 pt-6 border-t border-zinc-800">
