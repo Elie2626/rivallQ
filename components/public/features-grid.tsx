@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
   Search, BarChart3, Wand2, FileDown, Globe, RefreshCw,
   Shield, Zap, Eye, Target, TrendingUp, Code2,
@@ -88,23 +88,23 @@ export function FeaturesGrid() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="inline-block text-xs font-semibold uppercase tracking-widest text-violet-400 mb-4"
           >
             Fonctionnalités
-          </motion.span>
-          <motion.h2
+          </m.span>
+          <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-zinc-100 mb-4"
           >
             Tout ce dont votre site a besoin
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -112,13 +112,13 @@ export function FeaturesGrid() {
             className="text-zinc-400 max-w-xl mx-auto"
           >
             Un seul outil remplace SEMrush, Lighthouse, les UX consultants et les développeurs WordPress.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {features.map(({ icon: Icon, title, description, badge, highlighted }, i) => (
-            <motion.div
+            <m.div
               key={title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -140,7 +140,7 @@ export function FeaturesGrid() {
               </div>
               <h3 className="text-sm font-semibold text-zinc-100 mb-1.5">{title}</h3>
               <p className="text-xs text-zinc-500 leading-relaxed">{description}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

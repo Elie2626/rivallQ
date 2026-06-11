@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Globe, Brain, Wand2, Rocket, User } from 'lucide-react'
 
 const steps = [
@@ -44,15 +44,15 @@ export function HowItWorks() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="inline-block text-xs font-semibold uppercase tracking-widest text-violet-400 mb-4"
           >
             Comment ça marche
-          </motion.span>
-          <motion.h2
+          </m.span>
+          <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -62,8 +62,8 @@ export function HowItWorks() {
             Nouveau site ou refonte — on s&apos;occupe de tout
             <br />
             <span className="text-zinc-500">en 4 étapes</span>
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -71,13 +71,13 @@ export function HowItWorks() {
             className="text-zinc-400 max-w-xl mx-auto"
           >
             Aucune compétence technique requise. RivallQ fait tout le travail à votre place.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Steps */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map(({ number, icon: Icon, title, description, color, glow }, i) => (
-            <motion.div
+            <m.div
               key={number}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -105,12 +105,12 @@ export function HowItWorks() {
                 <h3 className="text-base font-semibold text-zinc-100 mb-2">{title}</h3>
                 <p className="text-sm text-zinc-500 leading-relaxed">{description}</p>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
         {/* Callout "fait par un humain" */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -129,7 +129,7 @@ export function HowItWorks() {
               développeur web spécialisé en SEO. Pas un Wix, pas un template IA. Un vrai site professionnel, sur mesure.
             </p>
           </div>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

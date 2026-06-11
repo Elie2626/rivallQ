@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import {
   Check, ChevronRight, ChevronLeft,
   Globe, Cpu, Sparkles,
@@ -197,7 +197,7 @@ export function DevisQuestionnaire() {
 
   if (submitted) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         className="flex flex-col items-center justify-center text-center py-12 gap-6 max-w-lg mx-auto"
@@ -259,7 +259,7 @@ export function DevisQuestionnaire() {
         </div>
 
         <p className="text-xs text-zinc-600">Confirmation envoyée à {form.email}</p>
-      </motion.div>
+      </m.div>
     )
   }
 
@@ -293,7 +293,7 @@ export function DevisQuestionnaire() {
         </div>
 
         {/* Live price badge */}
-        <motion.div
+        <m.div
           layout
           className={cn(
             'rounded-xl border px-4 py-2 text-right transition-colors duration-500',
@@ -327,12 +327,12 @@ export function DevisQuestionnaire() {
               {promoActive ? '+ 25 €/mois' : '+ 50 €/mois'}
             </p>
           )}
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Step content */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={step}
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
@@ -344,7 +344,7 @@ export function DevisQuestionnaire() {
           {step === 2 && <StepFeatures form={form} setForm={setForm} />}
           {step === 3 && <StepOptions form={form} setForm={setForm} />}
           {step === 4 && <StepContact form={form} setForm={setForm} />}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       {/* Navigation */}

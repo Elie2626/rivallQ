@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Star, ExternalLink } from 'lucide-react'
 
 // ── Témoignages avec aperçu de site réel ──────────────────────
@@ -88,7 +88,7 @@ function SitePreviewCard({
   const thumbUrl = `https://s.wordpress.com/mshots/v1/${encodeURIComponent(item.siteUrl)}?w=1200&h=630`
 
   return (
-    <motion.article
+    <m.article
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -161,7 +161,7 @@ function SitePreviewCard({
           </div>
         </div>
       </div>
-    </motion.article>
+    </m.article>
   )
 }
 
@@ -172,23 +172,23 @@ export function TestimonialsSection() {
 
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="inline-block text-xs font-semibold uppercase tracking-widest text-violet-400 mb-4"
           >
             Témoignages
-          </motion.span>
-          <motion.h2
+          </m.span>
+          <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl font-bold text-zinc-100 mb-4"
           >
             Ils ont transformé leur site
-          </motion.h2>
-          <motion.div
+          </m.h2>
+          <m.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -197,7 +197,7 @@ export function TestimonialsSection() {
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" aria-hidden="true" />
             ))}
-          </motion.div>
+          </m.div>
           <p className="text-sm text-zinc-500">4,9/5 basé sur 200+ avis</p>
         </div>
 

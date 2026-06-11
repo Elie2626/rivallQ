@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ArrowRight, Globe, ShieldCheck, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils/cn'
@@ -43,7 +43,7 @@ function ClientLogo({ src, label, domain, initials }: { src: string; label: stri
 
 // Three.js — chargé sur tous les écrans
 const GenerativeArtScene = dynamic(
-  () => import('@/components/ui/anomalous-matter-hero').then(m => m.GenerativeArtScene),
+  () => import('@/components/ui/anomalous-matter-hero').then(mod => mod.GenerativeArtScene),
   { ssr: false, loading: () => null }
 )
 
@@ -162,7 +162,7 @@ export function HeroSection() {
         <div className="text-center max-w-4xl mx-auto">
 
           {/* Badge */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -171,10 +171,10 @@ export function HeroSection() {
               <span className="animate-pulse h-1.5 w-1.5 rounded-full bg-violet-400" aria-hidden="true" />
               Audit SEO · Création site web dès 500€
             </span>
-          </motion.div>
+          </m.div>
 
           {/* Titre */}
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -185,20 +185,20 @@ export function HeroSection() {
             <span className="bg-gradient-to-r from-violet-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
               On règle ça.
             </span>
-          </motion.h1>
+          </m.h1>
 
           {/* Sous-titre */}
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
             Diagnostic SEO complet en 5 minutes — score, problèmes, mots-clés. Puis je crée votre site vitrine professionnel à la main, sur mesure, dès 500€.
-          </motion.p>
+          </m.p>
 
           {/* Formulaire URL */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -265,20 +265,20 @@ export function HeroSection() {
                 Devis &amp; RDV confirmé en 5 min
               </span>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Compteur live */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.44 }}
             className="mt-12 flex justify-center"
           >
             <LiveAuditCounter />
-          </motion.div>
+          </m.div>
 
           {/* Stats bar */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.45 }}
@@ -292,10 +292,10 @@ export function HeroSection() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Logos clients */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.55 }}
@@ -307,10 +307,10 @@ export function HeroSection() {
                 <ClientLogo key={c.src} {...c} />
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Lien démo */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.65 }}
@@ -328,7 +328,7 @@ export function HeroSection() {
               </span>
               Voir une démonstration
             </Link>
-          </motion.div>
+          </m.div>
 
         </div>
       </div>

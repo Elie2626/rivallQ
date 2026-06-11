@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { Plus, Minus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -48,7 +48,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
       </button>
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             id={id}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
@@ -57,7 +57,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
             className="overflow-hidden"
           >
             <p className="pb-5 text-sm text-zinc-500 leading-relaxed">{a}</p>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

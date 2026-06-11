@@ -7,7 +7,7 @@ import { getDomain } from '@/lib/utils/format'
 import type { Audit } from '@/types'
 
 const GenerativeArtScene = dynamic(
-  () => import('@/components/ui/anomalous-matter-hero').then(m => m.GenerativeArtScene),
+  () => import('@/components/ui/anomalous-matter-hero').then(mod => mod.GenerativeArtScene),
   { ssr: false, loading: () => null }
 )
 

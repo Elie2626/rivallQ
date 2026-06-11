@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { X, Check, ArrowRight, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -42,15 +42,15 @@ export function ValueComparison() {
 
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="inline-block text-xs font-semibold uppercase tracking-widest text-violet-400 mb-4"
           >
             Pourquoi RivallQ
-          </motion.span>
-          <motion.h2
+          </m.span>
+          <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -59,8 +59,8 @@ export function ValueComparison() {
             Ce que les autres facturent.
             <br />
             <span className="text-zinc-500">Ce que vous payez.</span>
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -68,13 +68,13 @@ export function ValueComparison() {
             className="text-zinc-400 max-w-xl mx-auto"
           >
             Même résultat. Fraction du coût. Fraction du temps.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Comparison grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {alternatives.map(({ label, price, sub, cons }, i) => (
-            <motion.div
+            <m.div
               key={label}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -93,11 +93,11 @@ export function ValueComparison() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           ))}
 
           {/* RivallQ — highlighted */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -127,11 +127,11 @@ export function ValueComparison() {
                 <ArrowRight className="h-3.5 w-3.5 ml-1.5" aria-hidden="true" />
               </Link>
             </Button>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* ROI callout */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -152,7 +152,7 @@ export function ValueComparison() {
               <strong className="text-emerald-300">×30 dès le premier mois.</strong>
             </p>
           </div>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

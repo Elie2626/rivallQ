@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 
 const GenerativeArtScene = dynamic(
-  () => import('@/components/ui/anomalous-matter-hero').then(m => m.GenerativeArtScene),
+  () => import('@/components/ui/anomalous-matter-hero').then(mod => mod.GenerativeArtScene),
   { ssr: false, loading: () => null }
 )
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, memo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ArrowLeftRight, Monitor, Smartphone, ExternalLink, Globe, ChevronRight } from 'lucide-react'
 
 // ── Shared CSS (design system commun à toutes les pages "après") ─────
@@ -557,7 +557,7 @@ export function BeforeAfterDemo() {
 
       <AnimatePresence mode="wait">
         {isSplit ? (
-          <motion.div key="split" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          <m.div key="split" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="grid grid-cols-2 gap-3 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 p-3"
           >
             {/* Labels flottants */}
@@ -580,9 +580,9 @@ export function BeforeAfterDemo() {
               split
               isAfter
             />
-          </motion.div>
+          </m.div>
         ) : effectiveView === 'before' ? (
-          <motion.div key={`before-${beforePage}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <m.div key={`before-${beforePage}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <SiteFrame
               label={`Avant — ${BEFORE_PAGES[beforePage].label}`}
               badge="bg-red-500/20 text-red-400 border-red-500/30"
@@ -591,9 +591,9 @@ export function BeforeAfterDemo() {
               device={isSmallScreen ? 'desktop' : device}
               split={false}
             />
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.div key={`after-${afterPage}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <m.div key={`after-${afterPage}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <SiteFrame
               label={`Après — ${AFTER_PAGES[afterPage].label}`}
               badge="bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
@@ -603,7 +603,7 @@ export function BeforeAfterDemo() {
               split={false}
               isAfter
             />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

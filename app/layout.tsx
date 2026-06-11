@@ -5,6 +5,7 @@ import './globals.css'
 import { ToastProvider } from '@/components/ui/toast'
 import { SessionRefresher } from '@/components/auth/session-refresher'
 import { OrganizationSchema, WebSiteSchema } from '@/components/seo/json-ld'
+import { MotionProvider } from '@/components/providers/motion-provider'
 
 const geist = Geist({
   variable: '--font-geist',
@@ -118,7 +119,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <OrganizationSchema />
         <WebSiteSchema />
         <SessionRefresher />
-        {children}
+        <MotionProvider>
+          {children}
+        </MotionProvider>
         <ToastProvider />
         {/* Google Analytics 4 + Google Ads tag */}
         <Script
@@ -134,6 +137,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         `}</Script>
         <Script
           src="https://www.botexpress.fr/widget.js"
+          strategy="lazyOnload"
           data-chatbot-id="8a90884c-461a-414c-9b0c-a09ab7dacf8a"
           data-api-url="https://agentai-23tt.onrender.com"
         />

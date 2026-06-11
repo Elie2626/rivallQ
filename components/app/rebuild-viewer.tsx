@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
   Monitor, Smartphone, Download, Globe, Code2,
   CheckCircle2, Loader2, ExternalLink, Lock,
@@ -80,13 +80,13 @@ export function RebuildViewer({ rebuild }: Props) {
   if (rebuild.status === 'generating') {
     return (
       <div className="max-w-md mx-auto text-center py-20">
-        <motion.div
+        <m.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
           className="h-14 w-14 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center mx-auto mb-6"
         >
           <Loader2 className="h-6 w-6 text-white" />
-        </motion.div>
+        </m.div>
         <h1 className="text-2xl font-bold text-zinc-100 mb-2">Application des recommandations…</h1>
         <p className="text-zinc-500 text-sm">Claude analyse votre site et applique les optimisations SEO, UX et conversion. Cela prend 1 à 2 minutes.</p>
         <p className="text-xs text-zinc-600 mt-4">Vos images et pages existantes sont conservées — seules les améliorations ciblées sont appliquées.</p>
@@ -168,7 +168,7 @@ export function RebuildViewer({ rebuild }: Props) {
 
       {/* WordPress form */}
       {showWpForm && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5"
@@ -214,7 +214,7 @@ export function RebuildViewer({ rebuild }: Props) {
               <Button type="submit" variant="gradient" size="sm" loading={wpLoading}>Installer</Button>
             </div>
           </form>
-        </motion.div>
+        </m.div>
       )}
 
       {/* Toolbar */}

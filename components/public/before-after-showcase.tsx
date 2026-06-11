@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ImageComparison } from '@/components/ui/image-comparison-slider'
 
 const pairs = [
@@ -46,7 +46,7 @@ export function BeforeAfterShowcase() {
       {/* 3 colonnes */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {pairs.map(({ label, site, before, after, tag }, i) => (
-          <motion.div
+          <m.div
             key={site}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -87,7 +87,7 @@ export function BeforeAfterShowcase() {
                 Refondre mon site →
               </a>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </section>

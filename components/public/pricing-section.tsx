@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Check, Zap, Globe, Cpu, Sparkles, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useIsPromoActive } from '@/components/public/promo-banner'
@@ -104,15 +104,15 @@ export function PricingSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="inline-block text-xs font-semibold uppercase tracking-widest text-violet-400 mb-4"
           >
             Tarifs
-          </motion.span>
-          <motion.h2
+          </m.span>
+          <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -120,8 +120,8 @@ export function PricingSection() {
           >
             Simple, transparent,{' '}
             <span className="text-zinc-500">sans surprise</span>
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -129,7 +129,7 @@ export function PricingSection() {
             className="text-zinc-400 max-w-xl mx-auto"
           >
             Commencez par un audit à 4,99€. Créez votre site à partir de 500€.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Plans */}
@@ -137,7 +137,7 @@ export function PricingSection() {
           {plans.map(({ id, icon: Icon, iconColor, name, price, promoPrice: rawPromoPrice, period, description, features, cta, href, highlighted, badge }, i) => {
             const promoPrice = rawPromoPrice  // null = pas de promo pour ce plan
             return (
-            <motion.div
+            <m.div
               key={id}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -209,13 +209,13 @@ export function PricingSection() {
               >
                 <Link href={href}>{cta}</Link>
               </Button>
-            </motion.div>
+            </m.div>
           )
           })}
         </div>
 
         {/* Maintenance add-on */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -244,10 +244,10 @@ export function PricingSection() {
           <Button variant="outline" size="sm" className="shrink-0 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10" asChild>
             <Link href="/devis">Ajouter au devis</Link>
           </Button>
-        </motion.div>
+        </m.div>
 
         {/* Bottom note */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -256,7 +256,7 @@ export function PricingSection() {
           <p className="text-xs text-zinc-500">
             Audit sécurisé via Stripe · Remboursement sous 7 jours si insatisfait · Devis gratuit et sans engagement
           </p>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

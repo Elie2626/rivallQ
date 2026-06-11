@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 export function DemoSection() {
   return (
@@ -8,15 +8,15 @@ export function DemoSection() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="inline-block text-xs font-semibold uppercase tracking-widest text-violet-400 mb-4"
           >
             Démonstration live
-          </motion.span>
-          <motion.h2
+          </m.span>
+          <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -24,8 +24,8 @@ export function DemoSection() {
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-zinc-100 mb-4"
           >
             Voyez comment ça fonctionne
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -35,11 +35,11 @@ export function DemoSection() {
             En 5 minutes, RivallQ analyse votre site et vous donne un diagnostic complet — SEO, UX, conversion.
             <br className="hidden sm:block" />
             <span className="text-zinc-500">Puis obtenez un devis pour créer ou refondre votre site professionnel.</span>
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Video */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -66,17 +66,17 @@ export function DemoSection() {
             className="w-full block bg-zinc-950"
             style={{ maxHeight: '70vh' }}
           />
-        </motion.div>
+        </m.div>
 
         {/* Bottom note */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="text-center text-xs text-zinc-600 mt-6"
         >
           Audit complet en 5 minutes · Score SEO, UX & conversion · Devis de création inclus
-        </motion.p>
+        </m.p>
       </div>
     </section>
   )

@@ -177,9 +177,10 @@ export function GenerativeArtScene({ isStatic = false }: { isStatic?: boolean })
 
     } // end init
 
-    init()
+    const timer = setTimeout(init, 500)
 
     return () => {
+      clearTimeout(timer)
       cleanupRef.current?.()
     }
   }, [isStatic])

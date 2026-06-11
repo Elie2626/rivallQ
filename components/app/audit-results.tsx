@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
   AlertTriangle, Info, CheckCircle2, ArrowRight,
   Globe, ExternalLink, BarChart3, Search, Eye, Zap, Share2, Check, FileText,
@@ -151,7 +151,7 @@ export function AuditResults({ audit }: { audit: Audit }) {
       </div>
 
       {/* Tab content */}
-      <motion.div
+      <m.div
         key={activeTab}
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
@@ -161,7 +161,7 @@ export function AuditResults({ audit }: { audit: Audit }) {
         {activeTab === 'issues' && <IssuesTab issues={audit.issues ?? []} />}
         {activeTab === 'keywords' && <KeywordsTab audit={audit} />}
         {activeTab === 'recommendations' && <RecommendationsTab audit={audit} />}
-      </motion.div>
+      </m.div>
 
       {/* CTA Devis */}
       {audit.status === 'completed' && (
