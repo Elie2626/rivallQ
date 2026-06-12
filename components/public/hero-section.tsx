@@ -141,8 +141,7 @@ export function HeroSection() {
           </div>
         ) : (
           <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] rounded-full opacity-[0.15]"
-            style={{ background: 'radial-gradient(circle at 40% 40%, #ef4444 0%, #C1121F 40%, #7f1d1d 65%, transparent 80%)' }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-red-700/20 blur-[100px]"
           />
         )}
       </div>

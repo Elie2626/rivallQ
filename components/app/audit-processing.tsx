@@ -77,8 +77,7 @@ export function AuditProcessing({ audit }: Props) {
             <GenerativeArtScene />
           ) : (
             <div
-              className="absolute inset-0 rounded-full opacity-80"
-              style={{ background: 'radial-gradient(circle at 40% 40%, #ef4444 0%, #C1121F 40%, #7f1d1d 65%, transparent 80%)' }}
+              className="absolute inset-0 rounded-full bg-red-700/30 blur-[60px]"
             />
           )}
         </div>
