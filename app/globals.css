@@ -123,6 +123,16 @@ input:-webkit-autofill:focus {
   caret-color: #4A4E69;
 }
 
+/* ── Marquee carousel ────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
 /* ── Hero futuristic animations ──────────────── */
 @keyframes heroWordFadeIn {
   from {

@@ -1,19 +1,10 @@
 'use client'
 
+import { useRef } from 'react'
 import { m } from 'framer-motion'
 import { Star, ExternalLink } from 'lucide-react'
 
-// ── Témoignages avec aperçu de site réel ──────────────────────
-const featured: {
-  siteUrl: string
-  displayUrl: string
-  name: string
-  role: string
-  avatar: string
-  content: string
-  stars: number
-  result: string
-}[] = [
+const featured = [
   {
     siteUrl: 'https://selesta.fr',
     displayUrl: 'selesta.fr',
@@ -47,22 +38,22 @@ const featured: {
   {
     siteUrl: 'https://rdv-osteo-bordeaux.fr/',
     displayUrl: 'rdv-osteo-bordeaux.fr',
-    name: 'Équipe Tsohar AI',
-    role: 'Plateforme IA',
-    avatar: 'TA',
-    content: 'RivallQ a pointé des problèmes de conversion qu\'on ignorait totalement. En une journée d\'optimisation, notre taux de sign-up a bondi.',
+    name: 'Cabinet Ostéo Bordeaux',
+    role: 'Santé & bien-être',
+    avatar: 'OB',
+    content: 'RivallQ a pointé des problèmes de conversion qu\'on ignorait totalement. En une journée d\'optimisation, notre taux de prise de RDV a bondi.',
     stars: 5,
-    result: '+38% sign-ups',
+    result: '+38% RDV en ligne',
   },
   {
-    siteUrl: 'https://clim69.fr',
-    displayUrl: 'clim69.fr',
-    name: 'Clim69',
-    role: 'Climatisation & chauffage, Lyon',
-    avatar: 'C6',
-    content: 'Le rapport SEO était précis et simple à comprendre. On a suivi les recommandations et notre fiche Google remonte enfin en première page.',
+    siteUrl: 'https://closermatch.fr',
+    displayUrl: 'closermatch.fr',
+    name: 'CloserMatch',
+    role: 'Recrutement & mise en relation',
+    avatar: 'CM',
+    content: 'Site refait de zéro par RivallQ — design moderne, rapide, et optimisé pour convertir. On a vu une différence immédiate sur le taux d\'engagement.',
     stars: 5,
-    result: 'Page 1 Google',
+    result: '+61% engagement',
   },
   {
     siteUrl: 'https://botexpress.fr',
@@ -76,83 +67,50 @@ const featured: {
   },
 ]
 
+// Dupliquer pour l'effet infini
+const items = [...featured, ...featured]
 
-function SitePreviewCard({
-  item,
-  index,
-}: {
-  item: (typeof featured)[number]
-  index: number
-}) {
-  // WordPress mshots — service gratuit, fiable, pas de clé API
-  const thumbUrl = `https://s.wordpress.com/mshots/v1/${encodeURIComponent(item.siteUrl)}?w=1200&h=630`
+function SitePreviewCard({ item }: { item: (typeof featured)[number] }) {
+  const thumbUrl = `https://s.wordpress.com/mshots/v1/${encodeURIComponent(item.siteUrl)}?w=800&h=450`
 
   return (
-    <m.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.45, delay: index * 0.1 }}
-      className="rounded-2xl border border-zinc-800 bg-zinc-900/50 overflow-hidden flex flex-col hover:border-violet-500/30 transition-colors duration-300"
-    >
-      {/* ── Mini browser ── */}
-      <div className="relative bg-zinc-800/80 flex-shrink-0">
-        {/* Browser chrome */}
+    <article className="w-[300px] sm:w-[340px] flex-shrink-0 rounded-2xl border border-zinc-800 bg-zinc-900/50 overflow-hidden flex flex-col hover:border-violet-500/30 transition-colors duration-300">
+      {/* Mini browser */}
+      <div className="bg-zinc-800/80 flex-shrink-0">
         <div className="flex items-center gap-2 px-4 py-2.5 border-b border-zinc-700/60">
           <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
           <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
           <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
-          <div className="flex-1 mx-2 rounded-md bg-zinc-700/60 flex items-center px-3 h-6 gap-2">
+          <div className="flex-1 mx-2 rounded-md bg-zinc-700/60 flex items-center px-3 h-6">
             <span className="text-[10px] text-zinc-500 truncate">{item.displayUrl}</span>
           </div>
-          <a
-            href={item.siteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <a href={item.siteUrl} target="_blank" rel="noopener noreferrer"
             className="text-zinc-600 hover:text-zinc-400 transition-colors"
-            aria-label={`Ouvrir ${item.displayUrl}`}
-          >
+            aria-label={`Ouvrir ${item.displayUrl}`}>
             <ExternalLink className="h-3 w-3" />
           </a>
         </div>
-
-        {/* Screenshot — balise img native, pas de contrainte de domaine Next.js */}
-        <div className="relative h-44 overflow-hidden bg-zinc-900">
+        <div className="relative h-40 overflow-hidden bg-zinc-900">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={thumbUrl}
-            alt={`Aperçu de ${item.displayUrl}`}
-            className="w-full h-full object-cover object-top"
-            loading="lazy"
-          />
-          {/* Gradient fade bottom */}
-          <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-zinc-900/90 to-transparent" />
+          <img src={thumbUrl} alt={`Aperçu de ${item.displayUrl}`}
+            className="w-full h-full object-cover object-top" loading="lazy" />
+          <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-zinc-900/90 to-transparent" />
         </div>
       </div>
 
-      {/* ── Card body ── */}
-      <div className="p-5 flex flex-col gap-3 flex-1">
-        {/* Stars */}
+      {/* Body */}
+      <div className="p-4 flex flex-col gap-3 flex-1">
         <div className="flex gap-0.5" aria-label={`${item.stars} étoiles sur 5`}>
-          {Array.from({ length: item.stars }).map((_, si) => (
-            <Star key={si} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+          {Array.from({ length: item.stars }).map((_, i) => (
+            <Star key={i} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" aria-hidden="true" />
           ))}
         </div>
-
-        {/* Quote */}
         <p className="text-sm text-zinc-300 leading-relaxed flex-1">&ldquo;{item.content}&rdquo;</p>
-
-        {/* Result */}
         <span className="inline-block self-start rounded-full bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 text-xs font-semibold text-emerald-300">
           {item.result}
         </span>
-
-        {/* Author */}
         <div className="flex items-center gap-3 pt-3 border-t border-zinc-800">
-          <div
-            className="h-8 w-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-[10px] font-bold shrink-0"
-            aria-hidden="true"
-          >
+          <div className="h-8 w-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-[10px] font-bold shrink-0" aria-hidden="true">
             {item.avatar}
           </div>
           <div>
@@ -161,24 +119,25 @@ function SitePreviewCard({
           </div>
         </div>
       </div>
-    </m.article>
+    </article>
   )
 }
 
 export function TestimonialsSection() {
+  const trackRef = useRef<HTMLDivElement>(null)
+
   return (
     <section className="py-20 lg:py-28 border-t border-zinc-900 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <m.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="inline-block text-xs font-semibold uppercase tracking-widest text-violet-400 mb-4"
           >
-            Témoignages
+            Réalisations
           </m.span>
           <m.h2
             initial={{ opacity: 0, y: 16 }}
@@ -198,17 +157,26 @@ export function TestimonialsSection() {
               <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" aria-hidden="true" />
             ))}
           </m.div>
-          <p className="text-sm text-zinc-500">4,9/5 basé sur 200+ avis</p>
+          <p className="text-sm text-zinc-500">4,9/5 · {featured.length} clients satisfaits</p>
         </div>
+      </div>
 
-        {/* Featured — avec aperçu de site */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-5">
-          {featured.map((item, i) => (
-            <SitePreviewCard key={item.siteUrl} item={item} index={i} />
+      {/* Carousel infini */}
+      <div className="relative">
+        {/* Fade gauche */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
+        {/* Fade droite */}
+        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none" />
+
+        <div
+          className="flex gap-4 animate-marquee hover:[animation-play-state:paused]"
+          ref={trackRef}
+          style={{ width: 'max-content' }}
+        >
+          {items.map((item, i) => (
+            <SitePreviewCard key={`${item.siteUrl}-${i}`} item={item} />
           ))}
         </div>
-
-
       </div>
     </section>
   )
