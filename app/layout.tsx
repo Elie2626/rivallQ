@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist } from 'next/font/google'
-import Script from 'next/script'
 import './globals.css'
 import { ToastProvider } from '@/components/ui/toast'
 import { OrganizationSchema, WebSiteSchema } from '@/components/seo/json-ld'
 import { MotionProvider } from '@/components/providers/motion-provider'
+import { CookieConsent } from '@/components/public/cookie-consent'
 
 const geist = Geist({
   variable: '--font-geist',
@@ -121,24 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </MotionProvider>
         <ToastProvider />
-        {/* Google Analytics 4 + Google Ads tag */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-51526YPZLE"
-          strategy="afterInteractive"
-        />
-        <Script id="gtag-init" strategy="afterInteractive">{`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-51526YPZLE');
-          gtag('config', 'AW-18222517793');
-        `}</Script>
-        <Script
-          src="https://www.botexpress.fr/widget.js"
-          strategy="lazyOnload"
-          data-chatbot-id="8a90884c-461a-414c-9b0c-a09ab7dacf8a"
-          data-api-url="https://agentai-23tt.onrender.com"
-        />
+        <CookieConsent />
       </body>
     </html>
   )
