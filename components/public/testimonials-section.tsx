@@ -54,6 +54,7 @@ const featured = [
     content: 'Site refait de zéro par RivallQ — design moderne, rapide, et optimisé pour convertir. On a vu une différence immédiate sur le taux d\'engagement.',
     stars: 5,
     result: '+61% engagement',
+    screenshot: '/clients/screenshots/closermatch.webp',
   },
   {
     siteUrl: 'https://botexpress.fr',
@@ -71,7 +72,7 @@ const featured = [
 const items = [...featured, ...featured]
 
 function SitePreviewCard({ item }: { item: (typeof featured)[number] }) {
-  const thumbUrl = `https://s.wordpress.com/mshots/v1/${encodeURIComponent(item.siteUrl)}?w=800&h=450`
+  const thumbUrl = item.screenshot ?? `https://s.wordpress.com/mshots/v1/${encodeURIComponent(item.siteUrl)}?w=800&h=450`
 
   return (
     <article className="w-[300px] sm:w-[340px] flex-shrink-0 rounded-2xl border border-zinc-800 bg-zinc-900/50 overflow-hidden flex flex-col hover:border-violet-500/30 transition-colors duration-300">
