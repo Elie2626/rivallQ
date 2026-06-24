@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils/cn'
 const clients = [
   { src: '/clients/selesta.png',    label: 'Selesta',             domain: 'selesta.fr',            initials: 'SE' },
   { src: '/clients/gcours.png',     label: 'G-Cours',             domain: 'g-cours.fr',            initials: 'GC' },
-  { src: '/clients/clim69.png',     label: 'Clim69',              domain: 'clim69.fr',             initials: 'C6' },
+  { src: '/clients/closermatch.png', label: 'CloserMatch',         domain: 'closermatch.fr',        initials: 'CM' },
   { src: '/clients/botexpress.png', label: 'BotExpress',          domain: 'botexpress.fr',         initials: 'BE' },
   { src: '/clients/rdvosteo.png',   label: 'Rdv Ostéo Bordeaux',  domain: 'rdv-osteo-bordeaux.fr', initials: 'RO' },
 ]
