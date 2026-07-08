@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { m } from 'framer-motion'
-import { Check, Zap, Globe, Cpu, Sparkles, Wrench } from 'lucide-react'
+import { Check, Zap, Globe, Cpu, Sparkles, Wrench, TrendingUp, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useIsPromoActive } from '@/components/public/promo-banner'
 
@@ -213,6 +213,57 @@ export function PricingSection() {
           )
           })}
         </div>
+
+        {/* Partage de revenus */}
+        <m.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15 }}
+          className="mt-5 rounded-2xl border border-teal-500/30 bg-gradient-to-r from-teal-600/10 to-emerald-600/5 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5"
+        >
+          {/* Icône */}
+          <div className="h-12 w-12 rounded-xl bg-teal-500/15 border border-teal-500/20 flex items-center justify-center shrink-0">
+            <TrendingUp className="h-6 w-6 text-teal-400" aria-hidden="true" />
+          </div>
+
+          {/* Texte */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap mb-1">
+              <p className="font-bold text-zinc-100 text-sm sm:text-base">Formule Partage de revenus</p>
+              <span className="rounded-full bg-teal-500/20 border border-teal-500/30 px-2 py-0.5 text-[10px] font-bold text-teal-300 uppercase tracking-wide">
+                Nouveau
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-xl">
+              Pas de budget pour démarrer ?{' '}
+              <strong className="text-zinc-200">Payez moitié prix à la livraison</strong>, puis{' '}
+              <strong className="text-zinc-200">10% du chiffre d&apos;affaires</strong> généré par votre site — seulement quand vous gagnez de l&apos;argent grâce à lui.
+            </p>
+            <div className="flex items-center gap-4 mt-2.5 flex-wrap">
+              <div className="flex items-center gap-1.5">
+                <div className="h-1.5 w-1.5 rounded-full bg-teal-400" />
+                <span className="text-xs text-zinc-400">50% du prix à la livraison</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="h-1.5 w-1.5 rounded-full bg-teal-400" />
+                <span className="text-xs text-zinc-400">10% du CA généré ensuite</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="h-1.5 w-1.5 rounded-full bg-teal-400" />
+                <span className="text-xs text-zinc-400">Modalités définies ensemble</span>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <Button variant="outline" size="sm" className="shrink-0 border-teal-500/40 text-teal-400 hover:bg-teal-500/10 whitespace-nowrap" asChild>
+            <Link href="/devis">
+              Choisir cette formule
+              <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+            </Link>
+          </Button>
+        </m.div>
 
         {/* Maintenance add-on */}
         <m.div
