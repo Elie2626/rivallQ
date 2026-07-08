@@ -173,7 +173,7 @@ export function HeroSection() {
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-xs font-medium text-violet-400 mb-8">
               <span className="animate-pulse h-1.5 w-1.5 rounded-full bg-violet-400" aria-hidden="true" />
-              Audit SEO · Création site web dès 500€
+              Création site web Lyon · Devis gratuit en 5 min
             </span>
           </m.div>
 
@@ -184,10 +184,10 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-7xl font-bold text-zinc-100 leading-[1.1] tracking-tight mb-6"
           >
-            Votre site est invisible sur Google.
+            Création de site web
             <br />
             <span className="bg-gradient-to-r from-violet-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
-              On règle ça.
+              à Lyon, dès 500€.
             </span>
           </m.h1>
 
@@ -198,7 +198,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            Diagnostic SEO complet en 5 minutes — score, problèmes, mots-clés. Puis je crée votre site vitrine professionnel à la main, sur mesure, dès 500€.
+            Je crée votre site vitrine professionnel à la main, sur mesure, livré en 1 semaine. Audit SEO offert pour analyser votre visibilité Google.
           </m.p>
 
           {/* Formulaire URL */}
