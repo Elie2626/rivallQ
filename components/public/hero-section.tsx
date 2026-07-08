@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Image from 'next/image'
 import { m } from 'framer-motion'
-import { ArrowRight, Globe, ShieldCheck, Play } from 'lucide-react'
+import { ArrowRight, Globe, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils/cn'
 
@@ -313,25 +313,13 @@ export function HeroSection() {
             </div>
           </m.div>
 
-          {/* Lien démo */}
+          {/* Lien démo supprimé */}
           <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.65 }}
             className="mt-6 flex justify-center"
           >
-            <Link
-              href="#demo"
-              className="inline-flex items-center gap-2.5 text-sm text-zinc-500 hover:text-violet-400 transition-colors"
-            >
-              <span
-                className="h-7 w-7 rounded-full border border-zinc-700 bg-zinc-800 flex items-center justify-center shrink-0"
-                aria-hidden="true"
-              >
-                <Play className="h-3 w-3 text-violet-400 fill-violet-400" />
-              </span>
-              Voir une démonstration
-            </Link>
           </m.div>
 
         </div>
