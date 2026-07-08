@@ -66,6 +66,28 @@ const featured = [
     stars: 5,
     result: '-42% taux de rebond',
   },
+  {
+    siteUrl: 'https://pharm-consult.fr',
+    displayUrl: 'pharm-consult.fr',
+    name: 'Pharmconsult',
+    role: 'Conseil pharmaceutique',
+    avatar: 'PC',
+    content: 'RivallQ a créé notre site de A à Z — design soigné, rapide à charger et optimisé pour être trouvé sur Google. Exactement ce dont on avait besoin.',
+    stars: 5,
+    result: 'Site livré en 1 semaine',
+    screenshot: '/clients/screenshots/pharmconsult.webp',
+  },
+  {
+    siteUrl: 'https://serrurerie.sadservice.fr',
+    displayUrl: 'serrurerie.sadservice.fr',
+    name: 'SAD Service Serrurerie',
+    role: 'Serrurerie & dépannage',
+    avatar: 'SS',
+    content: 'On avait besoin d\'un site qui convertit les urgences en appels. RivallQ a livré en moins d\'une semaine, avec un vrai travail SEO local. Les appels ont suivi.',
+    stars: 5,
+    result: '+3× appels entrants',
+    screenshot: '/clients/screenshots/sadservice.webp',
+  },
 ]
 
 // Dupliquer pour l'effet infini
