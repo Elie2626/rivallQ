@@ -7,7 +7,7 @@ import {
   Globe, Cpu, Sparkles,
   ShoppingCart, Calendar, Users, Languages, Image, Database,
   Wrench, User, Phone, Mail, MessageSquare, Send,
-  CheckCircle2, BookOpen, LogIn, UserPlus, Zap,
+  CheckCircle2, BookOpen, LogIn, UserPlus, Zap, TrendingUp, CreditCard,
 } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -111,6 +111,7 @@ interface FormState {
   features: string[]
   maintenance: boolean
   delay: string
+  paymentMode: 'standard' | 'partage'
   name: string
   email: string
   phone: string
@@ -123,6 +124,7 @@ const INITIAL: FormState = {
   features: [],
   maintenance: false,
   delay: 'standard',
+  paymentMode: 'standard',
   name: '',
   email: '',
   phone: '',
@@ -149,7 +151,8 @@ export function DevisQuestionnaire() {
   useEffect(() => { setPromoActive(isPromoActive()) }, [])
 
   const basePrice = calcPrice(form)
-  const price = promoActive && basePrice > 0 ? Math.floor(basePrice / 2) : basePrice
+  const promoPrice = promoActive && basePrice > 0 ? Math.floor(basePrice / 2) : basePrice
+  const price = form.paymentMode === 'partage' ? Math.floor(promoPrice / 2) : promoPrice
   const animatedPrice = useAnimatedNumber(price)
 
   const STEPS = [
@@ -223,6 +226,12 @@ export function DevisQuestionnaire() {
           ) : (
             <p className="text-4xl font-black text-zinc-100">{price.toLocaleString('fr-FR')} €</p>
           )}
+          {form.paymentMode === 'partage' && (
+            <p className="text-sm text-teal-400 mt-1.5 flex items-center justify-center gap-1">
+              <TrendingUp className="h-3.5 w-3.5" />
+              + 10% du CA généré par le site
+            </p>
+          )}
           {form.maintenance && (
             <p className="text-sm text-emerald-400 mt-1.5">
               {promoActive ? '+ 25 €/mois maintenance' : '+ 50 €/mois maintenance'}
@@ -232,6 +241,11 @@ export function DevisQuestionnaire() {
             <p className="text-xs text-orange-400 mt-1.5 flex items-center justify-center gap-1">
               <Zap className="h-3 w-3 fill-orange-400" />
               Offre flash -50% appliquée
+            </p>
+          )}
+          {form.paymentMode === 'partage' && (
+            <p className="text-xs text-zinc-500 mt-2 leading-relaxed">
+              Formule partage de revenus — les modalités du 10% CA seront définies lors du RDV de validation.
             </p>
           )}
         </div>
@@ -321,6 +335,9 @@ export function DevisQuestionnaire() {
             <p className={cn('text-2xl font-black tabular-nums leading-none', price > 0 ? 'text-zinc-100' : 'text-zinc-600')}>
               {animatedPrice > 0 ? `${animatedPrice.toLocaleString('fr-FR')} €` : '—'}
             </p>
+          )}
+          {form.paymentMode === 'partage' && price > 0 && (
+            <p className="text-[10px] text-teal-400 mt-0.5 leading-tight">+ 10% du CA généré</p>
           )}
           {form.maintenance && (
             <p className="text-[10px] text-emerald-400 mt-0.5">
@@ -601,6 +618,79 @@ function StepOptions({ form, setForm }: { form: FormState; setForm: React.Dispat
             )
           })}
         </div>
+      </div>
+
+      {/* Formule de paiement */}
+      <div>
+        <h2 className="text-xl font-bold text-zinc-100 mb-1">Formule de paiement</h2>
+        <p className="text-sm text-zinc-500 mb-4">Choisissez comment vous souhaitez financer votre site.</p>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {/* Standard */}
+          <button
+            onClick={() => setForm(f => ({ ...f, paymentMode: 'standard' }))}
+            className={cn(
+              'rounded-xl border p-4 text-left transition-all flex items-start gap-3',
+              form.paymentMode === 'standard'
+                ? 'border-violet-500/50 bg-violet-600/10'
+                : 'border-zinc-800 bg-zinc-900/40 hover:border-zinc-700'
+            )}
+          >
+            <div className={cn('h-9 w-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5 transition-all', form.paymentMode === 'standard' ? 'bg-violet-600/20' : 'bg-zinc-800')}>
+              <CreditCard className={cn('h-4 w-4', form.paymentMode === 'standard' ? 'text-violet-400' : 'text-zinc-400')} />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-1">
+                <p className="font-semibold text-zinc-100 text-sm">Paiement standard</p>
+                {form.paymentMode === 'standard' && (
+                  <div className="h-4 w-4 rounded-full bg-violet-600 flex items-center justify-center">
+                    <Check className="h-2.5 w-2.5 text-white" />
+                  </div>
+                )}
+              </div>
+              <p className="text-xs text-zinc-500 leading-relaxed">Prix total réglé à la livraison. Simple et sans engagement.</p>
+              <p className="text-xs font-semibold text-violet-400 mt-2">100% du prix</p>
+            </div>
+          </button>
+
+          {/* Partage de revenus */}
+          <button
+            onClick={() => setForm(f => ({ ...f, paymentMode: 'partage' }))}
+            className={cn(
+              'relative rounded-xl border p-4 text-left transition-all flex items-start gap-3',
+              form.paymentMode === 'partage'
+                ? 'border-teal-500/50 bg-teal-600/10'
+                : 'border-zinc-800 bg-zinc-900/40 hover:border-zinc-700'
+            )}
+          >
+            <span className="absolute -top-2.5 right-3 whitespace-nowrap rounded-full bg-gradient-to-r from-teal-600 to-emerald-600 px-2 py-0.5 text-[10px] font-bold text-white shadow">
+              Nouveau
+            </span>
+            <div className={cn('h-9 w-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5 transition-all', form.paymentMode === 'partage' ? 'bg-teal-600/20' : 'bg-zinc-800')}>
+              <TrendingUp className={cn('h-4 w-4', form.paymentMode === 'partage' ? 'text-teal-400' : 'text-zinc-400')} />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-1">
+                <p className="font-semibold text-zinc-100 text-sm">Partage de revenus</p>
+                {form.paymentMode === 'partage' && (
+                  <div className="h-4 w-4 rounded-full bg-teal-500 flex items-center justify-center">
+                    <Check className="h-2.5 w-2.5 text-white" />
+                  </div>
+                )}
+              </div>
+              <p className="text-xs text-zinc-500 leading-relaxed">Payez moitié prix à la livraison, puis 10% du chiffre d&apos;affaires généré par le site.</p>
+              <div className="flex items-center gap-2 mt-2">
+                <p className="text-xs font-semibold text-teal-400">50% du prix</p>
+                <span className="text-zinc-600 text-xs">+</span>
+                <p className="text-xs font-semibold text-teal-400">10% du CA</p>
+              </div>
+            </div>
+          </button>
+        </div>
+        {form.paymentMode === 'partage' && (
+          <p className="text-xs text-zinc-500 mt-3 leading-relaxed bg-zinc-900/60 border border-zinc-800 rounded-lg px-3 py-2">
+            💡 Le CA pris en compte est celui directement attribuable au site (commandes, demandes de contact, réservations). Les modalités exactes sont définies ensemble lors du RDV de validation.
+          </p>
+        )}
       </div>
 
       {/* Délai */}
