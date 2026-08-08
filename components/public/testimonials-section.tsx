@@ -191,7 +191,7 @@ export function TestimonialsSection() {
               <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" aria-hidden="true" />
             ))}
           </m.div>
-          <p className="text-sm text-zinc-500">4,9/5 · {featured.length} clients satisfaits</p>
+          <p className="text-sm text-zinc-500">4,9/5</p>
         </div>
       </div>
 
