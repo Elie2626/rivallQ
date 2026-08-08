@@ -78,6 +78,17 @@ const featured = [
     screenshot: '/clients/screenshots/pharmconsult.webp',
   },
   {
+    siteUrl: 'https://wavore.com',
+    displayUrl: 'wavore.com',
+    name: 'Wavore',
+    role: 'Site vitrine professionnel',
+    avatar: 'WA',
+    content: 'RivallQ a livré un site moderne et rapide, optimisé SEO dès le départ. Exactement ce qu\'on cherchait — propre, professionnel, sans prise de tête.',
+    stars: 5,
+    result: 'Livré en 1 semaine',
+    screenshot: '/clients/screenshots/wavore.webp',
+  },
+  {
     siteUrl: 'https://serrurerie.sadservice.fr',
     displayUrl: 'serrurerie.sadservice.fr',
     name: 'SAD Service Serrurerie',
