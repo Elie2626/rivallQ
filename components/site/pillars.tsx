@@ -106,7 +106,7 @@ function DesignCard() {
       </div>
 
       <div aria-hidden="true" className="mt-6 flex flex-col items-start gap-5 sm:absolute sm:inset-y-0 sm:right-0 sm:mt-0 sm:block sm:w-1/2">
-        <m.div style={reduced ? undefined : { y: far }} className="relative -my-4 sm:absolute sm:right-4 sm:top-2 sm:my-0">
+        <m.div style={reduced ? undefined : { y: far }} className="relative -mt-4 mb-2 sm:absolute sm:right-4 sm:top-2 sm:m-0">
           <m.p
             className="text-[6rem] leading-none sm:text-[9rem] tracking-tighter text-white/[0.07]"
             animate={{ fontWeight: [200, 800, 200] }}
