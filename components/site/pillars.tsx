@@ -116,7 +116,7 @@ function DesignCard() {
           </m.p>
         </m.div>
 
-        <m.div style={reduced ? undefined : { y: mid }} className="relative flex gap-2 sm:absolute sm:right-10 sm:top-[42%]">
+        <m.div style={reduced ? undefined : { y: mid }} className="relative flex gap-2 sm:absolute sm:right-10 sm:top-[48%]">
           {['bg-fg', 'bg-fg-muted', 'bg-fg-subtle', 'bg-elevated'].map((c, i) => (
             <m.span
               key={c}
