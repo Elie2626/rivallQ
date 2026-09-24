@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { m, useReducedMotion, useScroll, useTransform, type Variants } from 'framer-motion'
 import { Check, Search, User, Zap } from 'lucide-react'
 import dynamic from 'next/dynamic'
@@ -85,9 +85,18 @@ function DesignCard() {
   const ref = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const far = useTransform(scrollYProgress, [0, 1], [30, -30])
-  const mid = useTransform(scrollYProgress, [0, 1], [60, -60])
-  const near = useTransform(scrollYProgress, [0, 1], [110, -110])
+  // Narrow screens stack the layers closer, so they drift less to avoid colliding.
+  const [depth, setDepth] = useState(1)
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 640px)')
+    const read = () => setDepth(query.matches ? 1 : 0.3)
+    read()
+    query.addEventListener('change', read)
+    return () => query.removeEventListener('change', read)
+  }, [])
+  const far = useTransform(scrollYProgress, [0, 1], [30 * depth, -30 * depth])
+  const mid = useTransform(scrollYProgress, [0, 1], [60 * depth, -60 * depth])
+  const near = useTransform(scrollYProgress, [0, 1], [110 * depth, -110 * depth])
 
   return (
     <Card className="min-h-[26rem]">
@@ -96,10 +105,10 @@ function DesignCard() {
         <p className="mt-3 leading-relaxed text-fg-muted">Aucun template. Chaque interface est dessinée pour votre marque et vos utilisateurs.</p>
       </div>
 
-      <div aria-hidden="true" className="absolute inset-y-0 right-0 hidden w-1/2 sm:block">
-        <m.div style={reduced ? undefined : { y: far }} className="absolute right-4 top-2">
+      <div aria-hidden="true" className="relative mt-6 h-60 sm:absolute sm:inset-y-0 sm:right-0 sm:mt-0 sm:h-auto sm:w-1/2">
+        <m.div style={reduced ? undefined : { y: far }} className="absolute right-0 top-0 sm:right-4 sm:top-2">
           <m.p
-            className="text-[9rem] leading-none tracking-tighter text-white/[0.07]"
+            className="text-[7rem] leading-none sm:text-[9rem] tracking-tighter text-white/[0.07]"
             animate={{ fontWeight: [200, 800, 200] }}
             transition={{ duration: 5, ...LOOP }}
           >
@@ -107,7 +116,7 @@ function DesignCard() {
           </m.p>
         </m.div>
 
-        <m.div style={reduced ? undefined : { y: mid }} className="absolute right-10 top-[42%] flex gap-2">
+        <m.div style={reduced ? undefined : { y: mid }} className="absolute left-0 top-[34%] flex gap-2 sm:left-auto sm:right-10 sm:top-[42%]">
           {['bg-fg', 'bg-fg-muted', 'bg-fg-subtle', 'bg-elevated'].map((c, i) => (
             <m.span
               key={c}
@@ -120,7 +129,7 @@ function DesignCard() {
           ))}
         </m.div>
 
-        <m.div style={reduced ? undefined : { y: near }} className="absolute bottom-10 right-16 flex items-center gap-3 rounded-2xl bg-elevated/80 p-3 ring-1 ring-hairline-strong backdrop-blur-xl">
+        <m.div style={reduced ? undefined : { y: near }} className="absolute bottom-2 left-0 flex items-center whitespace-nowrap sm:bottom-10 sm:left-auto sm:right-16 gap-3 rounded-2xl bg-elevated/80 p-3 ring-1 ring-hairline-strong backdrop-blur-xl">
           <span className="relative h-9 overflow-hidden rounded-full bg-fg px-4 text-xs font-medium leading-9 text-canvas">
             Réserver
             <m.span

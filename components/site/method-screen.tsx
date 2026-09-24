@@ -188,6 +188,39 @@ function GoogleLogo({ className = '' }: { className?: string }) {
   )
 }
 
+/** One laurel branch; mirrored for the right side. */
+function Branch({ flip = false }: { flip?: boolean }) {
+  const leaves = [0, 1, 2, 3, 4]
+  return (
+    <svg viewBox="0 0 20 44" className="h-9 w-4 sm:h-11 sm:w-5" style={flip ? { transform: 'scaleX(-1)' } : undefined} aria-hidden="true">
+      <path d="M15 42 C6 34 5 18 11 3" fill="none" stroke="#d4af37" strokeWidth="1.4" strokeLinecap="round" />
+      {leaves.map(k => {
+        const y = 36 - k * 7.5
+        const x = 11 - Math.sin((k / 4) * Math.PI) * 3 - (4 - k) * 0.6
+        return (
+          <g key={k}>
+            <ellipse cx={x - 3.2} cy={y} rx="3.4" ry="1.6" transform={`rotate(-35 ${x - 3.2} ${y})`} fill="#d4af37" />
+            <ellipse cx={x + 3} cy={y - 2.5} rx="3.2" ry="1.5" transform={`rotate(-70 ${x + 3} ${y - 2.5})`} fill="#e6c55a" />
+          </g>
+        )
+      })}
+    </svg>
+  )
+}
+
+function FirstBadge() {
+  return (
+    <div className="flex items-center">
+      <Branch />
+      <div className="px-0.5 text-center leading-none">
+        <p className="text-[15px] font-bold text-[#e6c55a] sm:text-[18px]">1<sup className="text-[8px]">er</sup></p>
+        <p className="mt-0.5 text-[6px] font-medium uppercase tracking-wider text-[#e8eaed] sm:text-[7px]">sur Google</p>
+      </div>
+      <Branch flip />
+    </div>
+  )
+}
+
 function LaunchScene({ local }: Local) {
   // Home: the query types itself, the cursor travels to the search button and clicks.
   const query = useScrollMap(local, [0.05, 0.3], ['inset(0 100% 0 0)', 'inset(0 0% 0 0)'])
@@ -205,6 +238,8 @@ function LaunchScene({ local }: Local) {
   const firstOpacity = useScrollMap(local, [0.7, 0.8], [0, 1])
   const firstY = useScrollMap(local, [0.7, 0.8], [8, 0])
   const othersOpacity = useScrollMap(local, [0.78, 0.9], [0, 1])
+  const badgeOpacity = useScrollMap(local, [0.8, 0.88], [0, 1])
+  const badgeScale = useScrollMap(local, [0.8, 0.9], [0.6, 1], { ease: easeInOut })
 
   return (
     <div className="relative h-full overflow-hidden bg-[#202124] text-[#e8eaed]">
@@ -228,13 +263,18 @@ function LaunchScene({ local }: Local) {
           <GoogleLogo className="text-[13px]" />
           <span className="flex h-5 flex-1 items-center rounded-full px-2.5 text-[8px] bg-[#303134] sm:text-[9px]">création site sur mesure</span>
         </div>
-        <m.div style={{ opacity: firstOpacity, y: firstY }} className="mt-2.5">
+        <m.div style={{ opacity: firstOpacity, y: firstY }} className="mt-2.5 flex items-center gap-3">
+          <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
             <span className="grid size-3.5 place-items-center rounded-full bg-[#e8eaed] text-[6px] font-bold text-[#202124]">V</span>
             <span className="text-[8px] leading-tight text-[#e8eaed] sm:text-[9px]">votre-site.fr</span>
           </div>
           <p className="mt-0.5 text-[11px] leading-tight text-[#8ab4f8] sm:text-[13px]">Votre site — Création sur mesure</p>
           <p className="mt-0.5 text-[8px] leading-snug text-[#bdc1c6] sm:text-[9px]">Un site rapide, élégant et pensé pour vos clients. En ligne dès aujourd’hui.</p>
+          </div>
+          <m.div style={{ scale: badgeScale, opacity: badgeOpacity }} className="shrink-0">
+            <FirstBadge />
+          </m.div>
         </m.div>
         <m.div style={{ opacity: othersOpacity }} className="mt-3 space-y-2.5">
           {[0, 1].map(k => (

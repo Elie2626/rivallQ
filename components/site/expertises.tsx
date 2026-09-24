@@ -20,7 +20,7 @@ function WebVisual({ local }: { local: MotionValue<number> }) {
   return (
     <>
       <m.div style={{ y: back }} className="absolute right-0 top-[4%] w-[76%] opacity-60">
-        <BrowserFrame src="/work/pharmconsult.webp" url="pharm-consult.fr" />
+        <BrowserFrame src="/work/wavore.webp" url="wavore.com" />
       </m.div>
       <m.div style={{ y: front }} className="absolute bottom-[4%] left-0 w-[84%]">
         <BrowserFrame src="/work/selesta.webp" url="selesta.fr" priority />
@@ -274,7 +274,7 @@ export function Expertises() {
             </div>
           </div>
 
-          <div className="relative row-start-2 lg:row-auto lg:aspect-[5/4]">
+          <div className="relative row-start-2 -mx-2 sm:mx-0 lg:row-auto lg:aspect-[5/4]">
             {STEPS.map((s, i) => (
               <StepVisual key={s.title} step={s} index={i} progress={scrollYProgress} />
             ))}

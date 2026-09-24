@@ -23,36 +23,36 @@ export function BrowserFrame({
 
 export function PhoneMock({ className = '' }: { className?: string }) {
   return (
-    <div className={`relative aspect-[9/19] rounded-[2.6rem] bg-elevated p-[6px] ring-1 ring-hairline-strong shadow-[0_40px_80px_-20px_rgb(0_0_0/0.9)] ${className}`}>
-      <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[2.2rem] bg-canvas px-4 pt-3">
+    <div className={`relative aspect-[9/19] rounded-[2.6rem] bg-[#0d1522] p-[6px] ring-1 ring-hairline-strong shadow-[0_40px_80px_-20px_rgb(0_0_0/0.9)] ${className}`}>
+      <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[2.2rem] bg-white px-4 pt-3">
         <div className="absolute left-1/2 top-2 h-[18px] w-[72px] -translate-x-1/2 rounded-full bg-black ring-1 ring-hairline" />
-        <div className="flex justify-between px-2 text-[10px] font-semibold text-fg">
+        <div className="flex justify-between px-2 text-[10px] font-semibold text-[#0d1522]">
           <span>9:41</span>
           <span className="tracking-widest">•••</span>
         </div>
 
-        <p className="mt-6 text-[11px] text-fg-subtle">Mardi 14 mai</p>
-        <p className="text-lg font-semibold tracking-tight text-fg">Bonjour Léa</p>
+        <p className="mt-6 text-[11px] text-[#64748b]">Mardi 14 mai</p>
+        <p className="text-lg font-semibold tracking-tight text-[#0d1522]">Bonjour Léa</p>
 
-        <div className="mt-4 flex items-center gap-3 rounded-2xl bg-elevated p-3.5">
+        <div className="mt-4 flex items-center gap-3 rounded-2xl bg-gradient-to-r from-[#4fb3f6] to-[#8b8cf8] p-3.5">
           <svg viewBox="0 0 36 36" className="size-12 -rotate-90" aria-hidden="true">
-            <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" strokeWidth="3.5" className="text-white/10" />
-            <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="94.2" strokeDashoffset="26" className="text-fg" />
+            <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" strokeWidth="3.5" className="text-white/30" />
+            <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="94.2" strokeDashoffset="26" className="text-white" />
           </svg>
           <div>
-            <p className="text-[10px] text-fg-subtle">Objectif de la semaine</p>
-            <p className="text-base font-semibold text-fg">72 %</p>
+            <p className="text-[10px] text-white/80">Objectif de la semaine</p>
+            <p className="text-base font-semibold text-white">72 %</p>
           </div>
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-2">
           {['Séances', 'Progrès'].map((label, i) => (
-            <div key={label} className="rounded-2xl bg-elevated p-3">
-              <p className="text-[10px] text-fg-subtle">{label}</p>
-              <p className="text-sm font-semibold text-fg">{i ? '+12' : '8'}</p>
+            <div key={label} className="rounded-2xl bg-[#eef6ff] p-3">
+              <p className="text-[10px] text-[#64748b]">{label}</p>
+              <p className="text-sm font-semibold text-[#0d1522]">{i ? '+12' : '8'}</p>
               <div className="mt-2 flex h-6 items-end gap-0.5">
                 {[40, 65, 50, 80, 60, 90, 75].map((h, j) => (
-                  <span key={j} className="flex-1 rounded-sm bg-fg/70" style={{ height: `${h}%` }} />
+                  <span key={j} className="flex-1 rounded-sm bg-[#4fb3f6]" style={{ height: `${h}%` }} />
                 ))}
               </div>
             </div>
@@ -61,16 +61,16 @@ export function PhoneMock({ className = '' }: { className?: string }) {
 
         <div className="mt-3 space-y-2">
           {['Mathématiques', 'Anglais'].map(t => (
-            <div key={t} className="flex items-center gap-2.5 rounded-xl bg-elevated px-3 py-2.5">
-              <span className="grid size-6 place-items-center rounded-lg bg-white/10"><Calendar className="size-3 text-fg" /></span>
-              <span className="text-[11px] font-medium text-fg">{t}</span>
-              <span className="ml-auto text-[10px] text-fg-subtle">14:00</span>
+            <div key={t} className="flex items-center gap-2.5 rounded-xl bg-[#eef6ff] px-3 py-2.5">
+              <span className="grid size-6 place-items-center rounded-lg bg-[#4fb3f6]"><Calendar className="size-3 text-white" /></span>
+              <span className="text-[11px] font-medium text-[#0d1522]">{t}</span>
+              <span className="ml-auto text-[10px] text-[#64748b]">14:00</span>
             </div>
           ))}
         </div>
 
-        <div className="mt-auto -mx-4 flex justify-around border-t border-hairline bg-canvas/80 px-4 pb-5 pt-3 text-fg-subtle">
-          <Home className="size-4 text-fg" /><Search className="size-4" /><Bell className="size-4" /><User className="size-4" />
+        <div className="mt-auto -mx-4 flex justify-around border-t border-[#e2e8f0] bg-white px-4 pb-5 pt-3 text-[#94a3b8]">
+          <Home className="size-4 text-[#4fb3f6]" /><Search className="size-4" /><Bell className="size-4" /><User className="size-4" />
         </div>
       </div>
     </div>
