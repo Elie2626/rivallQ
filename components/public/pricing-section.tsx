@@ -1,19 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import { m } from 'framer-motion'
 import { Check, Zap, Globe, Cpu, Sparkles, Wrench, TrendingUp, ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { useIsPromoActive } from '@/components/public/promo-banner'
+import { Reveal } from '@/components/ui/apple-motion'
 
 const plans = [
   {
     id: 'audit',
     icon: Zap,
-    iconColor: 'text-zinc-400',
     name: 'Audit SEO',
     price: '4,99€',
-    promoPrice: null, // prix fixe, pas de promo
+    promoPrice: null,
     period: 'paiement unique',
     description: 'Analysez votre site et découvrez ce qui freine vos clients.',
     features: [
@@ -25,13 +23,12 @@ const plans = [
     ],
     cta: 'Lancer mon audit',
     href: '/register',
-    highlighted: false,
+    featured: false,
     badge: null,
   },
   {
     id: 'simple',
     icon: Globe,
-    iconColor: 'text-blue-400',
     name: 'Site Vitrine Simple',
     price: '500€',
     promoPrice: '250€',
@@ -47,13 +44,12 @@ const plans = [
     ],
     cta: 'Demander un devis',
     href: '/devis',
-    highlighted: false,
+    featured: false,
     badge: null,
   },
   {
     id: 'complet',
     icon: Cpu,
-    iconColor: 'text-violet-400',
     name: 'Site Vitrine Complet',
     price: '1 000€',
     promoPrice: '500€',
@@ -69,13 +65,12 @@ const plans = [
     ],
     cta: 'Demander un devis',
     href: '/devis',
-    highlighted: true,
+    featured: true,
     badge: 'Le plus populaire',
   },
   {
     id: 'premium',
     icon: Sparkles,
-    iconColor: 'text-amber-400',
     name: 'Site Premium 3D',
     price: '1 500€',
     promoPrice: '750€',
@@ -91,7 +86,7 @@ const plans = [
     ],
     cta: 'Demander un devis',
     href: '/devis',
-    highlighted: false,
+    featured: false,
     badge: null,
   },
 ]
@@ -100,214 +95,162 @@ export function PricingSection() {
   const isPromo = useIsPromoActive()
 
   return (
-    <section id="pricing" className="py-20 lg:py-28 border-t border-zinc-900">
+    <section id="pricing" className="py-24 lg:py-32 bg-black border-t border-white/10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+
         <div className="text-center mb-16">
-          <m.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="inline-block text-xs font-semibold uppercase tracking-widest text-violet-400 mb-4"
-          >
-            Tarifs
-          </m.span>
-          <m.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-zinc-100 mb-4"
-          >
-            Simple, transparent,{' '}
-            <span className="text-zinc-500">sans surprise</span>
-          </m.h2>
-          <m.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-zinc-400 max-w-xl mx-auto"
-          >
-            Commencez par un audit à 4,99€. Créez votre site à partir de 500€.
-          </m.p>
+          <Reveal>
+            <span className="inline-block text-xs font-bold uppercase tracking-widest mb-4 text-gray-400">
+              Tarifs
+            </span>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h2 className="text-4xl sm:text-5xl font-black text-white mb-4 tracking-tight">
+              Simple, transparent,{' '}
+              <span className="text-gray-500">sans surprise.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="text-gray-400 max-w-xl mx-auto">
+              Commencez par un audit à 4,99€. Créez votre site à partir de 500€.
+            </p>
+          </Reveal>
         </div>
 
-        {/* Plans */}
         <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
-          {plans.map(({ id, icon: Icon, iconColor, name, price, promoPrice: rawPromoPrice, period, description, features, cta, href, highlighted, badge }, i) => {
-            const promoPrice = rawPromoPrice  // null = pas de promo pour ce plan
-            return (
-            <m.div
-              key={id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className={`relative flex flex-col rounded-2xl border p-6 ${
-                highlighted
-                  ? 'border-violet-500/50 bg-violet-600/10 shadow-xl shadow-violet-500/10'
-                  : 'border-zinc-800 bg-zinc-900/40'
-              }`}
-            >
-              {/* Badge promo -50% — seulement si ce plan a un promoPrice */}
-              {isPromo && promoPrice && (
-                <span className="absolute -top-3 right-4 whitespace-nowrap rounded-full bg-gradient-to-r from-orange-500 to-red-600 px-3 py-1 text-[11px] font-bold text-white shadow-lg">
-                  -50%
-                </span>
-              )}
-              {badge && (!isPromo || !promoPrice) && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 px-3 py-1 text-[11px] font-semibold text-white shadow-lg">
-                  {badge}
-                </span>
-              )}
-              {badge && isPromo && promoPrice && (
-                <span className="absolute -top-3 left-4 whitespace-nowrap rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 px-3 py-1 text-[11px] font-semibold text-white shadow-lg">
-                  {badge}
-                </span>
-              )}
-              {highlighted && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-violet-600/5 to-transparent pointer-events-none" aria-hidden="true" />
-              )}
-
-              <div className="mb-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${highlighted ? 'bg-violet-600/20' : 'bg-zinc-800'}`}>
-                    <Icon className={`h-4 w-4 ${iconColor}`} aria-hidden="true" />
-                  </div>
-                  <h3 className="text-sm font-semibold text-zinc-300">{name}</h3>
-                </div>
-                <div className="flex items-end gap-2 mb-2">
-                  {isPromo && promoPrice ? (
-                    <>
-                      <span className="text-3xl font-bold text-zinc-100">{promoPrice}</span>
-                      <span className="text-base font-medium text-zinc-600 line-through mb-0.5">{price}</span>
-                    </>
-                  ) : (
-                    <span className="text-3xl font-bold text-zinc-100">{price}</span>
-                  )}
-                  <span className="text-sm text-zinc-500 mb-1">{period}</span>
-                </div>
-                <p className="text-xs text-zinc-500 leading-relaxed">{description}</p>
-              </div>
-
-              <ul className="flex-1 flex flex-col gap-2.5 mb-6" role="list">
-                {features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm text-zinc-400">
-                    <Check
-                      className={`h-4 w-4 shrink-0 mt-0.5 ${highlighted ? 'text-violet-400' : 'text-emerald-500'}`}
-                      aria-hidden="true"
-                    />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              <Button
-                variant={highlighted ? 'gradient' : 'outline'}
-                className="w-full"
-                asChild
+          {plans.map(({ id, icon: Icon, name, price, promoPrice: rawPromoPrice, period, description, features, cta, href, featured, badge }, i) => (
+            <Reveal key={id} delay={i * 0.1} y={60} className="h-full">
+              <div
+                className={`relative flex h-full flex-col rounded-3xl border p-6 transition-all duration-500 hover:-translate-y-1.5 ${
+                  featured
+                    ? 'border-white/30 bg-white/[0.07]'
+                    : 'border-white/10 bg-white/[0.03] hover:border-white/20'
+                }`}
               >
-                <Link href={href}>{cta}</Link>
-              </Button>
-            </m.div>
-          )
-          })}
+                {isPromo && rawPromoPrice && (
+                  <span className="absolute -top-3 right-4 whitespace-nowrap rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1 text-[11px] font-bold text-white shadow-lg">
+                    -50%
+                  </span>
+                )}
+                {badge && (
+                  <span
+                    className={`absolute -top-3 whitespace-nowrap rounded-full bg-white px-3 py-1 text-[11px] font-bold text-black ${
+                      isPromo && rawPromoPrice ? 'left-4' : 'left-1/2 -translate-x-1/2'
+                    }`}
+                  >
+                    {badge}
+                  </span>
+                )}
+
+                <div className="mb-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className={`h-8 w-8 rounded-xl flex items-center justify-center ${featured ? 'bg-white/15' : 'bg-white/[0.08]'}`}>
+                      <Icon className={`h-4 w-4 ${featured ? 'text-white' : 'text-gray-400'}`} aria-hidden="true" />
+                    </div>
+                    <h3 className="text-sm font-bold text-white">{name}</h3>
+                  </div>
+                  <div className="flex items-end gap-2 mb-2">
+                    {isPromo && rawPromoPrice ? (
+                      <>
+                        <span className="text-3xl font-black text-white tabular-nums">{rawPromoPrice}</span>
+                        <span className="text-base font-medium text-gray-500 line-through mb-0.5 tabular-nums">{price}</span>
+                      </>
+                    ) : (
+                      <span className="text-3xl font-black text-white tabular-nums">{price}</span>
+                    )}
+                    <span className="text-sm text-gray-400 mb-1">{period}</span>
+                  </div>
+                  <p className="text-xs text-gray-400 leading-relaxed">{description}</p>
+                </div>
+
+                <ul className="flex-1 flex flex-col gap-2.5 mb-6" role="list">
+                  {features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2 text-sm text-gray-300">
+                      <Check className={`h-4 w-4 shrink-0 mt-0.5 ${featured ? 'text-white' : 'text-gray-500'}`} aria-hidden="true" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href={href}
+                  className={`w-full inline-flex items-center justify-center py-3 px-4 rounded-full font-semibold text-sm transition-all duration-300 active:scale-[0.97] ${
+                    featured
+                      ? 'bg-white text-black hover:bg-zinc-200'
+                      : 'border border-white/15 text-white hover:border-white/30 hover:bg-white/[0.06]'
+                  }`}
+                >
+                  {cta}
+                </Link>
+              </div>
+            </Reveal>
+          ))}
         </div>
 
-        {/* Partage de revenus */}
-        <m.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.15 }}
-          className="mt-5 rounded-2xl border border-teal-500/30 bg-gradient-to-r from-teal-600/10 to-emerald-600/5 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5"
-        >
-          {/* Icône */}
-          <div className="h-12 w-12 rounded-xl bg-teal-500/15 border border-teal-500/20 flex items-center justify-center shrink-0">
-            <TrendingUp className="h-6 w-6 text-teal-400" aria-hidden="true" />
-          </div>
-
-          {/* Texte */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 flex-wrap mb-1">
-              <p className="font-bold text-zinc-100 text-sm sm:text-base">Formule Partage de revenus</p>
-              <span className="rounded-full bg-teal-500/20 border border-teal-500/30 px-2 py-0.5 text-[10px] font-bold text-teal-300 uppercase tracking-wide">
-                Nouveau
-              </span>
+        <Reveal delay={0.1} className="mt-5">
+          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+            <div className="h-12 w-12 rounded-2xl flex items-center justify-center shrink-0 bg-white/10 border border-white/15">
+              <TrendingUp className="h-6 w-6 text-white" aria-hidden="true" />
             </div>
-            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-xl">
-              Pas de budget pour démarrer ?{' '}
-              <strong className="text-zinc-200">Payez moitié prix à la livraison</strong>, puis{' '}
-              <strong className="text-zinc-200">10% du chiffre d&apos;affaires</strong> généré par votre site — seulement quand vous gagnez de l&apos;argent grâce à lui.
-            </p>
-            <div className="flex items-center gap-4 mt-2.5 flex-wrap">
-              <div className="flex items-center gap-1.5">
-                <div className="h-1.5 w-1.5 rounded-full bg-teal-400" />
-                <span className="text-xs text-zinc-400">50% du prix à la livraison</span>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap mb-1">
+                <p className="font-bold text-white text-sm sm:text-base">Formule Partage de revenus</p>
+                <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide bg-white text-black">
+                  Nouveau
+                </span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <div className="h-1.5 w-1.5 rounded-full bg-teal-400" />
-                <span className="text-xs text-zinc-400">10% du CA généré ensuite</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="h-1.5 w-1.5 rounded-full bg-teal-400" />
-                <span className="text-xs text-zinc-400">Modalités définies ensemble</span>
-              </div>
+              <p className="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-xl">
+                Pas de budget pour démarrer ?{' '}
+                <strong className="text-white">Payez moitié prix à la livraison</strong>, puis{' '}
+                <strong className="text-white">10% du chiffre d&apos;affaires</strong> généré par votre site.
+              </p>
             </div>
-          </div>
-
-          {/* CTA */}
-          <Button variant="outline" size="sm" className="shrink-0 border-teal-500/40 text-teal-400 hover:bg-teal-500/10 whitespace-nowrap" asChild>
-            <Link href="/devis">
+            <Link
+              href="/devis"
+              className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/15 text-white text-sm font-semibold hover:bg-white/[0.08] transition-colors whitespace-nowrap"
+            >
               Choisir cette formule
-              <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
-          </Button>
-        </m.div>
-
-        {/* Maintenance add-on */}
-        <m.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="mt-6 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-5 flex flex-col sm:flex-row items-center gap-4"
-        >
-          <div className="h-10 w-10 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center shrink-0">
-            <Wrench className="h-5 w-5 text-emerald-400" aria-hidden="true" />
           </div>
-          <div className="flex-1 text-center sm:text-left">
-            <p className="font-semibold text-zinc-200 text-sm">
-              Maintenance mensuelle —{' '}
-              {isPromo ? (
-                <>
-                  <span className="text-emerald-400">25€/mois</span>
-                  <span className="text-zinc-600 line-through text-xs ml-1.5">50€/mois</span>
-                </>
-              ) : (
-                <span className="text-emerald-400">50€/mois</span>
-              )}
-            </p>
-            <p className="text-xs text-zinc-500 mt-0.5">
-              Mises à jour, sauvegardes automatiques, sécurité, support technique prioritaire. Disponible en complément de tout projet.
-            </p>
-          </div>
-          <Button variant="outline" size="sm" className="shrink-0 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10" asChild>
-            <Link href="/devis">Ajouter au devis</Link>
-          </Button>
-        </m.div>
+        </Reveal>
 
-        {/* Bottom note */}
-        <m.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-center"
-        >
-          <p className="text-xs text-zinc-500">
+        <Reveal delay={0.15} className="mt-4">
+          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 flex flex-col sm:flex-row items-center gap-4">
+            <div className="h-10 w-10 rounded-xl bg-white/[0.08] border border-white/10 flex items-center justify-center shrink-0">
+              <Wrench className="h-5 w-5 text-gray-400" aria-hidden="true" />
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+              <p className="font-semibold text-white text-sm">
+                Maintenance mensuelle —{' '}
+                {isPromo ? (
+                  <>
+                    <span className="text-white">25€/mois</span>
+                    <span className="text-gray-500 line-through text-xs ml-1.5">50€/mois</span>
+                  </>
+                ) : (
+                  <span className="text-white">50€/mois</span>
+                )}
+              </p>
+              <p className="text-xs text-gray-400 mt-0.5">
+                Mises à jour, sauvegardes, sécurité, support prioritaire.
+              </p>
+            </div>
+            <Link
+              href="/devis"
+              className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/15 text-white text-sm font-semibold hover:bg-white/[0.08] transition-colors"
+            >
+              Ajouter
+            </Link>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.2} className="mt-8 text-center">
+          <p className="text-xs text-gray-500">
             Audit sécurisé via Stripe · Remboursement sous 7 jours si insatisfait · Devis gratuit et sans engagement
           </p>
-        </m.div>
+        </Reveal>
+
       </div>
     </section>
   )

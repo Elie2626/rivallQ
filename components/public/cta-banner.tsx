@@ -2,66 +2,86 @@
 
 import Link from 'next/link'
 import { m } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { ArrowRight, MessageCircle } from 'lucide-react'
+
+const stats = [
+  { value: '9+', label: 'clients satisfaits' },
+  { value: '4,9/5', label: 'note moyenne' },
+  { value: '1 sem.', label: 'délai moyen' },
+  { value: '100%', label: 'sur mesure' },
+]
 
 export function CtaBanner() {
   return (
-    <section className="py-20 lg:py-28 border-t border-zinc-900">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <section className="py-24 lg:py-32 bg-black border-t border-white/5">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+
+        {/* Stats bar */}
         <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative rounded-3xl border border-violet-500/30 bg-gradient-to-br from-violet-600/20 via-indigo-600/10 to-zinc-900/50 p-12 text-center overflow-hidden"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden mb-16"
         >
-          {/* Background glow */}
-          <div className="absolute inset-0 -z-10" aria-hidden="true">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-violet-600/20 blur-[80px]" />
-            <div className="absolute top-1/4 right-1/4 h-48 w-48 rounded-full bg-indigo-600/15 blur-[60px]" />
-          </div>
+          {stats.map(({ value, label }) => (
+            <div key={label} className="bg-black py-6 px-4 flex flex-col items-center text-center">
+              <span className="text-2xl sm:text-3xl font-black text-white mb-1">{value}</span>
+              <span className="text-xs text-gray-500">{label}</span>
+            </div>
+          ))}
+        </m.div>
 
-          {/* Live indicator */}
-          <div className="flex justify-center mb-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-medium text-emerald-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
-              14 propriétaires ont audité leur site aujourd&apos;hui
-            </span>
-          </div>
+        {/* Main CTA */}
+        <m.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="text-center"
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-gray-400 mb-8">
+            <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" aria-hidden="true" />
+            Disponible pour votre projet
+          </span>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-zinc-100 mb-4">
-            En ce moment, votre concurrent<br />
-            <span className="text-violet-400">optimise son SEO.</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+            Prêt à lancer
+            <br />
+            <span style={{ color: '#0066FF' }}>votre site web ?</span>
           </h2>
 
-          <p className="text-zinc-400 text-lg mb-3 max-w-xl mx-auto">
-            Pour 4,99€ — le prix d&apos;un café — découvrez exactement pourquoi vos visiteurs partent sans convertir.
+          <p className="text-gray-400 text-lg mb-10 max-w-xl mx-auto">
+            Devis gratuit en 5 minutes. Livraison en 1 semaine.
+            Sans abonnement, sans surprise.
           </p>
 
-          <p className="text-zinc-500 text-sm mb-8 max-w-lg mx-auto">
-            Résultats en 5 minutes. Remboursé sous 7 jours si insatisfait. Sans abonnement.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
-            <Button variant="gradient" size="xl" asChild>
-              <Link href="/register" className="gap-2">
-                Auditer mon site — 4,99€
-                <ArrowRight className="h-5 w-5" aria-hidden="true" />
-              </Link>
-            </Button>
-            <Button variant="ghost" size="xl" asChild>
-              <Link href="#demo">Voir la démo gratuite</Link>
-            </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12">
+            <Link
+              href="/devis"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-white font-bold text-base transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 shadow-xl"
+              style={{ background: '#0066FF', boxShadow: '0 8px 32px rgba(0,102,255,0.4)' }}
+            >
+              Demander un devis gratuit
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl border border-white/20 text-white font-semibold text-base transition-all duration-200 hover:bg-white/10"
+            >
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+              Nous contacter
+            </Link>
           </div>
 
           {/* Mini social proof */}
-          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-zinc-600">
-            {['selesta.fr', 'clim69.fr', 'foxair.fr', 'g-cours.fr', 'isolationlyonrenovation.selesta.fr'].map(site => (
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-gray-600">
+            {['selesta.fr', 'closermatch.fr', 'pharm-consult.fr', 'wavore.com', 'botexpress.fr'].map(site => (
               <span key={site} className="font-mono">{site}</span>
             ))}
-            <span className="text-zinc-700">+ 2 400 autres</span>
+            <span className="text-gray-700">+ d&apos;autres</span>
           </div>
         </m.div>
+
       </div>
     </section>
   )

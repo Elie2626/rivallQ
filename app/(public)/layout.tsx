@@ -1,14 +1,14 @@
-import { PublicNavbar } from '@/components/layouts/public-navbar'
-import { PublicFooter } from '@/components/layouts/public-footer'
+import { SiteNav } from '@/components/site/site-nav'
+import { SiteFooter } from '@/components/site/site-footer'
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <PublicNavbar />
-      <main id="main-content" tabIndex={-1}>
+      <SiteNav />
+      <main id="main-content" tabIndex={-1} className="focus:outline-none">
         {children}
       </main>
-      <PublicFooter />
+      <SiteFooter />
     </>
   )
 }

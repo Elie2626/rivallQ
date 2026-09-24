@@ -28,11 +28,6 @@ const nextConfig: NextConfig = {
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
         ],
       },
-      // Static assets — cache 1 year (Next.js hashes filenames)
-      {
-        source: '/_next/static/(.*)',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
-      },
       // Vidéo demo — cache 7 jours
       {
         source: '/demo-v2.mp4',

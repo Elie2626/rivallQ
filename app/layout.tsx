@@ -16,7 +16,7 @@ const geist = Geist({
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#FFFDF8',
+  themeColor: '#000000',
 }
 
 const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
@@ -24,48 +24,20 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'https://rivallq.com'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: 'RivallQ — Audit SEO & Création Site Web Professionnel',
+    default: 'RivallQ — Sites web, applications, SaaS et logiciels sur mesure',
     template: '%s | RivallQ',
   },
   description:
-    "Audit SEO en ligne — analysez le référencement de votre site en 5 minutes. Score SEO, UX & conversion. Création site internet professionnel dès 500€. Devis gratuit, livraison rapide.",
+    "Studio de développement sur mesure : sites web, applications mobiles, SaaS et logiciels métier. Conception, design, développement et lancement par une seule équipe.",
   keywords: [
-    // Audit SEO — principaux
-    'audit SEO',
-    'audit SEO en ligne',
-    'analyse SEO site web',
-    'diagnostic SEO',
-    'test SEO gratuit',
-    'vérification référencement Google',
-    'audit référencement naturel',
-    'outil audit SEO',
-    'analyse performance SEO',
-    'évaluation SEO site internet',
-    // Audit SEO — longue traîne
-    'audit SEO automatique',
-    'analyser le SEO de mon site',
-    'comment savoir si mon site est bien référencé',
-    'vérifier le référencement d\'un site web',
-    // Création de site — principaux
-    'création site internet',
-    'création site web professionnel',
-    'agence web',
-    'développeur web freelance',
-    'création site vitrine',
     'création site web sur mesure',
-    'concepteur de site internet',
-    'refonte site web',
-    // Création de site — longue traîne
-    'devis création site internet',
-    'prix création site web professionnel',
-    'créer un site internet pour entreprise',
-    // Business
-    'obtenir plus de clients avec Google',
-    'améliorer son référencement Google',
-    'augmenter le trafic de son site',
-    'créer un site web qui convertit',
-    'générer des leads avec son site internet',
-    'améliorer sa visibilité en ligne',
+    'agence développement web',
+    'création application mobile',
+    'développement SaaS',
+    'logiciel sur mesure',
+    'développeur freelance',
+    'création site vitrine',
+    'application web sur mesure',
   ],
   authors: [{ name: 'RivallQ', url: BASE }],
   creator: 'RivallQ',
@@ -114,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
         <link rel="dns-prefetch" href="https://identitytoolkit.googleapis.com" />
       </head>
-      <body className="min-h-full bg-zinc-950 text-zinc-200 antialiased font-sans selection:bg-violet-600/20 selection:text-violet-700">
+      <body className="min-h-full bg-black text-[#f5f5f7] antialiased font-sans selection:bg-white selection:text-black">
         <OrganizationSchema />
         <WebSiteSchema />
         <MotionProvider>
