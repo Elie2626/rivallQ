@@ -89,7 +89,7 @@ function DesignCard() {
   const [depth, setDepth] = useState(1)
   useEffect(() => {
     const query = window.matchMedia('(min-width: 640px)')
-    const read = () => setDepth(query.matches ? 1 : 0.3)
+    const read = () => setDepth(query.matches ? 1 : 0)
     read()
     query.addEventListener('change', read)
     return () => query.removeEventListener('change', read)
@@ -105,10 +105,10 @@ function DesignCard() {
         <p className="mt-3 leading-relaxed text-fg-muted">Aucun template. Chaque interface est dessinée pour votre marque et vos utilisateurs.</p>
       </div>
 
-      <div aria-hidden="true" className="relative mt-6 h-60 sm:absolute sm:inset-y-0 sm:right-0 sm:mt-0 sm:h-auto sm:w-1/2">
-        <m.div style={reduced ? undefined : { y: far }} className="absolute right-0 top-0 sm:right-4 sm:top-2">
+      <div aria-hidden="true" className="mt-6 flex flex-col items-start gap-5 sm:absolute sm:inset-y-0 sm:right-0 sm:mt-0 sm:block sm:w-1/2">
+        <m.div style={reduced ? undefined : { y: far }} className="relative -my-4 sm:absolute sm:right-4 sm:top-2 sm:my-0">
           <m.p
-            className="text-[7rem] leading-none sm:text-[9rem] tracking-tighter text-white/[0.07]"
+            className="text-[6rem] leading-none sm:text-[9rem] tracking-tighter text-white/[0.07]"
             animate={{ fontWeight: [200, 800, 200] }}
             transition={{ duration: 5, ...LOOP }}
           >
@@ -116,7 +116,7 @@ function DesignCard() {
           </m.p>
         </m.div>
 
-        <m.div style={reduced ? undefined : { y: mid }} className="absolute left-0 top-[34%] flex gap-2 sm:left-auto sm:right-10 sm:top-[42%]">
+        <m.div style={reduced ? undefined : { y: mid }} className="relative flex gap-2 sm:absolute sm:right-10 sm:top-[42%]">
           {['bg-fg', 'bg-fg-muted', 'bg-fg-subtle', 'bg-elevated'].map((c, i) => (
             <m.span
               key={c}
@@ -129,7 +129,7 @@ function DesignCard() {
           ))}
         </m.div>
 
-        <m.div style={reduced ? undefined : { y: near }} className="absolute bottom-2 left-0 flex items-center whitespace-nowrap sm:bottom-10 sm:left-auto sm:right-16 gap-3 rounded-2xl bg-elevated/80 p-3 ring-1 ring-hairline-strong backdrop-blur-xl">
+        <m.div style={reduced ? undefined : { y: near }} className="relative flex items-center whitespace-nowrap sm:absolute sm:bottom-10 sm:right-16 gap-3 rounded-2xl bg-elevated/80 p-3 ring-1 ring-hairline-strong backdrop-blur-xl">
           <span className="relative h-9 overflow-hidden rounded-full bg-fg px-4 text-xs font-medium leading-9 text-canvas">
             Réserver
             <m.span
