@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useSyncExternalStore } from 'react'
 import {
   m, transform, useMotionTemplate, useReducedMotion, useScroll, useTransform,
   type MotionValue, type TransformOptions,
@@ -27,9 +27,26 @@ export function useScrollMap<T extends number | string>(
   return useTransform(value, v => map(v))
 }
 
-/** Maps a numeric motion value (px) to a CSS blur() filter. */
+const SMALL_SCREEN = '(max-width: 767px)'
+const subscribeSmall = (cb: () => void) => {
+  const q = window.matchMedia(SMALL_SCREEN)
+  q.addEventListener('change', cb)
+  return () => q.removeEventListener('change', cb)
+}
+
+/** True on phones, where animated blur over large layers is too heavy to stay smooth. */
+export function useSmallScreen() {
+  return useSyncExternalStore(subscribeSmall, () => window.matchMedia(SMALL_SCREEN).matches, () => false)
+}
+
+/**
+ * Maps a numeric motion value (px) to a CSS blur() filter.
+ * Phones get no filter: the motion stays, only the costly blur is dropped.
+ */
 export function useBlur(px: MotionValue<number>) {
-  return useMotionTemplate`blur(${px}px)`
+  const blur = useMotionTemplate`blur(${px}px)`
+  const none = useTransform(px, () => 'none')
+  return useSmallScreen() ? none : blur
 }
 
 /** Rises out of a soft blur the first time it enters the viewport. */

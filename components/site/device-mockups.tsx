@@ -15,6 +15,7 @@ export function BrowserFrame({
         src={src}
         alt=""
         loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
         className="aspect-[1200/630] w-full object-cover object-top"
       />
     </div>

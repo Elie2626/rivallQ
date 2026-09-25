@@ -27,6 +27,7 @@ function CardBody({ project, imageX }: { project: Project; imageX?: MotionValue<
           src={project.shot}
           alt={`Page d’accueil du site ${project.name}`}
           loading="lazy"
+          decoding="async"
           style={imageX ? { x: imageX, scale: 1.1 } : undefined}
           className="h-full w-full object-cover object-top"
         />
