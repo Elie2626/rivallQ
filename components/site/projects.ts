@@ -3,7 +3,7 @@ export type Project = {
   domain: string
   url: string
   category: string
-  kind: 'Site web' | 'SaaS' | 'Site + application'
+  kind: 'Site web' | 'SaaS' | 'Site + application' | 'Publicité'
   shot: string
   logo: string
   /** Tile background behind the logo, matching the icon's own backdrop. */
@@ -13,6 +13,11 @@ export type Project = {
 }
 
 export const PROJECTS: Project[] = [
+  {
+    name: 'Google Ads', domain: 'ads.google.com', url: 'https://ads.google.com',
+    category: 'Campagnes publicitaires Google Ads', kind: 'Publicité',
+    shot: '/work/google-ads.svg', logo: '/clients/google-ads.svg', logoBg: '#ffffff',
+  },
   {
     name: 'CloserMatch', domain: 'closermatch.fr', url: 'https://closermatch.fr',
     category: 'Mise en relation fondateurs & commerciaux', kind: 'SaaS',
