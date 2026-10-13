@@ -14,6 +14,11 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    name: 'L’Atelier Inspiré', domain: 'elie2626.github.io/latelierinspire', url: 'https://elie2626.github.io/latelierinspire',
+    category: 'Galets & pierres funéraires personnalisés', kind: 'Site web',
+    shot: '/work/latelierinspire.webp', logo: '/clients/latelierinspire.png', logoBg: '#f4efe6',
+  },
+  {
     name: 'CloserMatch', domain: 'closermatch.fr', url: 'https://closermatch.fr',
     category: 'Mise en relation fondateurs & commerciaux', kind: 'SaaS',
     shot: '/work/closermatch.webp', logo: '/clients/closermatch.png', logoBg: '#0f1729', logoZoom: 1.3,
