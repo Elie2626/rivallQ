@@ -3,7 +3,7 @@ export type Project = {
   domain: string
   url: string
   category: string
-  kind: 'Site web' | 'SaaS' | 'Site + application' | 'Publicité'
+  kind: 'Site web' | 'SaaS' | 'Site + application'
   shot: string
   logo: string
   /** Tile background behind the logo, matching the icon's own backdrop. */
@@ -14,9 +14,9 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
-    name: 'Google Ads', domain: 'ads.google.com', url: 'https://ads.google.com',
-    category: 'Campagnes publicitaires Google Ads', kind: 'Publicité',
-    shot: '/work/google-ads.svg', logo: '/clients/google-ads.svg', logoBg: '#ffffff',
+    name: 'L’Atelier Inspiré', domain: 'elie2626.github.io/latelierinspire', url: 'https://elie2626.github.io/latelierinspire',
+    category: 'Galets & pierres funéraires personnalisés', kind: 'Site web',
+    shot: '/work/latelierinspire.webp', logo: '/clients/latelierinspire.png', logoBg: '#f4efe6',
   },
   {
     name: 'CloserMatch', domain: 'closermatch.fr', url: 'https://closermatch.fr',
