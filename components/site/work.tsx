@@ -66,12 +66,12 @@ export function Work() {
         </h2>
       </Reveal>
 
-      <div className="mx-auto mt-12 h-[80vh] max-w-6xl overflow-hidden px-4 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] sm:px-6">
+      <div className="mx-auto mt-12 h-[85vh] max-w-7xl overflow-hidden px-4 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] sm:px-6">
         <div className="h-full lg:hidden">
           <Column projects={PROJECTS} duration={60} />
         </div>
-        <div className="hidden h-full grid-cols-3 gap-6 lg:grid">
-          {columns(3).map((list, c) => <Column key={c} projects={list} duration={DURATIONS[c]} />)}
+        <div className="hidden h-full grid-cols-2 gap-8 lg:grid">
+          {columns(2).map((list, c) => <Column key={c} projects={list} duration={DURATIONS[c]} />)}
         </div>
       </div>
     </section>
