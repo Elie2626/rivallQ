@@ -88,7 +88,7 @@ function ContactForm() {
   }
 
   return (
-    <div className="relative rounded-[2rem] bg-surface p-6 ring-1 ring-hairline sm:p-10">
+    <div className="shine relative rounded-[2rem] bg-surface p-6 ring-1 ring-hairline sm:p-10">
       <AnimatePresence mode="wait" initial={false}>
         {status === 'sent' ? (
           <m.div
@@ -185,7 +185,7 @@ function ContactForm() {
             <button
               type="submit"
               disabled={status === 'sending'}
-              className="group inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-fg px-7 text-[15px] font-medium text-canvas transition-[background-color,transform,opacity] duration-300 ease-apple hover:bg-white/85 active:scale-[0.98] disabled:cursor-wait disabled:opacity-70 sm:w-auto"
+              className="sheen group inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-fg px-7 text-[15px] font-medium text-canvas transition-[background-color,transform,opacity] duration-300 ease-apple hover:bg-white/85 active:scale-[0.98] disabled:cursor-wait disabled:opacity-70 sm:w-auto"
             >
               {status === 'sending' ? (
                 <>
@@ -218,7 +218,7 @@ export function Contact() {
     <section id="contact" ref={ref} className="bg-canvas px-4 pb-32 pt-24 sm:px-6 lg:pb-40">
       <div className="mx-auto max-w-6xl">
         <m.div style={reduced ? undefined : { scale, opacity, filter }} className="origin-bottom text-center">
-          <h2 className="text-[2.75rem] font-semibold leading-[1.02] tracking-[-0.04em] text-fg sm:text-7xl lg:text-8xl">
+          <h2 className="text-shine text-[2.75rem] font-semibold leading-[1.02] tracking-[-0.04em] sm:text-7xl lg:text-8xl">
             Parlons de<br />votre projet.
           </h2>
           <p className="mx-auto mt-6 max-w-lg text-lg text-fg-muted">

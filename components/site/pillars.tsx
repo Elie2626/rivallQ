@@ -64,7 +64,7 @@ function Card({ className = '', delay = 0, children }: { className?: string; del
       transition={{ duration: 1.2, ease: EASE_APPLE, delay }}
       onPointerMove={onMove}
       style={{ transformPerspective: 1400 }}
-      className={`group relative h-full overflow-hidden rounded-3xl bg-surface p-7 ring-1 ring-hairline transition-shadow duration-500 hover:ring-hairline-strong sm:p-9 ${className}`}
+      className={`shine sheen group relative h-full overflow-hidden rounded-3xl bg-surface p-7 ring-1 ring-hairline transition-shadow duration-500 hover:ring-hairline-strong sm:p-9 ${className}`}
     >
       <div
         aria-hidden="true"

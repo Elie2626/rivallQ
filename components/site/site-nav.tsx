@@ -102,7 +102,7 @@ export function SiteNav() {
 
           <a
             href="/#contact"
-            className="hidden md:inline-flex h-8 items-center rounded-full bg-fg px-4 text-[13px] font-medium text-canvas transition-[background-color,transform] duration-300 hover:bg-white/85 active:scale-[0.97]"
+            className="sheen hidden md:inline-flex h-8 items-center rounded-full bg-fg px-4 text-[13px] font-medium text-canvas transition-[background-color,transform] duration-300 hover:bg-white/85 active:scale-[0.97]"
           >
             Démarrer un projet
           </a>

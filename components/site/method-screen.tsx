@@ -331,7 +331,7 @@ function Scene({
 export function MethodScreen({ progress, stops }: { progress: MotionValue<number>; stops: number[] }) {
   return (
     <div className="mx-auto w-full max-w-[30rem]" aria-hidden="true">
-      <div className="relative aspect-[16/10] rounded-[1.1rem] bg-elevated p-2 ring-1 ring-hairline-strong shadow-[0_40px_80px_-20px_rgb(0_0_0/0.9)]">
+      <div className="shine relative aspect-[16/10] rounded-[1.1rem] bg-elevated p-2 ring-1 ring-hairline-strong shadow-[0_40px_80px_-20px_rgb(0_0_0/0.9)]">
         <div className="relative h-full w-full overflow-hidden rounded-[0.7rem] bg-canvas">
           {SCENES.map((Component, i) => (
             <Scene key={i} index={i} progress={progress} stops={stops} Component={Component} />

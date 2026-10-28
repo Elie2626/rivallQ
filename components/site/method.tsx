@@ -66,7 +66,7 @@ export function Method() {
         <div className="contents lg:sticky lg:top-24 lg:block lg:self-start">
           <Reveal>
             <p className="text-sm font-medium text-fg-subtle">Méthode</p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-fg sm:text-5xl">
+            <h2 className="text-shine mt-2 text-3xl font-semibold tracking-[-0.03em] sm:text-5xl">
               De l’idée au lancement,<br />sans zone d’ombre.
             </h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-fg-muted">

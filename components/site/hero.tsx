@@ -176,7 +176,7 @@ export function Hero() {
           <m.span {...enter(0.2)} className="block">Du site web</m.span>
           <m.span
             {...enter(0.34)}
-            className="block bg-gradient-to-b from-fg to-fg-subtle bg-clip-text pb-2 text-transparent"
+            className="text-shine block pb-2"
           >
             au logiciel sur mesure.
           </m.span>
@@ -192,7 +192,7 @@ export function Hero() {
         <m.div {...enter(0.64)} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
           <a
             href="#contact"
-            className="inline-flex h-12 items-center rounded-full bg-fg px-7 text-[15px] font-medium text-canvas transition-[background-color,transform] duration-300 ease-apple hover:bg-white/85 active:scale-[0.97]"
+            className="sheen inline-flex h-12 items-center rounded-full bg-fg px-7 text-[15px] font-medium text-canvas transition-[background-color,transform] duration-300 ease-apple hover:bg-white/85 active:scale-[0.97]"
           >
             Démarrer un projet
           </a>

@@ -205,7 +205,7 @@ function Header() {
   return (
     <div>
       <p className="text-sm font-medium text-fg-subtle">Expertises</p>
-      <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-fg sm:text-5xl sr-only sm:not-sr-only">
+      <h2 className="text-shine mt-2 text-3xl font-semibold tracking-[-0.03em] sm:text-5xl sr-only sm:not-sr-only">
         Une seule équipe,<br />quatre savoir-faire.
       </h2>
     </div>

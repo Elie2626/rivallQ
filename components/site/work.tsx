@@ -13,7 +13,7 @@ function Card({ project, hidden = false }: { project: Project; hidden?: boolean 
       tabIndex={hidden ? -1 : undefined}
       className="group block"
     >
-      <div className="aspect-[1200/630] overflow-hidden rounded-2xl bg-elevated ring-1 ring-hairline transition-[box-shadow] duration-500 group-hover:ring-hairline-strong">
+      <div className="sheen aspect-[1200/630] overflow-hidden rounded-2xl bg-elevated ring-1 ring-hairline transition-[box-shadow] duration-500 group-hover:ring-hairline-strong">
         <img
           src={project.shot}
           alt={`Page d’accueil du site ${project.name}`}
@@ -61,7 +61,7 @@ export function Work() {
     <section id="realisations" className="bg-canvas py-24 lg:py-32">
       <Reveal className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <p className="text-sm font-medium text-fg-subtle">Réalisations</p>
-        <h2 className="mt-2 max-w-2xl text-3xl font-semibold tracking-[-0.03em] text-fg sm:text-5xl">
+        <h2 className="text-shine mt-2 max-w-2xl text-3xl font-semibold tracking-[-0.03em] sm:text-5xl">
           Des projets en ligne,<br />utilisés chaque jour.
         </h2>
       </Reveal>

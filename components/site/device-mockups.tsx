@@ -4,7 +4,7 @@ export function BrowserFrame({
   src, url, className = '', priority = false,
 }: { src: string; url: string; className?: string; priority?: boolean }) {
   return (
-    <div className={`overflow-hidden rounded-2xl bg-elevated ring-1 ring-hairline-strong shadow-[0_40px_80px_-20px_rgb(0_0_0/0.9)] ${className}`}>
+    <div className={`shine overflow-hidden rounded-2xl bg-elevated ring-1 ring-hairline-strong shadow-[0_40px_80px_-20px_rgb(0_0_0/0.9)] ${className}`}>
       <div className="flex h-8 items-center gap-1.5 border-b border-hairline px-3">
         <span className="size-2.5 rounded-full bg-fg-subtle/40" />
         <span className="size-2.5 rounded-full bg-fg-subtle/40" />
@@ -88,7 +88,7 @@ const ROWS = [
 
 export function SoftwareMock({ className = '' }: { className?: string }) {
   return (
-    <div className={`overflow-hidden rounded-2xl bg-elevated ring-1 ring-hairline-strong shadow-[0_40px_80px_-20px_rgb(0_0_0/0.9)] ${className}`}>
+    <div className={`shine overflow-hidden rounded-2xl bg-elevated ring-1 ring-hairline-strong shadow-[0_40px_80px_-20px_rgb(0_0_0/0.9)] ${className}`}>
       <div className="flex">
         <aside className="hidden w-36 shrink-0 border-r border-hairline p-3 sm:block">
           <p className="mb-4 flex items-center gap-2 text-[11px] font-semibold text-fg">
@@ -128,7 +128,7 @@ export function SoftwareMock({ className = '' }: { className?: string }) {
 
 export function FloatingCard({ title, subtitle, className = '' }: { title: string; subtitle: string; className?: string }) {
   return (
-    <div className={`flex items-center gap-3 rounded-2xl bg-elevated/80 px-4 py-3 ring-1 ring-hairline-strong backdrop-blur-xl shadow-[0_30px_60px_-15px_rgb(0_0_0/0.9)] ${className}`}>
+    <div className={`shine flex items-center gap-3 rounded-2xl bg-elevated/80 px-4 py-3 ring-1 ring-hairline-strong backdrop-blur-xl shadow-[0_30px_60px_-15px_rgb(0_0_0/0.9)] ${className}`}>
       <span className="grid size-8 shrink-0 place-items-center rounded-full bg-fg">
         <Check className="size-4 text-canvas" />
       </span>
