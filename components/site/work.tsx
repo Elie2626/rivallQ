@@ -40,7 +40,7 @@ function Card({ project, hidden = false }: { project: Project; hidden?: boolean 
 function Column({ projects, duration }: { projects: Project[]; duration: number }) {
   return (
     <div className="overflow-hidden">
-      <div className="animate-scroll-up flex flex-col" style={{ ['--duration' as string]: `${duration}s` }}>
+      <div className="animate-scroll-up flex flex-col hover:[animation-play-state:paused]" style={{ ['--duration' as string]: `${duration}s` }}>
         {[0, 1].map(copy => (
           <div key={copy} className="flex flex-col gap-8 pb-8">
             {projects.map(p => <Card key={p.name} project={p} hidden={copy === 1} />)}
@@ -67,8 +67,8 @@ export function Work() {
       </Reveal>
 
       <div className="mx-auto mt-12 h-[80vh] max-w-6xl overflow-hidden px-4 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] sm:px-6">
-        <div className="grid h-full grid-cols-2 gap-4 lg:hidden">
-          {columns(2).map((list, c) => <Column key={c} projects={list} duration={DURATIONS[c]} />)}
+        <div className="h-full lg:hidden">
+          <Column projects={PROJECTS} duration={60} />
         </div>
         <div className="hidden h-full grid-cols-3 gap-6 lg:grid">
           {columns(3).map((list, c) => <Column key={c} projects={list} duration={DURATIONS[c]} />)}

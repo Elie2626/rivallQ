@@ -14,6 +14,13 @@
   --color-danger: #ff6961;
 
   --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Réalisations: columns drifting upward forever */
+  --animate-scroll-up: scroll-up var(--duration, 40s) linear infinite;
+  @keyframes scroll-up {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
+  }
 }
 
 @theme inline {
@@ -47,14 +54,6 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: #71717a; }
-
-/* Réalisations: columns drifting upward forever */
-@keyframes scroll-up {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-50%); }
-}
-.animate-scroll-up { animation: scroll-up var(--duration, 40s) linear infinite; }
-.animate-scroll-up:hover { animation-play-state: paused; }
 
 /* Marquee carousel */
 @keyframes marquee {
