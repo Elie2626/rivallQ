@@ -14,6 +14,11 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    name: 'Cabinet Draï', domain: 'avocat-international-paris-new-york-drai.com', url: 'https://www.avocat-international-paris-new-york-drai.com',
+    category: 'Avocat international · Paris & New York', kind: 'Site web',
+    shot: '/work/drai.jpg', logo: '/clients/drai.png', logoBg: '#ffffff',
+  },
+  {
     name: 'L’Atelier Inspiré', domain: 'elie2626.github.io/latelierinspire', url: 'https://elie2626.github.io/latelierinspire',
     category: 'Galets & pierres funéraires personnalisés', kind: 'Site web',
     shot: '/work/latelierinspire.webp', logo: '/clients/latelierinspire.png', logoBg: '#f4efe6',
